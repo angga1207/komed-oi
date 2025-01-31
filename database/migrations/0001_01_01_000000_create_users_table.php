@@ -38,8 +38,9 @@ return new class extends Migration
         });
 
         Schema::create('pers_profile', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->integer('user_id');
+            $table->string('unique_id')->unique();
             $table->string('nik')->unique();
             $table->text('nama_perusahaan')->nullable();
             $table->text('nama_media')->nullable();
@@ -162,6 +163,17 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
+        });
+
+        Schema::create('user_logs', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('action')->nullable();
+            $table->string('model')->nullable();
+            $table->text('endpoint')->nullable();
+            $table->text('payload')->nullable();
+            $table->text('message')->nullable();
+            $table->timestamps();
         });
     }
 
