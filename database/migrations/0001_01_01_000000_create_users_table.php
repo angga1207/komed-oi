@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('username')->unique();
+            $table->string('whatsapp')->nullable();
             $table->longText('email')->unique();
             $table->string('photo')->default('default.png');
             $table->timestamp('email_verified_at')->nullable();
@@ -55,7 +56,8 @@ return new class extends Migration
             $table->longText('no_ref_bank')->nullable();
             $table->longText('no_giro_perusahaan')->nullable();
             $table->longText('website')->nullable();
-            $table->text('file_ktp')->nullable()->after('whatsapp');
+            $table->text('jabatan')->nullable();
+            $table->text('file_ktp')->nullable();
             $table->longText('profil_perusahaan')->nullable();
 
             $table->timestamp('verification_deadline')->nullable();
@@ -63,6 +65,7 @@ return new class extends Migration
 
             $table->enum('verified_status', ['pending', 'verified', 'suspend', 'banned'])->default('pending')->nullable();
             $table->enum('tier', ['0', '1', '2', '3'])->nullable();
+            $table->dateTime('verified_at')->nullable();
             $table->double('tier_point')->default(0);
 
             $table->text('cakupan_media')->nullable();
@@ -129,6 +132,7 @@ return new class extends Migration
         Schema::create('pers_profile_files', function (Blueprint $table) {
             $table->id();
             $table->integer('pers_profile_id');
+            $table->text('title');
             $table->string('file_name');
             $table->string('file_path');
             $table->string('file_type');
