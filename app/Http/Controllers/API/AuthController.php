@@ -96,4 +96,70 @@ class AuthController extends Controller
             return $this->errorResponse($e->getMessage());
         }
     }
+
+    function logout(Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $user = auth()->user();
+        // make log start
+        $log = [
+            'id' => uniqid(),
+            'user_id' => $user->id,
+            'action' => 'logout',
+            'model' => 'users',
+            'endpoint' => 'api/logout',
+            'payload' => json_encode($request->all()),
+            'message' => 'Keluar dari aplikasi mobile'
+        ];
+        DB::table('user_logs')->insert($log);
+        // make log end
+
+        $user->tokens()->delete();
+        return $this->successResponse('Berhasil logout');
+    }
+
+    function updateFcmToken(Request $request)
+    {
+        // if ($this->checkHeader($request) == false) {
+        //     return $this->unauthorizedResponse('Unauthorized');
+        // }
+
+        $validated = Validator::make($request->all(), [
+            'fcm_token' => 'required|string',
+            'type' => 'required|string|in:web,mobile',
+            'device_id' => 'nullable|string',
+        ]);
+
+        if ($validated->fails()) {
+            return $this->validationErrorResponse($validated->errors()->first());
+        }
+
+        $user = auth()->user();
+        $oldFcmToken = DB::table('firebase_tokens')
+            ->where('user_id', $user->id)
+            ->where('type', $request->type)
+            ->first();
+        if ($oldFcmToken) {
+            DB::table('firebase_tokens')
+                ->where('user_id', $user->id)
+                ->where('type', $request->type)
+                ->update([
+                    'token' => $request->fcm_token,
+                    'device_id' => $request->device_id
+                ]);
+        } else {
+            DB::table('firebase_tokens')->insert([
+                'id' => uniqid(),
+                'user_id' => $user->id,
+                'type' => $request->type,
+                'token' => $request->fcm_token,
+                'device_id' => $request->device_id
+            ]);
+        }
+
+        return $this->successResponse('Berhasil update FCM Token');
+    }
 }

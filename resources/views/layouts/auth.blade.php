@@ -1,20 +1,3 @@
-{{--
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>{{ $title ?? 'Page Title' }}</title>
-</head>
-
-<body>
-    {{ $slot }}
-</body>
-
-</html> --}}
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -48,10 +31,10 @@
     <!-- login section start -->
     <section class="log-in-section section-b-space">
         <a href="{{ route('dashboard') }}" class="logo-login">
-            {{-- <img src="{{ asset('assets/images/logo/1.png') }}" class="img-fluid"> --}}
-            <div class="img-fluid">
+            <img src="{{ asset('assets/images/logo/1.png') }}" class="img-fluid">
+            {{-- <div class="img-fluid">
                 {{ env('APP_NAME') }}
-            </div>
+            </div> --}}
         </a>
         <div class="container w-100">
             <div class="row">

@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Admin;
 
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Login extends Component
 {
@@ -19,17 +21,48 @@ class Login extends Component
     function login()
     {
         $this->validate([
-            'username' => 'required',
+            'username' => 'required|exists:users,username',
             'password' => 'required',
+        ], [], [
+            'username' => 'Username / N.I.K',
+            'password' => 'Kata Sandi',
         ]);
 
-        $this->alert('success', 'Login Success', [
-            'position' =>  'top-end',
-            'timer' =>  3000,
-            'toast' =>  true,
-            'text' =>  'Welcome back, ' . $this->username,
-            'showCancelButton' =>  false,
-            'showConfirmButton' =>  false,
-        ]);
+        if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+
+            $user = Auth::user();
+            // make log start
+            $log = [
+                'id' => uniqid(),
+                'user_id' => $user->id,
+                'action' => 'login',
+                'model' => 'users',
+                'endpoint' => 'login',
+                'payload' => json_encode(request()->all()),
+                'message' => 'Login ke aplikasi website'
+            ];
+            DB::table('user_logs')->insert($log);
+            // make log end
+
+            $this->flash('success', 'Berhasil Masuk Aplikasi', [
+                'position' =>  'center',
+                'timer' =>  null,
+                'toast' =>  false,
+                'text' =>  'Selamat datang kembali, ' . $this->username,
+                'showCancelButton' =>  false,
+                'showConfirmButton' =>  true,
+                'confirmButtonText' =>  'Tutup',
+            ], 'dashboard');
+        } else {
+            $this->confirm('Gagal Masuk Aplikasi', [
+                'position' =>  'center',
+                'timer' =>  null,
+                'toast' =>  false,
+                'text' =>  'Username / N.I.K atau Kata Sandi yang Anda masukkan salah.',
+                'showCancelButton' =>  false,
+                'showConfirmButton' =>  true,
+                'confirmButtonText' =>  'Tutup',
+            ]);
+        }
     }
 }

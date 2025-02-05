@@ -69,7 +69,7 @@ class RegisterController extends Controller
                 $user = User::find($userID);
 
                 // formula unique_id = PERS.xxxx.xxxxx
-                $unique_id = 'PERS.' . date('my') . '.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+                $unique_id = $this->generateUniqueID();
 
                 $pers = DB::table('pers_profile')->insert([
                     'user_id' => $user->id,
@@ -120,6 +120,25 @@ class RegisterController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
+    }
+
+    function generateUniqueID()
+    {
+        $unique_id = 'PERS.' . date('my') . '.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+        if ($this->checkUniqueIDExists($unique_id) == false) {
+            $this->generateUniqueID();
+        }
+        return $unique_id;
+    }
+
+    function checkUniqueIDExists($unique_id)
+    {
+        $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
+        if ($pers) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -174,6 +193,7 @@ class RegisterController extends Controller
             'updated_at' => $pers->updated_at,
         ];
 
+        $arrFiles = [];
         $typeFiles = DB::table('pers_profile_files')
             ->where('pers_profile_id', $pers->id)
             ->pluck('file_type');
@@ -185,7 +205,7 @@ class RegisterController extends Controller
                 ->first();
 
             if ($file) {
-                $return['file_' . $type] = [
+                $arrFiles[] = [
                     'id' => $file->id,
                     'title' => $file->title,
                     'file_type' => $type,
@@ -196,6 +216,7 @@ class RegisterController extends Controller
                 ];
             }
         }
+        $return['files'] = $arrFiles;
 
         return $this->successResponse($return);
     }
@@ -1098,6 +1119,7 @@ class RegisterController extends Controller
 
             ];
 
+            $arrFiles = [];
             $typeFiles = DB::table('pers_profile_files')
                 ->where('pers_profile_id', $pers->id)
                 ->pluck('file_type');
@@ -1109,7 +1131,7 @@ class RegisterController extends Controller
                     ->first();
 
                 if ($file) {
-                    $return['file_' . $type] = [
+                    $arrFiles[] = [
                         'id' => $file->id,
                         'title' => $file->title,
                         'file_type' => $type,
@@ -1120,6 +1142,7 @@ class RegisterController extends Controller
                     ];
                 }
             }
+            $return['files'] = $arrFiles;
 
             DB::commit();
             return $this->successResponse($return, 'Berkas Anda berhasil diunggah. Silahkan tunggu verifikasi dari admin.');

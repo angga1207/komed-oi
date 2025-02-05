@@ -1,13 +1,24 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Admin\Components;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Kreait\Laravel\Firebase\Facades\Firebase;
+use NotificationChannels\Fcm\FcmChannel;
+use NotificationChannels\Fcm\FcmMessage;
 
-class Logout extends Component
+class Navbar extends Component
 {
-    function mount()
+    public function render()
+    {
+        $notifications = [];
+        return view('livewire.admin.components.navbar',[
+            'notifications' => $notifications
+        ]);
+    }
+
+    function logout()
     {
         $user = auth()->user();
         // make log start
@@ -25,10 +36,5 @@ class Logout extends Component
 
         auth()->logout();
         return redirect()->route('login');
-    }
-
-    public function render()
-    {
-        return view('livewire.admin.logout');
     }
 }
