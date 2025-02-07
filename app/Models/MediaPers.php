@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Searchable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MediaPers extends Model
 {
@@ -27,5 +28,130 @@ class MediaPers extends Model
     function User()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    function RegisterFiles()
+    {
+        return $this->hasMany(MediaPersFiles::class, 'pers_profile_id', 'id');
+    }
+
+    function isBasicFilesComplete()
+    {
+        $allStatus = false;
+        $status_wartawan = false;
+        if (($this->status_wartawan == 'Ada Khusus' || $this->status_wartawan == 'Ada Merangkap Kabupaten Lain') && $this->file_status_wartawan) {
+            $status_wartawan = true;
+        } else if ($this->status_wartawan == 'Tidak Ada') {
+            $status_wartawan = true;
+        }
+
+        $status_kompetensi_wartawan = false;
+        if ($this->kompetensi_wartawan == 'Memiliki Sertifikat Kompetensi' && $this->file_kompetensi_wartawan) {
+            $status_kompetensi_wartawan = true;
+        } else if ($this->kompetensi_wartawan != 'Memiliki Sertifikat Kompetensi') {
+            $status_kompetensi_wartawan = true;
+        }
+
+        $status_dewan_pers = false;
+        if ($this->status_dewan_pers == 'Terdaftar' && $this->file_status_dewan_pers) {
+            $status_dewan_pers = true;
+        } else if ($this->status_dewan_pers != 'Terdaftar') {
+            $status_dewan_pers = true;
+        }
+
+        $status_terbitan_3_edisi_terakhir = false;
+        if ($this->terbitan_3_edisi_terakhir == 'Ada' && $this->file_terbitan_3_edisi_terakhir) {
+            $status_terbitan_3_edisi_terakhir = true;
+        } else if ($this->terbitan_3_edisi_terakhir != 'Ada') {
+            $status_terbitan_3_edisi_terakhir = true;
+        }
+
+        if ($status_wartawan && $status_kompetensi_wartawan && $status_dewan_pers && $status_terbitan_3_edisi_terakhir) {
+            $allStatus = true;
+        }
+
+        if ($allStatus) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function isFilesComplete()
+    {
+        $filesStatus = false;
+        if ($this->jenis_media == 'Media Cetak') {
+            $arrKeys = [
+                'akta_pendirian',
+                'sk_kemenkumham',
+                'siup',
+                'tdp_penerbitan_58130',
+                'spt_terakhir',
+                'sp_cakupan_wilayah',
+                'sp_pimpinan',
+                'surat_tugas_wartawan',
+            ];
+
+            // check on table pers_profile_files
+            $countFiles = DB::table('pers_profile_files')
+                ->where('pers_profile_id', $this->id)
+                ->whereIn('file_type', $arrKeys)
+                ->count();
+
+            if ($countFiles == count($arrKeys)) {
+                $filesStatus = true;
+            }
+        } else if ($this->jenis_media == 'Media Elektronik') {
+            $arrKeys = [
+                'akta_pendirian',
+                'sk_kemenkumham',
+                'izin_ipp',
+                'izin_isr',
+                'siup',
+                'tdp_penyiaran_60102',
+                'spt_terakhir',
+                'sp_cakupan_wilayah',
+                'sp_pimpinan',
+                'sk_biro_iklan',
+                'surat_tugas_wartawan',
+            ];
+
+            // check on table pers_profile_files
+            $countFiles = DB::table('pers_profile_files')
+                ->where('pers_profile_id', $this->id)
+                ->whereIn('file_type', $arrKeys)
+                ->count();
+
+            if ($countFiles == count($arrKeys)) {
+                $filesStatus = true;
+            }
+        } else if ($this->jenis_media == 'Media Siber') {
+            $arrKeys = [
+                'akta_pendirian',
+                'sk_kemenkumham',
+                'siup',
+                'tdp_penerbitan_63122',
+                'spt_terakhir',
+                'situ',
+                'sk_domisili',
+                'surat_tugas_wartawan',
+            ];
+
+            // check on table pers_profile_files
+            $countFiles = DB::table('pers_profile_files')
+                ->where('pers_profile_id', $this->id)
+                ->whereIn('file_type', $arrKeys)
+                ->count();
+
+            if ($countFiles == count($arrKeys)) {
+                $filesStatus = true;
+            }
+        }
+
+        if ($filesStatus) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

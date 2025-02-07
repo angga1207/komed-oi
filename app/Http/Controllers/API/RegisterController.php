@@ -153,7 +153,6 @@ class RegisterController extends Controller
             ->where('user_id', $user->id)
             ->first();
 
-
         $return = [
             'id' => $pers->id,
             'jenis_media' => $pers->jenis_media,
@@ -314,82 +313,82 @@ class RegisterController extends Controller
         ]);
 
         if ($validated->fails()) {
-            return $this->validationErrorResponse($validated->errors());
+            // return $this->validationErrorResponse($validated->errors());
             return $this->validationErrorResponse($validated->errors()->first());
         }
 
-        // if ($request->jenis_media == 'Media Cetak') {
-        //     $validated2 = Validator::make($request->all(), [
-        //         'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'tdp_penerbitan_58130' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //     ], [], [
-        //         'akta_pendirian' => 'Akta Pendirian',
-        //         'sk_kemenkumham' => 'SK Kemenkum',
-        //         'siup' => 'SIUP',
-        //         'tdp_penerbitan_58130' => 'TDP Penerbitan 58130',
-        //         'spt_terakhir' => 'SPT Terakhir',
-        //         'sp_cakupan_wilayah' => 'SP Cakupan Wilayah',
-        //         'sp_pimpinan' => 'SP Pimpinan',
-        //         'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
-        //     ]);
-        // } elseif ($request->jenis_media == 'Media Elektronik') {
-        //     $validated2 = Validator::make($request->all(), [
-        //         'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'izin_ipp' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'izin_isr' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'tdp_penyiaran_60102' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sk_biro_iklan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //     ], [], [
-        //         'akta_pendirian' => 'Akta Pendirian',
-        //         'sk_kemenkumham' => 'SK Kemenkum',
-        //         'izin_ipp' => 'Izin IPP',
-        //         'izin_isr' => 'Izin ISR',
-        //         'siup' => 'SIUP',
-        //         'tdp_penyiaran_60102' => 'TDP Penyiaran 60102',
-        //         'spt_terakhir' => 'SPT Terakhir',
-        //         'sp_cakupan_wilayah' => 'SP Cakupan Wilayah',
-        //         'sp_pimpinan' => 'SP Pimpinan',
-        //         'sk_biro_iklan' => 'SK Biro Iklan',
-        //         'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
-        //     ]);
-        // } elseif ($request->jenis_media == 'Media Siber') {
-        //     $validated2 = Validator::make($request->all(), [
-        //         'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //         'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-        //     ], [], [
-        //         'akta_pendirian' => 'Akta Pendirian',
-        //         'sk_kemenkumham' => 'SK Kemenkum',
-        //         'siup' => 'SIUP',
-        //         'tdp_penerbitan_63122' => 'TDP Penerbitan 63122',
-        //         'spt_terakhir' => 'SPT Terakhir',
-        //         'situ' => 'SITU',
-        //         'sk_domisili' => 'SK Domisili',
-        //         'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
-        //     ]);
-        // }
+        if ($request->jenis_media == 'Media Cetak') {
+            $validated2 = Validator::make($request->all(), [
+                'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'tdp_penerbitan_58130' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+            ], [], [
+                'akta_pendirian' => 'Akta Pendirian',
+                'sk_kemenkumham' => 'SK Kemenkum',
+                'siup' => 'SIUP',
+                'tdp_penerbitan_58130' => 'TDP Penerbitan 58130',
+                'spt_terakhir' => 'SPT Terakhir',
+                'sp_cakupan_wilayah' => 'SP Cakupan Wilayah',
+                'sp_pimpinan' => 'SP Pimpinan',
+                'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
+            ]);
+        } elseif ($request->jenis_media == 'Media Elektronik') {
+            $validated2 = Validator::make($request->all(), [
+                'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'izin_ipp' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'izin_isr' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'tdp_penyiaran_60102' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sk_biro_iklan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+            ], [], [
+                'akta_pendirian' => 'Akta Pendirian',
+                'sk_kemenkumham' => 'SK Kemenkum',
+                'izin_ipp' => 'Izin IPP',
+                'izin_isr' => 'Izin ISR',
+                'siup' => 'SIUP',
+                'tdp_penyiaran_60102' => 'TDP Penyiaran 60102',
+                'spt_terakhir' => 'SPT Terakhir',
+                'sp_cakupan_wilayah' => 'SP Cakupan Wilayah',
+                'sp_pimpinan' => 'SP Pimpinan',
+                'sk_biro_iklan' => 'SK Biro Iklan',
+                'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
+            ]);
+        } elseif ($request->jenis_media == 'Media Siber') {
+            $validated2 = Validator::make($request->all(), [
+                'akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+            ], [], [
+                'akta_pendirian' => 'Akta Pendirian',
+                'sk_kemenkumham' => 'SK Kemenkum',
+                'siup' => 'SIUP',
+                'tdp_penerbitan_63122' => 'TDP Penerbitan 63122',
+                'spt_terakhir' => 'SPT Terakhir',
+                'situ' => 'SITU',
+                'sk_domisili' => 'SK Domisili',
+                'surat_tugas_wartawan' => 'Surat Tugas Wartawan',
+            ]);
+        }
 
-        // if ($validated2->fails()) {
-        //     return $this->validationErrorResponse($validated2->errors());
-        //     return $this->validationErrorResponse($validated2->errors()->first());
-        // }
+        if ($validated2->fails()) {
+            // return $this->validationErrorResponse($validated2->errors());
+            return $this->validationErrorResponse($validated2->errors()->first());
+        }
 
 
         DB::beginTransaction();
