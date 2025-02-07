@@ -51,7 +51,8 @@ class AuthController extends Controller
                         'model' => 'users',
                         'endpoint' => 'api/login',
                         'payload' => json_encode($request->all()),
-                        'message' => 'Login ke aplikasi mobile'
+                        'message' => 'Login ke aplikasi mobile',
+                        'created_at' => now()
                     ];
                     DB::table('user_logs')->insert($log);
                     // make log end
@@ -112,7 +113,8 @@ class AuthController extends Controller
             'model' => 'users',
             'endpoint' => 'api/logout',
             'payload' => json_encode($request->all()),
-            'message' => 'Keluar dari aplikasi mobile'
+            'message' => 'Keluar dari aplikasi mobile',
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end

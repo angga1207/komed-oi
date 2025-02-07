@@ -115,7 +115,8 @@ class Admin extends Component
                 'model' => 'users',
                 'endpoint' => 'user/admin',
                 'payload' => json_encode(request()->all()),
-                'message' => 'Menambahkan akun admin baru dengan username ' . $this->detail['username']
+                'message' => 'Menambahkan akun admin baru dengan username ' . $this->detail['username'],
+                'created_at' => now()
             ];
             DB::table('user_logs')->insert($log);
             // make log end
@@ -165,7 +166,8 @@ class Admin extends Component
                 'model' => 'users',
                 'endpoint' => 'user/admin',
                 'payload' => json_encode(request()->all()),
-                'message' => 'Memperbarui data akun admin dengan username ' . $this->detail['username']
+                'message' => 'Memperbarui data akun admin dengan username ' . $this->detail['username'],
+                'created_at' => now()
             ];
             DB::table('user_logs')->insert($log);
             // make log end
@@ -234,7 +236,8 @@ class Admin extends Component
             'model' => 'users',
             'endpoint' => 'user/admin',
             'payload' => json_encode(request()->all()),
-            'message' => 'Mereset Password akun Admin dengan username ' . $user->username
+            'message' => 'Mereset Password akun Admin dengan username ' . $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
@@ -286,7 +289,8 @@ class Admin extends Component
             'model' => 'users',
             'endpoint' => 'user/admin',
             'payload' => json_encode(request()->all()),
-            'message' => 'Memblokir akun Admin dengan username ' .  $user->username
+            'message' => 'Memblokir akun Admin dengan username ' .  $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
@@ -338,7 +342,8 @@ class Admin extends Component
             'model' => 'users',
             'endpoint' => 'user/admin',
             'payload' => json_encode(request()->all()),
-            'message' => 'Mengaktifkan akun Admin dengan username ' . $user->username
+            'message' => 'Mengaktifkan akun Admin dengan username ' . $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end

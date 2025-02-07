@@ -50,20 +50,20 @@ return [
              *
              */
 
-            // 'credentials' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
-            'credentials' => [
-                "type" => "service_account",
-                "project_id" => "komed-oi",
-                "private_key_id" => "3cbf4bfa651e600b2595172f7379529f95719010",
-                "private_key" => "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSJnqN5PUe1hUd\nj6P29kFWRee/kfIN9EhaBriLK47HeQWYOJB5DuhNoiY+20hGslTWIi9Rt7zgoGBh\nDNFbNGsk9IHA9ZxOiJ+04RDsUMnDXkLSRNAGs9mxDdpvaQR/dZaM2Swokvq7jg4l\nUPDodDF33zUNxLnz8ZsGJqLtsH5r3Vd6oVuzGqf0ISAw5ZL7G/Vc9A+TZkGgBibs\nXrQcYT4e4MjE61IGXmTxiSy6HyoMDNpPlXy9MAXXEKnShNY4RbQecCzwgS6Hc9rB\nBoqUpEjQAtTxe8pAJKv3vcLW1sKXKjM58w6p3hFVZAJEvXHAELsxd9vcciI4DHbh\n3/El4bijAgMBAAECggEAIXFxMHKe1aTxIE6zI8KlvDKMwm5Z7IGTIAyQwskQREtM\nqiBaUYGfU3d6CafA9Us8+AThreoFG2Q6Ykd1a8PIR03H9mq/0LmqXNEybcEfksFF\n9gtwZZiqjKQtPmyihBw09L486koVr9JYCvU6GWwgUTjKyyGjDCDHcG+mnxfmzohV\nfg3zOFR0FRSEbi26dZORDnzK0lYuzqaCDpo+IF7y7aZTydDYSnsDTs6eKNvqqegL\ntVxTiL/FG6j3qxg7yiImd9ZMO+Us3r/3GeYLiCbbA9GpCZWnsZRzD0bSAI5sCCyD\n4xI+46v5/hJUOO2rvx4csevXjA+68C6qAWNilKlHjQKBgQD38MUDalpdAtiTDyyH\n8OHP5rsC6hXOsG+p/atrfFhc0r9xxq6dZ0pFQhe9qDo5j9LMDwoqFCLbXBE6iUAe\nSgiC1zC099vOdyEYgXpyUfd35AtV8UrhHmY2WqscgLt61Kv3ajDtLXmTTJmk4DPf\n5PLO25eb1Nt8rcostpanEuy0nQKBgQDY+z0u9FvK0zmESlq8JHQh5r6L15IUrywK\nTQ8j/OCOaoxlzY9DOWo2AHhxR5LxmBsKDp4HgvxbCJ/+JBimP6imvgr5zSQPyefR\nClc5k5SljrBHtJXcTQbj+l/NcNa4ymVLLNIAJ6CG98KWv/XvWx09kZ6UJnwZtHzH\nFMfPrOx+PwKBgQCT/9SaRVHLU3eT0Orz+oXQZBodkz2RMyB0iEda0c6tGd/NOpvg\nuVdMIDerrk+TLJbX1+JpW7uy1TIzjtoHOon6EBmy7ID4rYPD7QX6V5MwrZ9WncHk\nvxCkQVsCmJVQrMI53dl2uj5n/sF3+Zz9eNy3Pb0x981MjzCvoA4tjM5ewQKBgQC+\nbpHeGdxOAF/keRV1NlEuR8NIHGQ6/xqZ19PH8/JpS5344xYvG77ZskQCt5yBqMti\nYj3TveQZSVKRy8BOeGReI0CiyKYzrTJlRrwS7jFxs++Gnzk/ZeL8Rwu51KS+/fM0\nrRuJwz2h9uSzRbpk3gSlup4AzF3yeXNhjh1naQ8OJQKBgA4Nj544Y18NBHroPQE0\ns+7ObVn9IURynWc5yXcTs5oMYlDvQDv51afqrsktOsJyfr/vC4w2zzZ+Z3ep0x2d\nBt0ZKMFhDg+X0cZz4foVoIKIlkfW5EhoEcRuOO9gPQeLmVAgd2siL/thz6ygr+cn\n1Oqbc24WsME00gGPLl0BGsK/\n-----END PRIVATE KEY-----\n",
-                "client_email" => "firebase-adminsdk-fbsvc@komed-oi.iam.gserviceaccount.com",
-                "client_id" => "110147966269249738031",
-                "auth_uri" => "https://accounts.google.com/o/oauth2/auth",
-                "token_uri" => "https://oauth2.googleapis.com/token",
-                "auth_provider_x509_cert_url" => "https://www.googleapis.com/oauth2/v1/certs",
-                "client_x509_cert_url" => "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40komed-oi.iam.gserviceaccount.com",
-                "universe_domain" => "googleapis.com"
-            ],
+            'credentials' => env('FIREBASE_CREDENTIALS', env('GOOGLE_APPLICATION_CREDENTIALS')),
+            // 'credentials' => [
+            //     "type" => "service_account",
+            //     "project_id" => "komed-oi",
+            //     "private_key_id" => "3cbf4bfa651e600b2595172f7379529f95719010",
+            //     "private_key" => "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSJnqN5PUe1hUd\nj6P29kFWRee/kfIN9EhaBriLK47HeQWYOJB5DuhNoiY+20hGslTWIi9Rt7zgoGBh\nDNFbNGsk9IHA9ZxOiJ+04RDsUMnDXkLSRNAGs9mxDdpvaQR/dZaM2Swokvq7jg4l\nUPDodDF33zUNxLnz8ZsGJqLtsH5r3Vd6oVuzGqf0ISAw5ZL7G/Vc9A+TZkGgBibs\nXrQcYT4e4MjE61IGXmTxiSy6HyoMDNpPlXy9MAXXEKnShNY4RbQecCzwgS6Hc9rB\nBoqUpEjQAtTxe8pAJKv3vcLW1sKXKjM58w6p3hFVZAJEvXHAELsxd9vcciI4DHbh\n3/El4bijAgMBAAECggEAIXFxMHKe1aTxIE6zI8KlvDKMwm5Z7IGTIAyQwskQREtM\nqiBaUYGfU3d6CafA9Us8+AThreoFG2Q6Ykd1a8PIR03H9mq/0LmqXNEybcEfksFF\n9gtwZZiqjKQtPmyihBw09L486koVr9JYCvU6GWwgUTjKyyGjDCDHcG+mnxfmzohV\nfg3zOFR0FRSEbi26dZORDnzK0lYuzqaCDpo+IF7y7aZTydDYSnsDTs6eKNvqqegL\ntVxTiL/FG6j3qxg7yiImd9ZMO+Us3r/3GeYLiCbbA9GpCZWnsZRzD0bSAI5sCCyD\n4xI+46v5/hJUOO2rvx4csevXjA+68C6qAWNilKlHjQKBgQD38MUDalpdAtiTDyyH\n8OHP5rsC6hXOsG+p/atrfFhc0r9xxq6dZ0pFQhe9qDo5j9LMDwoqFCLbXBE6iUAe\nSgiC1zC099vOdyEYgXpyUfd35AtV8UrhHmY2WqscgLt61Kv3ajDtLXmTTJmk4DPf\n5PLO25eb1Nt8rcostpanEuy0nQKBgQDY+z0u9FvK0zmESlq8JHQh5r6L15IUrywK\nTQ8j/OCOaoxlzY9DOWo2AHhxR5LxmBsKDp4HgvxbCJ/+JBimP6imvgr5zSQPyefR\nClc5k5SljrBHtJXcTQbj+l/NcNa4ymVLLNIAJ6CG98KWv/XvWx09kZ6UJnwZtHzH\nFMfPrOx+PwKBgQCT/9SaRVHLU3eT0Orz+oXQZBodkz2RMyB0iEda0c6tGd/NOpvg\nuVdMIDerrk+TLJbX1+JpW7uy1TIzjtoHOon6EBmy7ID4rYPD7QX6V5MwrZ9WncHk\nvxCkQVsCmJVQrMI53dl2uj5n/sF3+Zz9eNy3Pb0x981MjzCvoA4tjM5ewQKBgQC+\nbpHeGdxOAF/keRV1NlEuR8NIHGQ6/xqZ19PH8/JpS5344xYvG77ZskQCt5yBqMti\nYj3TveQZSVKRy8BOeGReI0CiyKYzrTJlRrwS7jFxs++Gnzk/ZeL8Rwu51KS+/fM0\nrRuJwz2h9uSzRbpk3gSlup4AzF3yeXNhjh1naQ8OJQKBgA4Nj544Y18NBHroPQE0\ns+7ObVn9IURynWc5yXcTs5oMYlDvQDv51afqrsktOsJyfr/vC4w2zzZ+Z3ep0x2d\nBt0ZKMFhDg+X0cZz4foVoIKIlkfW5EhoEcRuOO9gPQeLmVAgd2siL/thz6ygr+cn\n1Oqbc24WsME00gGPLl0BGsK/\n-----END PRIVATE KEY-----\n",
+            //     "client_email" => "firebase-adminsdk-fbsvc@komed-oi.iam.gserviceaccount.com",
+            //     "client_id" => "110147966269249738031",
+            //     "auth_uri" => "https://accounts.google.com/o/oauth2/auth",
+            //     "token_uri" => "https://oauth2.googleapis.com/token",
+            //     "auth_provider_x509_cert_url" => "https://www.googleapis.com/oauth2/v1/certs",
+            //     "client_x509_cert_url" => "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40komed-oi.iam.gserviceaccount.com",
+            //     "universe_domain" => "googleapis.com"
+            // ],
             // 'credentials' => [
             //     'path' => 'storage/app/firebase-auth.json',
             // ],

@@ -107,7 +107,8 @@ class RegisterController extends Controller
                     'model' => 'akun',
                     'endpoint' => 'api/register',
                     'payload' => json_encode($request->all()),
-                    'message' => 'Melakukan registrasi'
+                    'message' => 'Melakukan registrasi',
+                    'created_at' => now()
                 ];
                 DB::table('user_logs')->insert($log);
                 // make log end
@@ -1142,6 +1143,20 @@ class RegisterController extends Controller
                 }
             }
             $return['files'] = $arrFiles;
+
+            // make log start
+            $log = [
+                'id' => uniqid(),
+                'user_id' => $user->id,
+                'action' => 'updated',
+                'model' => 'media',
+                'endpoint' => 'api/media/update',
+                'payload' => json_encode($request->all()),
+                'message' => 'Mengunggah berkas pers',
+                'created_at' => now()
+            ];
+            DB::table('user_logs')->insert($log);
+            // make log end
 
             DB::commit();
             return $this->successResponse($return, 'Berkas Anda berhasil diunggah. Silahkan tunggu verifikasi dari admin.');

@@ -97,7 +97,8 @@ class User extends Component
             'model' => 'users',
             'endpoint' => 'user/user',
             'payload' => json_encode(request()->all()),
-            'message' => 'Mereset Password akun User dengan username ' .  $user->username
+            'message' => 'Mereset Password akun User dengan username ' .  $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
@@ -149,7 +150,8 @@ class User extends Component
             'model' => 'users',
             'endpoint' => 'user/user',
             'payload' => json_encode(request()->all()),
-            'message' => 'Memblokir akun User dengan username ' . $user->username
+            'message' => 'Memblokir akun User dengan username ' . $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
@@ -201,7 +203,8 @@ class User extends Component
             'model' => 'users',
             'endpoint' => 'user/user',
             'payload' => json_encode(request()->all()),
-            'message' => 'Mengaktifkan akun User dengan username ' . $user->username
+            'message' => 'Mengaktifkan akun User dengan username ' . $user->username,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end

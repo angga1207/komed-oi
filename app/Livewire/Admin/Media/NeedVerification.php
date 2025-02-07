@@ -3,11 +3,15 @@
 namespace App\Livewire\Admin\Media;
 
 use App\Models\MediaPers;
+use App\Models\User;
+use App\Notifications\RegBannedNotification;
+use App\Notifications\RegVerifNotification;
 use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class NeedVerification extends Component
 {
@@ -108,10 +112,17 @@ class NeedVerification extends Component
             'model' => 'media_pers',
             'endpoint' => 'media/need-approval',
             'payload' => json_encode(request()->all()),
-            'message' => 'Memblokir Media Pers dengan Kode Registrasi ' .  $data->unique_id
+            'message' => 'Memblokir Media Pers dengan Kode Registrasi ' .  $data->unique_id,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
+
+        // send notification start
+        $user = User::find($data->user_id);
+        $token = $user->routeNotificationForFcm();
+        $user->notify(new RegBannedNotification($data, $token, 1));
+        // send notification end
     }
 
     function confirmVerification($id = null)
@@ -165,9 +176,17 @@ class NeedVerification extends Component
             'model' => 'media_pers',
             'endpoint' => 'media/need-approval',
             'payload' => json_encode(request()->all()),
-            'message' => 'Memverifikasi Media Pers dengan Kode Registrasi ' .  $data->unique_id
+            'message' => 'Memverifikasi Media Pers dengan Kode Registrasi ' .  $data->unique_id,
+            'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
         // make log end
+
+
+        // send notification start
+        $user = User::find($data->user_id);
+        $token = $user->routeNotificationForFcm();
+        $user->notify(new RegVerifNotification($data, $token, 1));
+        // send notification end
     }
 }
