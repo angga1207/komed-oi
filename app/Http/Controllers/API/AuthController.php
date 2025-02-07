@@ -7,6 +7,7 @@ use App\JsonReturner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -163,5 +164,57 @@ class AuthController extends Controller
         }
 
         return $this->successResponse('Berhasil update FCM Token');
+    }
+
+
+    function serverCheck(Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+        $returns = [];
+        $bearer =  $request->bearerToken();
+        $returnData = null;
+        $user = null;
+        if ($bearer) {
+            $bearerId = str()->of($bearer)->explode('|')[0];
+            $token = DB::table('personal_access_tokens')
+                ->where('id', $bearerId)
+                ->first();
+            if ($token) {
+                $user = User::find($token->tokenable_id);
+                if ($user) {
+                    $arrPers = DB::table('pers_profile')->where('user_id', $user->id)->get();
+                    $pers = [];
+                    foreach ($arrPers as $persProfile) {
+                        $pers[] = [
+                            'id' => $persProfile->id,
+                            'unique_id' => $persProfile->unique_id,
+                            'nama_perusahaan' => $persProfile->nama_perusahaan,
+                            'nama_media' => $persProfile->nama_media,
+                            'alias' => $persProfile->alias,
+                            'jenis_media' => $persProfile->jenis_media,
+                        ];
+                    }
+
+                    $returnData = [
+                        'fullname' => $user->fullname,
+                        'email' => $user->email,
+                        'nik' => $user->username,
+                        'username' => $user->username,
+                        'photo' => asset($user->photo),
+                        'role_id' => $user->role_id,
+                        'role_name' => DB::table('roles')->where('id', $user->role_id)->value('name'),
+                        'token' => $token,
+                        'jumlah_media' => count($arrPers),
+                        'media' => $pers
+                    ];
+                }
+            }
+        }
+
+        $returns['token'] = $bearer;
+        $returns['user'] = $returnData;
+        return $this->successResponse($returns, 'Server is running');
     }
 }

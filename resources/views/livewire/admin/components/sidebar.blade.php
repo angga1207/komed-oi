@@ -49,7 +49,7 @@
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('media') }}">
                                         Daftar Media
                                     </a>
                                 </li>

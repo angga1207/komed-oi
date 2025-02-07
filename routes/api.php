@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/serverCheck', [AuthController::class, 'serverCheck']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -23,6 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile/update', [PersonalController::class, 'updateProfile']);
     Route::post('/profile/update-password', [PersonalController::class, 'updatePassword']);
     Route::get('/profile/logs', [PersonalController::class, 'getLogs']);
+    Route::get('/profile/notifications', [PersonalController::class, 'getNotifcations']);
 
     Route::get('/media/get', [RegisterController::class, 'getMedia']);
     Route::post('/media/update', [RegisterController::class, 'updateMedia']);

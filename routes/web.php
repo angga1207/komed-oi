@@ -17,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', App\Livewire\Admin\Dashboard::class)->name('dashboard');
 
     Route::get('media/need-approval', App\Livewire\Admin\Media\NeedVerification::class)->name('media.need-approval');
+    Route::get('media', App\Livewire\Admin\Media\Index::class)->name('media');
 
     // Users
     Route::get('users/user', App\Livewire\Admin\Users\User::class)->name('users.user');

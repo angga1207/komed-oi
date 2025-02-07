@@ -18,10 +18,10 @@ trait Searchable
             if (str_contains($searchable, '.')) {
                 $relation = Str::beforeLast($searchable, '.');
                 $column = Str::afterLast($searchable, '.');
-                $builder->orWhereRelation($relation, $column, 'like', "%$term%");
+                $builder->orWhereRelation($relation, $column, 'ILIKE', "%$term%");
                 continue;
             }
-            $builder->orWhere($searchable, 'like', "%$term%");
+            $builder->orWhere($searchable, 'ILIKE', "%$term%");
         }
         return $builder;
     }

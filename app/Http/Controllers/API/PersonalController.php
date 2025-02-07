@@ -206,4 +206,28 @@ class PersonalController extends Controller
 
         return $this->successResponse(null, $returns);
     }
+
+    function getNotifcations(Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $returns = [];
+        $arrNotifs = DB::table('notifications')
+            ->where('notifiable_id', auth()->id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+        foreach ($arrNotifs as $notif) {
+            $returns[] = [
+                'id' => $notif->id,
+                'type' => $notif->type,
+                'data' => json_decode($notif->data),
+                'read_at' => $notif->read_at,
+                'created_at' => $notif->created_at
+            ];
+        }
+
+        return $this->successResponse(null, $returns);
+    }
 }
