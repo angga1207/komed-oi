@@ -38,6 +38,7 @@
                             </a>
                         </li>
 
+                        @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                         <li class="sidebar-list">
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 {{-- <i class="ri-store-3-line"></i> --}}
@@ -83,6 +84,7 @@
                                 </li>
                             </ul>
                         </li>
+                        @endif
 
                     </ul>
                 </div>

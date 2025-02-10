@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="title-header option-title d-sm-flex d-block">
             <h5>
-                Dashboard Admin
+                Dashboard Client
             </h5>
         </div>
     </div>
@@ -90,4 +90,51 @@
         </div>
     </div>
 
+    <div class="col-12">
+        <div class="card o-hidden card-hover">
+            <div class="card-header border-0 pb-1">
+                <div class="card-header-title p-0">
+                    <h4>
+                        Agenda Hari ini - Timeline
+                    </h4>
+                </div>
+            </div>
+            <div class="">
+
+                <ol class="progtrckr">
+                    <li class="progtrckr-done">
+                        <h5>
+                            Nama Agenda
+                        </h5>
+                        <h6>05:43 AM</h6>
+                    </li>
+                    <li class="progtrckr-done">
+                        <h5>
+                            Nama Agenda
+                        </h5>
+                        <h6>01:21 PM</h6>
+                    </li>
+                    <li class="progtrckr-done">
+                        <h5>
+                            Nama Agenda
+                        </h5>
+                        <h6>02:22 PM</h6>
+                    </li>
+                    <li class="progtrckr-todo">
+                        <h5>
+                            Nama Agenda
+                        </h5>
+                        <h6>04:13 PM</h6>
+                    </li>
+                    <li class="progtrckr-todo">
+                        <h5>
+                            Nama Agenda
+                        </h5>
+                        <h6>06:00 PM</h6>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
 </div>

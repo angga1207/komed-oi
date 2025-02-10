@@ -15,7 +15,9 @@ class Login extends Component
     public function render()
     {
         return view('livewire.admin.login')
-            ->layout('layouts.auth');
+            ->layout('layouts.auth', [
+                'title' => 'Login'
+            ]);
     }
 
     function login()
@@ -48,7 +50,7 @@ class Login extends Component
                 'position' =>  'center',
                 'timer' =>  null,
                 'toast' =>  false,
-                'text' =>  'Selamat datang kembali, ' . $this->username,
+                'text' =>  'Selamat datang kembali, ' . $user->fullname,
                 'showCancelButton' =>  false,
                 'showConfirmButton' =>  true,
                 'confirmButtonText' =>  'Tutup',

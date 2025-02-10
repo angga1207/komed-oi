@@ -56,6 +56,11 @@
 </head>
 
 <body>
+    @if (in_array(auth()->user()->role_id, [4]))
+    @if(Route::currentRouteName() !== 'firstUpdateMedia')
+    @livewire('client.media-not-set')
+    @endif
+    @endif
     <!-- tap on top start -->
     <div class="tap-top">
         <span class="lnr lnr-chevron-up"></span>

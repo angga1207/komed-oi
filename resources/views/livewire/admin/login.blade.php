@@ -94,7 +94,13 @@
                     <button class="btn btn-animation w-100 justify-content-center" type="submit">
                         Masuk
                     </button>
-                    <h5 class="new-page mt-3 text-center">Already have an account? <a href="login.html">Sign In</a></h5>
+                    <h5 class="new-page mt-3 text-center">
+                        Belum mempunyai Akun?
+                        <a href="{{ route('register') }}">
+                            Daftar
+                            Di sini
+                        </a>
+                    </h5>
                 </div>
             </form>
         </div>
