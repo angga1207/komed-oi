@@ -13,7 +13,7 @@ class MediaOrderController extends Controller
 {
     use JsonReturner, HeaderChecker;
 
-    function getMedia(Request $request)
+    function getMediaOrder(Request $request)
     {
         if ($this->checkHeader($request) == false) {
             return $this->unauthorizedResponse('Unauthorized');
@@ -76,5 +76,53 @@ class MediaOrderController extends Controller
         }
 
         return $this->successResponse($returns, 'Profil berhasil diperbarui',);
+    }
+
+    function singleMediaOrder($id, Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $return = [];
+        $data = DB::table('orders')
+            ->where('id', $id)
+            ->first();
+        if (!$data) {
+            return $this->notFoundResponse('Media Order tidak dapat kami temukan');
+        }
+
+        $agenda = DB::table('agendas')->where('id', $data->agenda_id)->first();
+        if (!$agenda) {
+            return $this->notFoundResponse('Agenda tidak dapat kami temukan');
+        }
+        $dataAgenda = collect(json_decode($agenda->data));
+
+        $evidences = [];
+        $evidences = DB::table('order_evidences')
+            ->where('order_id', $data->id)
+            ->oldest('created_at')
+            ->get();
+
+        $logs = [];
+        $logs = DB::table('log_order_status')
+            ->where('order_id', $data->id)
+            ->latest('created_at')
+            ->select(['id', 'status', 'note', 'created_at', 'updated_at'])
+            ->get();
+
+        $return['id'] = $data->id;
+        $return['order_code'] = $data->order_code;
+        $return['nama_acara'] = $dataAgenda['nama_acara'] ?? null;
+        $return['tanggal_pelaksanaan'] = $data->tanggal_pelaksanaan;
+        $return['tanggal_pelaksanaan_akhir'] = $data->tanggal_pelaksanaan_akhir;
+        $return['waktu_pelaksanaan'] = $data->waktu_pelaksanaan;
+        $return['leading_sector'] = $data->leading_sector;
+        $return['status'] = $data->status;
+        $return['created_at'] = $data->created_at;
+        $return['evidences'] = $evidences ?? [];
+        $return['logs'] = $logs ?? [];
+
+        return $this->successResponse($return, 'Media Order berhasil diambil');
     }
 }

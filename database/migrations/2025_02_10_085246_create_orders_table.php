@@ -59,6 +59,7 @@ return new class extends Migration
         Schema::create('order_evidences', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('media_id')->index();
+            $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('agenda_id')->constrained()->onDelete('cascade');
             $table->enum('type', ['image', 'video', 'document', 'link', 'other']);
             $table->text('url');

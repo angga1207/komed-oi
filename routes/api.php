@@ -29,7 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile/notifications', [PersonalController::class, 'readedNotifcations']);
 
     // Media Order
-    Route::get('/media-order', [MediaOrderController::class, 'getMedia']);
+    Route::get('/media-order', [MediaOrderController::class, 'getMediaOrder']);
+    Route::get('/media-order/{id}', [MediaOrderController::class, 'singleMediaOrder']);
 
     Route::get('/media/get', [RegisterController::class, 'getMedia']);
     Route::post('/media/update', [RegisterController::class, 'updateMedia']);
