@@ -211,8 +211,7 @@ class Index extends Component
                             'text' => 'Agenda yang dipilih sudah ada untuk Media ini!',
                             'showCancelButton' => false,
                             'showConfirmButton' => true,
-                            'cancelText' => '',
-                            'confirmText' => 'Tutup',
+                            'confirmButtonText' => 'Tutup',
                         ]);
                         return;
                     }
@@ -252,8 +251,7 @@ class Index extends Component
                     'text' => 'Media Order baru berhasil dikirimkan ke ' . $mediaPers->nama_media,
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
-                    'cancelText' => '',
-                    'confirmText' => 'Tutup',
+                    'confirmButtonText' => 'Tutup',
                 ]);
 
                 $this->dispatch('closeModal');

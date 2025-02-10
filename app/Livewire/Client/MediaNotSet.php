@@ -46,10 +46,20 @@ class MediaNotSet extends Component
                     'text' => 'Harap lengkapi Data Media Pers Anda terlebih dahulu untuk melanjutkan!',
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
-                    'cancelButtonText' => '',
                     'confirmButtonText' => 'Lengkapi Sekarang',
                     'onConfirmed' => 'goToUpdateMedia',
                     'allowOutsideClick' => false,
+                ]);
+            } else if ($pers->verified_status == 'pending') {
+                $this->isHavePers = true;
+                $this->alert('info', 'Menunggu Verifikasi', [
+                    'position' =>  'center',
+                    'timer' => null,
+                    'toast' => false,
+                    'text' => 'Berkas-berkas Media Anda telah diunggah sebelumnya. Silahkan tunggu verifikasi dari admin.',
+                    'showCancelButton' => false,
+                    'showConfirmButton' => true,
+                    'confirmButtonText' => 'Tutup',
                 ]);
             } else if ($pers->verified_status !== null) {
                 $this->isHavePers = true;

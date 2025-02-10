@@ -26,12 +26,23 @@ class User extends Component
         ];
     }
 
+    function goSearch()
+    {
+        $this->resetPage();
+    }
+
+    function resetSearch()
+    {
+        $this->resetPage();
+        $this->search = null;
+    }
 
     public function render()
     {
         $datas = ModelsUser::search($this->search)
             ->where('role_id', 4)
             ->paginate(10);
+
         return view('livewire.admin.users.user', [
             'datas' => $datas
         ])

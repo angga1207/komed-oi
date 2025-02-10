@@ -219,15 +219,90 @@ class PersonalController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         foreach ($arrNotifs as $notif) {
+            $rawData = collect(json_decode($notif->data));
+            $title = null;
+            if (isset($rawData['message']) && $rawData['message'] == 'Permintaan verifikasi media pers telah diverifikasi. Silahkan cek media pers anda.') {
+                $title = 'Registrasi Terverifikasi';
+            } else {
+                $title = $rawData['title'] ?? null;
+            }
+
+            // return $rawData;
+            $mediaId = $rawData['media']->id ?? null;
+            $orderData = [];
+            $orderDate = null;
+            $notifType = 'registration';
+
+            if (isset($rawData['order'])) {
+                $notifType = 'media_order';
+                $orderDataIds = collect($rawData['order'])->pluck('id');
+                $orderData = [];
+                $orderDatas = DB::table('orders')->whereIn('id', $orderDataIds)
+                    ->get();
+                foreach ($orderDatas as $dt) {
+                    $agenda = DB::table('agendas')->where('id', $dt->agenda_id)->first();
+                    $dataAgenda = collect(json_decode($agenda->data));
+                    $orderData[] = [
+                        'order_id' => $dt->id,
+                        'agenda_id' => $dt->agenda_id,
+                        'nama_acara' => $dataAgenda['nama_acara'],
+                        'tanggal_pelaksanaan' => $dt->tanggal_pelaksanaan,
+                        'tanggal_pelaksanaan_akhir' => $dt->tanggal_pelaksanaan_akhir,
+                        'waktu_pelaksanaan' => $dt->waktu_pelaksanaan,
+                        'leading_sector' => $dt->leading_sector,
+                        'status' => $dt->status,
+                        // 'agenda' => $dataAgenda,
+                        'created_at' => $dt->created_at,
+                        'updated_at' => $dt->updated_at,
+                    ];
+                }
+                $orderDate = collect($rawData['order'])[0]->created_at;
+                // return $orderDate;
+            }
             $returns[] = [
                 'id' => $notif->id,
                 'type' => $notif->type,
-                'data' => json_decode($notif->data),
+                'title' => $title ?? null,
+                'message' => $rawData['message'] ?? null,
+                'notif_type' => $notifType,
+                'media_id' => $mediaId ?? null,
+                'data_order' => $orderData ?? [],
                 'read_at' => $notif->read_at,
                 'created_at' => $notif->created_at
             ];
         }
 
         return $this->successResponse(null, $returns);
+    }
+
+    function readedNotifcations(Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $validated = Validator::make($request->all(), [
+            'id' => 'required|uuid|exists:notifications,id',
+        ], [], [
+            'id' => 'ID Notification',
+        ]);
+
+        if ($validated->fails()) {
+            return $this->validationErrorResponse($validated->errors()->first());
+        }
+
+        DB::beginTransaction();
+        try {
+            DB::table('notifications')->where('id', $request->id)
+                ->update([
+                    'read_at' => now(),
+                ]);
+
+            DB::commit();
+            return $this->successResponse(null, 'Notifikasi telah dibaca');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage() . ' at line ' . $e->getLine());
+        }
     }
 }

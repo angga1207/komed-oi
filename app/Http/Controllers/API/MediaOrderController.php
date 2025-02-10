@@ -75,6 +75,6 @@ class MediaOrderController extends Controller
             ];
         }
 
-        return $returns;
+        return $this->successResponse($returns, 'Profil berhasil diperbarui',);
     }
 }

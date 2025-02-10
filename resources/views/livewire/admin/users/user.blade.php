@@ -8,10 +8,13 @@
                         <h5>
                             Daftar Akun Klien
                         </h5>
-                        <form class="d-inline-flex">
-                            {{-- <a href="#" class="align-items-center btn btn-theme d-flex">
-                                <i data-feather="plus"></i>Add New
-                            </a> --}}
+                        <form class="d-inline-flex" wire:submit.prevent="goSearch">
+                            <input type="search" class="form-control" placeholder="Pencarian..." wire:model="search" />
+                            @if($search)
+                            <div class="" wire:click.prevent="resetSearch">
+                                <i class="ri-close-circle-line"></i>
+                            </div>
+                            @endif
                         </form>
                     </div>
 

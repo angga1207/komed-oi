@@ -75,18 +75,18 @@ class BaseSeeder extends Seeder
                 'status' => 'active',
                 'role_id' => 3,
             ],
-            [
-                'fullname' => 'User',
-                'first_name' => 'User',
-                'last_name' => '',
-                'username' => 'user',
-                'email' => 'user@komed.oganilirkab.go.id',
-                'photo' => '/storage/images/users/default.png',
-                'email_verified_at' => now(),
-                'password' => bcrypt('password'),
-                'status' => 'active',
-                'role_id' => 4,
-            ]
+            // [
+            //     'fullname' => 'User',
+            //     'first_name' => 'User',
+            //     'last_name' => '',
+            //     'username' => 'user',
+            //     'email' => 'user@komed.oganilirkab.go.id',
+            //     'photo' => '/storage/images/users/default.png',
+            //     'email_verified_at' => now(),
+            //     'password' => bcrypt('password'),
+            //     'status' => 'active',
+            //     'role_id' => 4,
+            // ]
         ];
 
         foreach ($users as $user) {
