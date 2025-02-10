@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Searchable;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -152,6 +153,33 @@ class MediaPers extends Model
             return true;
         } else {
             return false;
+        }
+    }
+
+    function Orders()
+    {
+        return $this->hasMany(Order::class, 'media_id', 'id');
+    }
+
+    function OrdersFilter($type, $query = null)
+    {
+        if ($type == 'bulan_ini') {
+            return $this->hasMany(Order::class, 'media_id', 'id')
+                ->whereMonth('tanggal_pelaksanaan', now())
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } else if ($type == 'mendatang') {
+            return $this->hasMany(Order::class, 'media_id', 'id')
+                ->whereDate('tanggal_pelaksanaan', '>', now())
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } else if ($type == 'hari_ini') {
+            return $this->hasMany(Order::class, 'media_id', 'id')
+                ->whereDate('tanggal_pelaksanaan', now())
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } else {
+            return $this->hasMany(Order::class, 'media_id', 'id');
         }
     }
 }

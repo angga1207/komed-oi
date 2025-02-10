@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Http\Controllers\API;
+
+use App\JsonReturner;
+use App\HeaderChecker;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
+class MediaOrderController extends Controller
+{
+    use JsonReturner, HeaderChecker;
+
+    function getMedia(Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $validated = Validator::make($request->all(), [
+            'date' => 'nullable|date',
+        ], [], [
+            'date' => 'Tanggal',
+        ]);
+
+        if ($validated->fails()) {
+            return $this->validationErrorResponse($validated->errors()->first());
+        }
+
+        $now = now();
+        $returns = [];
+        $mediaPers = DB::table('pers_profile')
+            ->where('user_id', auth()->id())->first();
+        if ($request->date) {
+            $datas = DB::table('orders')
+                ->where('media_id', $mediaPers->id)
+                ->whereDate('tanggal_pelaksanaan', $request->date)
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } else {
+            $datas = DB::table('orders')
+                ->where('media_id', $mediaPers->id)
+                ->whereMonth('tanggal_pelaksanaan', $now)
+                ->whereDate('tanggal_pelaksanaan', '>=', $now)
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        }
+
+        foreach ($datas as $order) {
+            $agenda = DB::table('agendas')
+                ->where('id', $order->agenda_id)
+                ->first();
+            $statusLogs = DB::table('log_order_status')
+                ->where('media_id', $mediaPers->id)
+                ->where('order_id', $order->id)
+                ->latest()
+                ->get();
+            $returns[] = [
+                'order_id' => $order->id,
+                'order_code' => $order->order_code,
+                'media_id' => $mediaPers->id,
+                'nama_media' => $mediaPers->nama_media,
+                'nama_perusahaan' => $mediaPers->nama_perusahaan,
+                'tanggal_pelaksanaan' => $order->tanggal_pelaksanaan,
+                'tanggal_pelaksanaan_akhir' => $order->tanggal_pelaksanaan_akhir,
+                'waktu_pelaksanaan' => $order->waktu_pelaksanaan,
+                'leading_sector' => $order->leading_sector,
+                'data_agenda' => $agenda->data ? json_decode($agenda->data) : [],
+                'status' => $order->status,
+                'status_logs' => $statusLogs ?? [],
+                'created_at' => $order->created_at,
+                'updated_at' => $order->updated_at,
+            ];
+        }
+
+        return $returns;
+    }
+}

@@ -121,7 +121,7 @@ class NeedVerification extends Component
         // send notification start
         $user = User::find($data->user_id);
         $token = $user->routeNotificationForFcm();
-        $user->notify(new RegBannedNotification($data, $token, 1));
+        $user->notify(new RegBannedNotification($data, $token, auth()->id()));
         // send notification end
     }
 
@@ -186,7 +186,7 @@ class NeedVerification extends Component
         // send notification start
         $user = User::find($data->user_id);
         $token = $user->routeNotificationForFcm();
-        $user->notify(new RegVerifNotification($data, $token, 1));
+        $user->notify(new RegVerifNotification($data, $token, auth()->id()));
         // send notification end
     }
 }

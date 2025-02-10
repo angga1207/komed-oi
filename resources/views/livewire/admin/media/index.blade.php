@@ -37,11 +37,6 @@ use Carbon\Carbon;
                                             </span>
                                         </th>
                                         <th>
-                                            {{-- <span>
-                                                Jenis Media
-                                            </span> --}}
-
-                                            {{-- select --}}
                                             <select class="form-select" wire:model.live="filterJenisMedia">
                                                 <option value="">Semua Media</option>
                                                 <option value="Media Cetak">Media Cetak</option>
@@ -51,7 +46,7 @@ use Carbon\Carbon;
                                         </th>
                                         <th>
                                             <span>
-                                                Orderan
+                                                Media Order
                                             </span>
                                         </th>
                                         <th>
@@ -87,12 +82,27 @@ use Carbon\Carbon;
                                                 <div
                                                     class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                                     <div>Mendatang:</div>
-                                                    <span>2</span>
+                                                    <span>{{ count($data->OrdersFilter('mendatang')) }}</span>
+                                                </div>
+                                                <div
+                                                    class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+                                                    <div>Hari Ini:</div>
+                                                    <span>{{ count($data->OrdersFilter('hari_ini')) }}</span>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div>Bulan Ini:</div>
-                                                    <span>2</span>
+                                                    <span>{{ count($data->OrdersFilter('bulan_ini')) }}</span>
                                                 </div>
+                                            </div>
+
+                                            <div class="mt-3">
+                                                <a href="javascript:void(0)"
+                                                    class="badge badge-warning d-flex align-items-center justify-content-center gap-1"
+                                                    data-bs-toggle="modal" data-bs-target="#modalAddOrder"
+                                                    wire:click="wizardAddOrder({{ $data->id }})">
+                                                    <i class="ri-add-circle-line text-white"></i>
+                                                    Buat Order
+                                                </a>
                                             </div>
                                         </td>
 
@@ -448,6 +458,147 @@ use Carbon\Carbon;
                         @endif
                     </div>
                     <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
+                            data-bs-dismiss="modal" wire:click="closeModal">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="modalAddOrder" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header d-block text-start">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">
+                        @if($this->selectMedia)
+                        Pilih Agenda untuk Media Pers "{{ $selectMedia->nama_media ?? '' }}"
+                        @endif
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if(count($this->arrAgenda) > 0)
+                    <div class="row">
+                        @foreach($this->arrAgenda as $key => $agenda)
+                        <div wire:key={{ $agenda['id'] }} class="col-12 col-lg-6">
+                            <div class="main-tiles border card-hover card o-hidden @if(in_array($agenda['id'], $selecteAgendaToOrder)) border-success @endif"
+                                style="cursor: pointer" wire:click.prevent="addOrder({{ $agenda['id'] }})">
+                                <div class="custome-1-bg b-r-4 card-body">
+                                    <div class="media align-items-center static-top-widget">
+                                        <div class="media-body p-0">
+                                            <div class="m-0 d-flex align-items-center gap-1">
+                                                <i class="ri-calendar-check-line"></i>
+                                                <span>
+                                                    @if($agenda['tanggal_pelaksanaan'] ==
+                                                    $agenda['tanggal_pelaksanaan_akhir'])
+                                                    {{ Carbon::parse($agenda['tanggal_pelaksanaan'])->isoFormat('D MMM
+                                                    Y')
+                                                    }}
+                                                    @else
+                                                    {{ Carbon::parse($agenda['tanggal_pelaksanaan'])->isoFormat('D MMM
+                                                    Y')
+                                                    }}
+                                                    -
+                                                    {{ Carbon::parse($agenda['tanggal_pelaksanaan_akhir'])->isoFormat('D
+                                                    MMM
+                                                    Y') }}
+                                                    @endif
+                                                </span>
+                                                |
+                                                <span>
+                                                    {{ $agenda['waktu_pelaksanaan'] }} WIB
+                                                </span>
+                                            </div>
+                                            <h4 class="mb-0 counter">
+                                                {{ $agenda['nama_acara'] }}
+                                            </h4>
+                                            <div class="m-0 mt-1 d-flex align-items-center gap-1 border-bottom py-1">
+                                                <i class="ri-map-pin-2-line"></i>
+                                                {{ $agenda['tempat_pelaksanaan_id'] }}
+                                            </div>
+                                            <div class="m-0 mt-1 d-flex gap-1 border-bottom py-1">
+                                                <div>
+                                                    Leading Sektor :
+                                                </div>
+                                                <div class="d-flex gap-1 flex-column">
+                                                    @foreach($agenda['leading_sector'] as $lead)
+                                                    <div>
+                                                        - {{ $lead }}
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="m-0 mt-1 d-flex align-items-center gap-1 border-bottom py-1">
+                                                <i class="ri-shirt-line"></i>
+                                                {{ $agenda['dresscode'] }}
+                                            </div>
+                                            <div class="m-0 mt-1 d-flex gap-1 border-bottom py-1">
+                                                <div>
+                                                    Dihadiri :
+                                                </div>
+                                                <div class="d-flex gap-1 flex-column">
+                                                    @foreach($agenda['dihadiri'] as $dihadiri)
+                                                    <div>
+                                                        - {{ $dihadiri['nama_jabatan'] }}
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="m-0 mt-1 d-flex gap-1 border-bottom py-1">
+                                                <div>
+                                                    Diundang :
+                                                </div>
+                                                <div class="d-flex gap-1 flex-column">
+                                                    @foreach($agenda['diundang'] as $diundang)
+                                                    <div>
+                                                        - {{ $diundang['nama_jabatan'] }}
+                                                    </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if(in_array($agenda['id'], $selecteAgendaToOrder))
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <i class="ri-check-line text-success" style="font-size: 25px"></i>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @else
+                    <div class="text-center">
+                        Tidak ada Agenda
+                    </div>
+                    @endif
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <div class="">
+                        {{-- filter Date --}}
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="filterDate" class="form-label">
+                                Filter
+                            </label>
+                            <input type="date" class="form-control" id="filterDate" wire:model.live="filterAgendaDate">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center gap-2">
+                        @if(count($this->selecteAgendaToOrder) > 0)
+                        {{ count($this->selecteAgendaToOrder) }} Agenda dipilih
+                        <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
+                            wire:click="confirmApplyOrder">
+                            Terapkan
+                        </button>
+                        @endif
                         <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
                             data-bs-dismiss="modal" wire:click="closeModal">
                             Tutup

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\MediaOrderController;
 use App\Http\Controllers\API\PersonalController;
 use App\Http\Controllers\API\RegisterController;
 use Illuminate\Http\Request;
@@ -25,6 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile/update-password', [PersonalController::class, 'updatePassword']);
     Route::get('/profile/logs', [PersonalController::class, 'getLogs']);
     Route::get('/profile/notifications', [PersonalController::class, 'getNotifcations']);
+
+    // Media Order
+    Route::get('/media-order', [MediaOrderController::class, 'getMedia']);
 
     Route::get('/media/get', [RegisterController::class, 'getMedia']);
     Route::post('/media/update', [RegisterController::class, 'updateMedia']);

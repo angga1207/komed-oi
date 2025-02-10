@@ -157,78 +157,6 @@
     <!-- Theme js -->
     <script src="{{ asset('assets/js/script.js') }}"></script>
 
-    {{-- <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
-        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-messaging.js";
-        // import { onBackgroundMessage } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-messaging-sw.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyCIjxnhXyvF7uQsgEyU8jX99_7p_tqa1x0",
-            authDomain: "komed-oi.firebaseapp.com",
-            projectId: "komed-oi",
-            storageBucket: "komed-oi.firebasestorage.app",
-            messagingSenderId: "67197346584",
-            appId: "1:67197346584:web:06d5065a8e2709938db46d",
-            measurementId: "G-GM74W7Z9XY"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        // const analytics = getAnalytics(app);
-
-        const messaging = getMessaging(app);
-
-        function initFirebaseMessagingRegistration() {
-            const token = getToken(messaging, { vapidKey: 'BJePlygL0zdt8wF8K01lrByWH-kSODlpFaWlB1vI78yATY0ljLGSU6hmHgUmlkGjboNI3dNcA7_rQ3lY45KD6dA' }).then((currentToken) => {
-                if (currentToken) {
-                    // console.log('currentToken:', currentToken);
-                    const CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                    $.ajax({
-                        url: "{{ route('updateFcmToken') }}",
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                        },
-                        type: "POST",
-                        data: {
-                            fcm_token: currentToken,
-                            type:'web',
-                        },
-                        success: function(response) {
-                            // console.log('fcm token updated');
-                        }
-                    });
-
-                } else {
-                    // Show permission request UI
-                    console.log('No registration token available. Request permission to generate one.');
-                }
-            }).catch((err) => {
-                console.log('An error occurred while retrieving token. ', err);
-            });
-        }
-        initFirebaseMessagingRegistration();
-
-
-        const msg = getMessaging();
-        onMessage(msg, (payload) => {
-            console.log('Message received. ', payload);
-            // ...
-            alert('Message received. ', payload);
-        });
-
-        // onBackgroundMessage(msg, (payload) => {
-        //     console.log('Message received. ', payload);
-        //     // ...
-        //     alert('Message received. ', payload);
-        // });
-    </script> --}}
-
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
     <script>
@@ -291,13 +219,25 @@
         requestNotificationPermission();
 
         // Handle foreground messages
-        messaging.onMessage((payload) => {
-            console.log('Message received in foreground:', payload);
-            // new Notification(payload.notification?.title, {
-            //     body: payload.notification?.body,
-            //     icon: '/firebase-logo.png' // Replace with your own icon
-            // });
+        // messaging.onMessage((payload) => {
+        //     // console.log('Message received in foreground:', payload);
+        //     // new Notification(payload.notification?.title, {
+        //     //     body: payload.notification?.body,
+        //     //     icon: '/firebase-logo.png' // Replace with your own icon
+        //     // });
+        // });
+    </script>
+    <script>
+        document.addEventListener('livewire:init', () => {
+        // catch display event
+        // window.livewire.on('closeModal', (message, type) => {
+        //     $('.modal').modal('hide');
+        // });
+
+        Livewire.on('closeModal', () => {
+            $('.modal').modal('hide');
         });
+    })
     </script>
 
 
