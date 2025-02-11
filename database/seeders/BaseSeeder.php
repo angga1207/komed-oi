@@ -47,7 +47,7 @@ class BaseSeeder extends Seeder
                 'email' => 'developer@komed.oganilirkab.go.id',
                 'photo' => '/storage/images/users/default.png',
                 'email_verified_at' => now(),
-                'password' => bcrypt('jens5522'),
+                'password' => bcrypt('developer'),
                 'status' => 'active',
                 'role_id' => 1,
             ],

@@ -411,59 +411,91 @@ class FirstUpdateMedia extends Component
             $now = now();
             $pers = DB::table('pers_profile')->where('id', $this->pers->id)->first();
 
+            // update pers profile
+            DB::table('pers_profile')
+                ->where('id', $pers->id)
+                ->update([
+                    'jenis_media' => $this->input['jenis_media'],
+                    'nama_media' => $this->input['nama_media'],
+                    'nama_perusahaan' => $this->input['nama_perusahaan'],
+                    'alamat_media' => $this->input['alamat_media'],
+                    'whatsapp' => $this->input['whatsapp'],
+                    'email' => $this->input['email'],
+                    'no_npwp' => $this->input['no_npwp'],
+                    'no_ref_bank' => $this->input['no_ref_bank'],
+                    'no_giro_perusahaan' => $this->input['no_giro_perusahaan'],
+                    'website' => $this->input['website'],
+                    'jabatan' => $this->input['jabatan'],
+                    'profil_perusahaan' => $this->input['profil_perusahaan'],
+                    'cakupan_media' => $this->input['cakupan_media'],
+                    'jumlah_oplah' => $this->input['jumlah_oplah'],
+                    'sebaran_oplah' => $this->input['sebaran_oplah'],
+                    'status_wartawan' => $this->input['status_wartawan'],
+                    'kompetensi_wartawan' => $this->input['kompetensi_wartawan'],
+                    'status_dewan_pers' => $this->input['status_dewan_pers'],
+                    'kantor' => $this->input['kantor'],
+                    'frekuensi_terbitan' => $this->input['frekuensi_terbitan'],
+                    'terbitan_3_edisi_terakhir' => $this->input['terbitan_3_edisi_terakhir'],
+                    'updated_at' => $now,
+                    'verified_status' => 'pending',
+                    'verification_deadline' => now()->addDays(7),
+                    'verified_at' => null
+                ]);
+
             // UPLOAD DATA BASIC START
             if ($this->input['file_jumlah_oplah']) {
-                $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['file_jumlah_oplah']
-                    ->storeAs('public/pers-files/' . $pers->id, 'jumlah_oplah_' . $pers->unique_id . '.' . $this->input['file_jumlah_oplah']->extension(), 'public');
+                $fileName = 'jumlah_oplah_' . $pers->unique_id . '.' . $this->input['file_jumlah_oplah']->extension();
+                $this->input['file_jumlah_oplah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                 DB::table('pers_profile')
                     ->where('id', $pers->id)
                     ->update([
-                        'file_jumlah_oplah' => $upload
+                        'file_jumlah_oplah' => $path
                     ]);
             }
-
             if ($this->input['file_status_wartawan']) {
-                $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['file_status_wartawan']
-                    ->storeAs('public/pers-files/' . $pers->id, 'status_wartawan_' . $pers->unique_id . '.' . $this->input['file_status_wartawan']->extension(), 'public');
+                $fileName = 'status_wartawan_' . $pers->unique_id . '.' . $this->input['file_status_wartawan']->extension();
+                $this->input['file_status_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                 DB::table('pers_profile')
                     ->where('id', $pers->id)
                     ->update([
-                        'file_status_wartawan' => $upload
+                        'file_status_wartawan' => $path
                     ]);
             }
-
             if ($this->input['file_kompetensi_wartawan']) {
-                $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['file_kompetensi_wartawan']
-                    ->storeAs('public/pers-files/' . $pers->id, 'kompetensi_wartawan_' . $pers->unique_id . '.' . $this->input['file_kompetensi_wartawan']->extension(), 'public');
+                $fileName = 'kompetensi_wartawan_' . $pers->unique_id . '.' . $this->input['file_kompetensi_wartawan']->extension();
+                $this->input['file_kompetensi_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                 DB::table('pers_profile')
                     ->where('id', $pers->id)
                     ->update([
-                        'file_kompetensi_wartawan' => $upload
+                        'file_kompetensi_wartawan' => $path
                     ]);
             }
-
             if ($this->input['file_status_dewan_pers']) {
-                $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['file_status_dewan_pers']
-                    ->storeAs('public/pers-files/' . $pers->id, 'status_dewan_pers_' . $pers->unique_id . '.' . $this->input['file_status_dewan_pers']->extension(), 'public');
+                $fileName = 'status_dewan_pers_' . $pers->unique_id . '.' . $this->input['file_status_dewan_pers']->extension();
+                $this->input['file_status_dewan_pers']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                 DB::table('pers_profile')
                     ->where('id', $pers->id)
                     ->update([
-                        'file_status_dewan_pers' => $upload
+                        'file_status_dewan_pers' => $path
                     ]);
             }
-
             if ($this->input['file_terbitan_3_edisi_terakhir']) {
-                $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['file_terbitan_3_edisi_terakhir']
-                    ->storeAs('public/pers-files/' . $pers->id, 'terbitan_3_edisi_terakhir_' . $pers->unique_id . '.' . $this->input['file_terbitan_3_edisi_terakhir']->extension(), 'public');
+                $fileName = 'terbitan_3_edisi_terakhir_' . $pers->unique_id . '.' . $this->input['file_terbitan_3_edisi_terakhir']->extension();
+                $this->input['file_terbitan_3_edisi_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                 DB::table('pers_profile')
                     ->where('id', $pers->id)
                     ->update([
-                        'file_terbitan_3_edisi_terakhir' => $upload
+                        'file_terbitan_3_edisi_terakhir' => $path
                     ]);
             }
             // UPLOAD DATA BASIC END
@@ -471,8 +503,7 @@ class FirstUpdateMedia extends Component
             if ($this->jenisMedia == 'Media Cetak') {
                 if ($this->input['akta_pendirian']) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['akta_pendirian']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -488,8 +519,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sk_kemenkumham']) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sk_kemenkumham']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -505,8 +535,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['siup']) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['siup']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -522,8 +551,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['tdp_penerbitan_58130']) {
                     $fileName = 'tdp_penerbitan_58130_' . $pers->unique_id . '.' . $this->input['tdp_penerbitan_58130']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['tdp_penerbitan_58130']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['tdp_penerbitan_58130']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -539,8 +567,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['spt_terakhir']) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['spt_terakhir']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -556,8 +583,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sp_cakupan_wilayah']) {
                     $fileName = 'sp_cakupan_wilayah_' . $pers->unique_id . '.' . $this->input['sp_cakupan_wilayah']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sp_cakupan_wilayah']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sp_cakupan_wilayah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -573,8 +599,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sp_pimpinan']) {
                     $fileName = 'sp_pimpinan_' . $pers->unique_id . '.' . $this->input['sp_pimpinan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sp_pimpinan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sp_pimpinan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -590,8 +615,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['surat_tugas_wartawan']) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['surat_tugas_wartawan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -608,8 +632,7 @@ class FirstUpdateMedia extends Component
             } elseif ($this->jenisMedia == 'Media Elektronik') {
                 if ($this->input['akta_pendirian']) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['akta_pendirian']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -625,8 +648,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sk_kemenkumham']) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sk_kemenkumham']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -642,8 +664,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['izin_ipp']) {
                     $fileName = 'izin_ipp_' . $pers->unique_id . '.' . $this->input['izin_ipp']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['izin_ipp']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['izin_ipp']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -659,8 +680,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['izin_isr']) {
                     $fileName = 'izin_isr_' . $pers->unique_id . '.' . $this->input['izin_isr']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['izin_isr']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['izin_isr']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -676,8 +696,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['siup']) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['siup']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -693,8 +712,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['tdp_penyiaran_60102']) {
                     $fileName = 'tdp_penyiaran_60102_' . $pers->unique_id . '.' . $this->input['tdp_penyiaran_60102']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['tdp_penyiaran_60102']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['tdp_penyiaran_60102']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -710,8 +728,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['spt_terakhir']) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['spt_terakhir']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -727,8 +744,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sp_cakupan_wilayah']) {
                     $fileName = 'sp_cakupan_wilayah_' . $pers->unique_id . '.' . $this->input['sp_cakupan_wilayah']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sp_cakupan_wilayah']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sp_cakupan_wilayah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -744,8 +760,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sp_pimpinan']) {
                     $fileName = 'sp_pimpinan_' . $pers->unique_id . '.' . $this->input['sp_pimpinan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sp_pimpinan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sp_pimpinan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -761,8 +776,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sk_biro_iklan']) {
                     $fileName = 'sk_biro_iklan_' . $pers->unique_id . '.' . $this->input['sk_biro_iklan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sk_biro_iklan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sk_biro_iklan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -778,8 +792,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['surat_tugas_wartawan']) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['surat_tugas_wartawan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -796,8 +809,7 @@ class FirstUpdateMedia extends Component
             } elseif ($this->jenisMedia == 'Media Elektronik') {
                 if ($this->input['akta_pendirian']) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['akta_pendirian']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -813,8 +825,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sk_kemenkumham']) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sk_kemenkumham']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -830,8 +841,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['siup']) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['siup']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -847,8 +857,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['tdp_penerbitan_63122']) {
                     $fileName = 'tdp_penerbitan_63122_' . $pers->unique_id . '.' . $this->input['tdp_penerbitan_63122']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['tdp_penerbitan_63122']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['tdp_penerbitan_63122']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -864,8 +873,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['spt_terakhir']) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['spt_terakhir']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -881,8 +889,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['situ']) {
                     $fileName = 'situ_' . $pers->unique_id . '.' . $this->input['situ']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['situ']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['situ']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -898,8 +905,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['sk_domisili']) {
                     $fileName = 'sk_domisili_' . $pers->unique_id . '.' . $this->input['sk_domisili']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['sk_domisili']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['sk_domisili']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -915,8 +921,7 @@ class FirstUpdateMedia extends Component
                 }
                 if ($this->input['surat_tugas_wartawan']) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
-                    $upload = 'storage/public/pers-files/' . $pers->id  . $this->input['surat_tugas_wartawan']
-                        ->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                    $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
 
                     DB::table('pers_profile_files')
@@ -1058,32 +1063,6 @@ class FirstUpdateMedia extends Component
                 ->update([
                     'tier_point' => $tierPoint,
                     'tier' => $tier,
-
-                    'jenis_media' => $this->input['jenis_media'],
-                    'nama_media' => $this->input['nama_media'],
-                    'nama_perusahaan' => $this->input['nama_perusahaan'],
-                    'alamat_media' => $this->input['alamat_media'],
-                    'whatsapp' => $this->input['whatsapp'],
-                    'email' => $this->input['email'],
-                    'no_npwp' => $this->input['no_npwp'],
-                    'no_ref_bank' => $this->input['no_ref_bank'],
-                    'no_giro_perusahaan' => $this->input['no_giro_perusahaan'],
-                    'website' => $this->input['website'],
-                    'jabatan' => $this->input['jabatan'],
-                    'profil_perusahaan' => $this->input['profil_perusahaan'],
-                    'cakupan_media' => $this->input['cakupan_media'],
-                    'jumlah_oplah' => $this->input['jumlah_oplah'],
-                    'sebaran_oplah' => $this->input['sebaran_oplah'],
-                    'status_wartawan' => $this->input['status_wartawan'],
-                    'kompetensi_wartawan' => $this->input['kompetensi_wartawan'],
-                    'status_dewan_pers' => $this->input['status_dewan_pers'],
-                    'kantor' => $this->input['kantor'],
-                    'frekuensi_terbitan' => $this->input['frekuensi_terbitan'],
-                    'terbitan_3_edisi_terakhir' => $this->input['terbitan_3_edisi_terakhir'],
-                    'updated_at' => $now,
-                    'verified_status' => 'pending',
-                    'verification_deadline' => now()->addDays(7),
-                    'verified_at' => null
                 ]);
 
             DB::commit();

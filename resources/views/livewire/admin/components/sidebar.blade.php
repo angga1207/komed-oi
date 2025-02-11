@@ -5,22 +5,13 @@
         <div>
             <div class="logo-wrapper logo-wrapper-center">
                 <a href="{{ route('dashboard') }}" data-bs-original-title="" title="">
-                    <img class="img-fluid for-white" src="{{ asset('assets/images/logo/full-white.png') }}" alt="logo">
+                    <h2 class="text-white">
+                        KOMED OI
+                    </h2>
                 </a>
                 <div class="back-btn">
                     <i class="fa fa-angle-left"></i>
                 </div>
-                <div class="toggle-sidebar">
-                    <i class="ri-apps-line status_toggle middle sidebar-toggle"></i>
-                </div>
-            </div>
-            <div class="logo-icon-wrapper">
-                <a href="{{ route('dashboard') }}">
-                    <img class="img-fluid main-logo main-white" src="{{ asset('assets/images/logo/logo.png') }}"
-                        alt="logo">
-                    <img class="img-fluid main-logo main-dark" src="{{ asset('assets/images/logo/logo-white.png') }}"
-                        alt="logo">
-                </a>
             </div>
             <nav class="sidebar-main">
                 <div class="left-arrow" id="left-arrow">
@@ -41,8 +32,6 @@
                         @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                         <li class="sidebar-list">
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                                {{-- <i class="ri-store-3-line"></i> --}}
-                                {{-- news office icon --}}
                                 <i class="ri-newspaper-line"></i>
                                 <span>
                                     Media
@@ -80,6 +69,22 @@
                                 <li>
                                     <a href="{{ route('users.admin') }}">
                                         Daftar Admin & Verifikator
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @elseif (in_array(auth()->user()->role_id, [4]))
+                        <li class="sidebar-list">
+                            <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                <i class="ri-newspaper-line"></i>
+                                <span>
+                                    Media Order
+                                </span>
+                            </a>
+                            <ul class="sidebar-submenu">
+                                <li>
+                                    <a href="{{ route('media-order') }}">
+                                        Daftar Media Order
                                     </a>
                                 </li>
                             </ul>

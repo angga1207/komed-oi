@@ -478,8 +478,8 @@ use Carbon\Carbon;
                         Pilih Agenda untuk Media Pers "{{ $selectMedia->nama_media ?? '' }}"
                         @endif
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        wire:click="closeModal">
+                    <button type="button" class="btn-close" style="top:10px; right:10px;" data-bs-dismiss="modal"
+                        aria-label="Close" wire:click="closeModal">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
@@ -489,7 +489,8 @@ use Carbon\Carbon;
                         @foreach($this->arrAgenda as $key => $agenda)
                         <div wire:key={{ $agenda['id'] }} class="col-12 col-lg-6">
                             <div class="main-tiles border card-hover card o-hidden @if(in_array($agenda['id'], $selecteAgendaToOrder)) border-success @endif"
-                                style="cursor: pointer" wire:click.prevent="addOrder({{ $agenda['id'] }})">
+                                style="overflow:auto; height: 380px; cursor:pointer"
+                                wire:click.prevent="addOrder({{ $agenda['id'] }})">
                                 <div class="custome-1-bg b-r-4 card-body">
                                     <div class="media align-items-center static-top-widget">
                                         <div class="media-body p-0">

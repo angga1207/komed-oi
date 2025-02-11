@@ -153,6 +153,8 @@ class Index extends Component
                     DB::table('agendas')->insert([
                         'jadwalin_bae_id' => (int)$agd['id'],
                         'data' => json_encode($agd),
+                        'nama_acara' => $agd['nama_acara'],
+                        'lokasi' => $agd['tempat_pelaksanaan_id'],
                         'tanggal_pelaksanaan' => $agd['tanggal_pelaksanaan'],
                         'tanggal_pelaksanaan_akhir' => $agd['tanggal_pelaksanaan_akhir'],
                         'waktu_pelaksanaan' => $agd['waktu_pelaksanaan'],
@@ -182,6 +184,8 @@ class Index extends Component
                                 'media_id' => $mediaPers->id,
                                 'agenda_id' => $agd->id,
                                 'jadwalin_bae_id' => $agd->jadwalin_bae_id,
+                                'nama_acara' => $agd->nama_acara,
+                                'lokasi' => $agd->lokasi,
                                 'tanggal_pelaksanaan' => $agd->tanggal_pelaksanaan,
                                 'tanggal_pelaksanaan_akhir' => $agd->tanggal_pelaksanaan_akhir,
                                 'waktu_pelaksanaan' => $agd->waktu_pelaksanaan,

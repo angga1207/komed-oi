@@ -32,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware([ClientOnlyMiddleware::class])->group(function () {
         Route::get('client-dashboard', App\Livewire\Client\Dashboard::class)->name('client-dashboard');
         Route::get('firstUpdateMedia', App\Livewire\Client\FirstUpdateMedia::class)->name('firstUpdateMedia');
+
+        Route::get('media-order', App\Livewire\Client\Media\Index::class)->name('media-order');
+        Route::get('media-order/{order_code}', App\Livewire\Client\Media\Detail::class)->name('media-order.detail');
     });
 
     // Impersonate

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('jadwalin_bae_id')->nullable();
             $table->json('data');
+            $table->text('nama_acara')->nullable();
+            $table->text('lokasi')->nullable();
             $table->dateTime('tanggal_pelaksanaan');
             $table->dateTime('tanggal_pelaksanaan_akhir');
             $table->time('waktu_pelaksanaan');
@@ -29,6 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger('media_id')->index();
             $table->foreignId('agenda_id')->constrained()->onDelete('cascade');
             $table->bigInteger('jadwalin_bae_id')->nullable();
+            $table->text('nama_acara')->nullable();
+            $table->text('lokasi')->nullable();
             $table->dateTime('tanggal_pelaksanaan');
             $table->dateTime('tanggal_pelaksanaan_akhir');
             $table->time('waktu_pelaksanaan');
