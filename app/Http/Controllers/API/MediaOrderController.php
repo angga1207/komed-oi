@@ -7,6 +7,7 @@ use App\HeaderChecker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class MediaOrderController extends Controller
@@ -63,15 +64,18 @@ class MediaOrderController extends Controller
                 'media_id' => $mediaPers->id,
                 'nama_media' => $mediaPers->nama_media,
                 'nama_perusahaan' => $mediaPers->nama_perusahaan,
+                'nama_acara' => $order->nama_acara,
+                'lokasi' => $order->lokasi,
                 'tanggal_pelaksanaan' => $order->tanggal_pelaksanaan,
                 'tanggal_pelaksanaan_akhir' => $order->tanggal_pelaksanaan_akhir,
                 'waktu_pelaksanaan' => $order->waktu_pelaksanaan,
                 'leading_sector' => $order->leading_sector,
-                'data_agenda' => $agenda->data ? json_decode($agenda->data) : [],
+                // 'data_agenda' => $agenda->data ? json_decode($agenda->data) : [],
                 'status' => $order->status,
-                'status_logs' => $statusLogs ?? [],
                 'created_at' => $order->created_at,
+                'deadline' => Carbon::parse($order->created_at)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),
                 'updated_at' => $order->updated_at,
+                'status_logs' => $statusLogs ?? [],
             ];
         }
 
@@ -113,13 +117,15 @@ class MediaOrderController extends Controller
 
         $return['id'] = $data->id;
         $return['order_code'] = $data->order_code;
-        $return['nama_acara'] = $dataAgenda['nama_acara'] ?? null;
+        $return['nama_acara'] = $data->nama_acara ?? null;
+        $return['lokasi'] = $data->lokasi ?? null;
         $return['tanggal_pelaksanaan'] = $data->tanggal_pelaksanaan;
         $return['tanggal_pelaksanaan_akhir'] = $data->tanggal_pelaksanaan_akhir;
         $return['waktu_pelaksanaan'] = $data->waktu_pelaksanaan;
         $return['leading_sector'] = $data->leading_sector;
         $return['status'] = $data->status;
         $return['created_at'] = $data->created_at;
+        $return['deadline'] = Carbon::parse($data->created_at)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss');
         $return['evidences'] = $evidences ?? [];
         $return['logs'] = $logs ?? [];
 
