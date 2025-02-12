@@ -56,13 +56,13 @@
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 <i class="ri-government-line"></i>
                                 <span>
-                                    Media Pers
+                                    Media
                                 </span>
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
                                     <a href="{{ route('media') }}">
-                                        Media Pers
+                                        Media
                                     </a>
                                 </li>
 

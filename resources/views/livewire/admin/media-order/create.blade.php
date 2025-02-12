@@ -179,9 +179,7 @@ use Carbon\Carbon;
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
                         @if($selectedJadwalinBae)
-                        Buat Agenda ke Media Order
-                        <br>
-                        "{{ $selectedJadwalinBae['nama_acara'] }}"
+                        Tambah Media Order
                         @endif
                     </h5>
                     <button type="button" class="btn-close" style="top:10px; right:10px;" data-bs-dismiss="modal"
@@ -216,7 +214,7 @@ use Carbon\Carbon;
                                 <div class="card-header border-0">
                                     <div class="card-header-title">
                                         <h4>
-                                            #{{ $pers->unique_id }} - {{ $pers->nama_media }}
+                                            {{ $pers->nama_media }} (#{{ $pers->unique_id }})
                                         </h4>
                                     </div>
                                 </div>
@@ -231,10 +229,10 @@ use Carbon\Carbon;
                                             <i class="ri-newspaper-line"></i>
                                             {{ $pers->jenis_media }}
                                         </div>
-                                        <div class="d-flex align-items-center gap-2">
+                                        {{-- <div class="d-flex align-items-center gap-2">
                                             <i class="ri-award-line"></i>
                                             Tier {{ $pers->tier }}
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>

@@ -11,7 +11,7 @@ use Carbon\Carbon;
                 <div class="card-body">
                     <div class="title-header option-title">
                         <h5>
-                            Daftar Media Pers
+                            Daftar Media
                         </h5>
 
                         <div class="">
@@ -151,7 +151,7 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        Detail Media Pers
+                        Detail Media
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="closeModal">
@@ -474,9 +474,7 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        @if($this->selectMedia)
-                        Pilih Agenda untuk Media Pers "{{ $selectMedia->nama_media ?? '' }}"
-                        @endif
+                        Pilih Agenda untuk Media (Tekan Untuk Pilih)
                     </h5>
                     <button type="button" class="btn-close" style="top:10px; right:10px;" data-bs-dismiss="modal"
                         aria-label="Close" wire:click="closeModal">
