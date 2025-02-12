@@ -18,6 +18,8 @@ class Order extends Model
         'Agenda.data',
         'leading_sector',
         'tanggal_pelaksanaan',
+        'MediaPers.nama_media',
+        'MediaPers.nama_perusahaan',
     ];
 
     function Agenda()

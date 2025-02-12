@@ -24,7 +24,10 @@ class Detail extends Component
 
     function mount($order_code)
     {
-        $mediaOrder = DB::table('orders')->where('order_code', $order_code)->firstOrFail();
+        $mediaOrder = DB::table('orders')
+            ->where('order_code', $order_code)
+            ->where('media_id', DB::table('pers_profile')->where('user_id', auth()->id())->first()->id)
+            ->firstOrFail();
 
         $this->mediaOrder = $mediaOrder;
         $this->input = [
@@ -82,13 +85,28 @@ class Detail extends Component
         DB::beginTransaction();
         try {
             // check status media order
-            $mediaOrder = DB::table('orders')->where('order_code', $this->mediaOrder->order_code)->first();
+            $mediaOrder = DB::table('orders')
+                ->where('order_code', $this->mediaOrder->order_code)
+                ->first();
             if ($mediaOrder && $mediaOrder->status != 'sent') {
                 $this->alert('info', 'Gagal Menambah Evidence', [
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,
                     'text' => 'Tidak dapat menambah evidence karena status Media Order sudah berubah!',
+                    'showCancelButton' => false,
+                    'showConfirmButton' => true,
+                    'confirmButtonText' => 'Tutup',
+                ]);
+                return;
+            }
+
+            if ($mediaOrder && $mediaOrder->deadline <= now()) {
+                $this->alert('info', 'Gagal Menambah Evidence', [
+                    'position' =>  'center',
+                    'timer' => null,
+                    'toast' => false,
+                    'text' => 'Tidak dapat menambah evidence karena sudah melewati batas Deadline pelaporan evidence!',
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
                     'confirmButtonText' => 'Tutup',
@@ -280,6 +298,7 @@ class Detail extends Component
                     ->update([
                         'status' => 'review',
                         'updated_at' => $now,
+                        'deadline' => null,
                     ]);
 
                 $note = 'Lampiran Evidence dikirim oleh ' . auth()->user()->fullname . ' dari ' . $media->nama_media;

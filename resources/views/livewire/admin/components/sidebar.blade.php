@@ -34,13 +34,35 @@
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 <i class="ri-newspaper-line"></i>
                                 <span>
-                                    Media
+                                    Media Order
+                                </span>
+                            </a>
+                            <ul class="sidebar-submenu">
+                                <li>
+                                    <a href="{{ route('a.media-order') }}">
+                                        Media Order
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('a.media-order.create') }}">
+                                        Agenda Jadwalin Bae
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-list">
+                            <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                <i class="ri-government-line"></i>
+                                <span>
+                                    Media Pers
                                 </span>
                             </a>
                             <ul class="sidebar-submenu">
                                 <li>
                                     <a href="{{ route('media') }}">
-                                        Daftar Media
+                                        Media Pers
                                     </a>
                                 </li>
 
@@ -85,6 +107,11 @@
                                 <li>
                                     <a href="{{ route('media-order') }}">
                                         Daftar Media Order
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Laporan
                                     </a>
                                 </li>
                             </ul>

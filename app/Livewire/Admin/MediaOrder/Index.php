@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Livewire\Client\Media;
+namespace App\Livewire\Admin\MediaOrder;
 
-use Carbon\Carbon;
 use App\Models\Order;
+use Carbon\Carbon;
 use Livewire\Component;
-use Carbon\CarbonPeriod;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +22,6 @@ class Index extends Component
     public function render()
     {
         $datas = Order::search($this->search)
-            ->where('media_id', auth()->user()->getMedia->id)
             ->when($this->filterStatus, function ($q) {
                 $q->where('status', $this->filterStatus);
             })
@@ -36,38 +34,22 @@ class Index extends Component
             })
             ->latest('tanggal_pelaksanaan')
             ->latest('waktu_pelaksanaan')
-            ->paginate(10);
-
+            ->paginate(5);
         if ($this->getPage() == 1 && !$this->search && !$this->filterDate && !$this->filterStatus && $datas->count() == 0) {
             $latestDate = DB::table('orders')
-                ->where('media_id', auth()->user()->getMedia->id)
                 ->max('tanggal_pelaksanaan');
             $this->filterDate = Carbon::parse($latestDate)->isoFormat('Y-MM-DD');
-            $datas = Order::where('media_id', auth()->user()->getMedia->id)
-                ->whereDate('tanggal_pelaksanaan', $latestDate)
+            $datas = Order::whereDate('tanggal_pelaksanaan', $latestDate)
                 ->latest('tanggal_pelaksanaan')
                 ->latest('waktu_pelaksanaan')
-                ->paginate(10);
+                ->paginate(5);
         }
 
-        return view('livewire.client.media.index', [
+        return view('livewire.admin.media-order.index', [
             'datas' => $datas,
         ])
             ->layout('layouts.app', [
                 'title' => "Daftar Media Order"
             ]);
-    }
-
-    function goSearch()
-    {
-        $this->resetPage();
-    }
-
-    function resetSearch()
-    {
-        $this->search = null;
-        $this->filterStatus = null;
-        $this->filterDate = null;
-        $this->resetPage();
     }
 }

@@ -36,6 +36,7 @@ class Dashboard extends Component
 
         $timelines = [];
         $arrTimeline = DB::table('orders')
+            ->where('media_id', $this->pers->id)
             // ->whereDate('tanggal_pelaksanaan', Carbon::now()->subDay())
             ->whereDate('tanggal_pelaksanaan', Carbon::now())
             ->orderBy('waktu_pelaksanaan')
@@ -46,6 +47,7 @@ class Dashboard extends Component
 
             $timelines[] = [
                 'id' => $tl->id,
+                'order_code' => $tl->order_code,
                 'nama_acara' => $dataAgenda['nama_acara'] ?? null,
                 'tanggal_pelaksanaan' => $tl->tanggal_pelaksanaan,
                 'tanggal_pelaksanaan_akhir' => $tl->tanggal_pelaksanaan_akhir,
@@ -59,7 +61,7 @@ class Dashboard extends Component
         }
 
         $chartMediaOrder = LivewireCharts::multiLineChartModel()
-            ->setTitle('Media Order')
+            ->setTitle('Media Order Bulan Ini')
             ->setAnimated(true)
             ->setLegendVisibility(false)
             ->setDataLabelsEnabled(true)

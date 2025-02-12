@@ -7,7 +7,7 @@ use Carbon\Carbon;
     <div class="col-12">
         <div class="title-header option-title d-sm-flex d-block">
             <h5>
-                Dashboard Client
+                Hi, {{ auth()->user()->first_name }}. Selamat Datang di Dashboard {{ env('APP_NAME') }}
             </h5>
             <div>
                 @if($isMediaUnverified == false)
@@ -25,7 +25,7 @@ use Carbon\Carbon;
     <!-- chart caard section start -->
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 border-0  card-hover card o-hidden">
-            <div class="custome-1-bg b-r-4 card-body">
+            <a href="{{ route('media-order') }}" class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
@@ -39,17 +39,17 @@ use Carbon\Carbon;
                         <i class="ri-database-2-line"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0 card o-hidden">
-            <div class="custome-2-bg b-r-4 card-body">
+            <a href="{{ route('media-order') }}" class="custome-2-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Media Order Belum Dikerjakan
+                            Belum Dikerjakan
                         </span>
                         <h4 class="mb-0 counter">
                             {{ count($mediaOrders->where('status','sent')) }}
@@ -59,20 +59,20 @@ use Carbon\Carbon;
                         <i class="ri-shopping-bag-3-line"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0  card o-hidden">
-            <div class="custome-3-bg b-r-4 card-body">
+            <a href="{{ route('media-order') }}" class="custome-3-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Selesai Dikerjakan
+                            Media Order Sedang Direview
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['review','verified'])) }}
+                            {{ count($mediaOrders->whereIn('status',['review'])) }}
                         </h4>
                     </div>
 
@@ -80,20 +80,20 @@ use Carbon\Carbon;
                         <i class="ri-chat-3-line"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
     <div class="col-sm-6 col-xxl-3 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0 card o-hidden">
-            <div class="custome-4-bg b-r-4 card-body">
+            <a href="{{ route('media-order') }}" class="custome-4-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Selesai Pembayaran
+                            Sudah Dikerjakan
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['done'])) }}
+                            {{ count($mediaOrders->whereIn('status',['verified','done'])) }}
                         </h4>
                     </div>
 
@@ -101,7 +101,7 @@ use Carbon\Carbon;
                         <i class="ri-user-add-line"></i>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 
@@ -148,7 +148,6 @@ use Carbon\Carbon;
                         <div class="content d-flex align-items-center gap-2">
                             <i class="ri-calendar-todo-fill"></i>
                             <span>
-                                {{-- 6 Maret 2025 | 12:00 WIB --}}
                                 {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
                                 {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
                             </span>
@@ -159,33 +158,16 @@ use Carbon\Carbon;
                                 {{ $tl['leading_sector'] }}
                             </span>
                         </div>
+                        <div class="content d-flex align-items-center gap-2">
+                            <i class="ri-links-line"></i>
+                            <span style="font-size: 12px">
+                                <a href="{{ route('media-order.detail', $tl['order_code']) }}">
+                                    Buka Media Order
+                                </a>
+                            </span>
+                        </div>
                     </li>
                     @endforeach
-
-                    {{-- <li class="progtrckr-todo">
-                        <h5>
-                            Entry Meeting Inspektorat Provinsi Sumatera Selatan dalam rangka Melakukan Pemeriksaan Akhir
-                            masa Jabatan Bupati Ogan Ilir Hasil Pemilihan Kepala Daerah Serantak Tahun 2020
-                        </h5>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-map-pin-line"></i>
-                            <span>
-                                Lokasi Acara
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-calendar-todo-fill"></i>
-                            <span>
-                                6 Maret 2025 | 12:00 WIB
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-government-line"></i>
-                            <span>
-                                Leading Sector
-                            </span>
-                        </div>
-                    </li> --}}
                 </ol>
                 @else
                 <div class="alert alert-primary" role="alert">

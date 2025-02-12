@@ -38,6 +38,7 @@ return new class extends Migration
             $table->time('waktu_pelaksanaan');
             $table->text('leading_sector')->nullable();
             $table->enum('status', ['sent', 'accepted', 'rejected', 'review', 'verified', 'unverified', 'done'])->default('sent');
+            $table->dateTime('deadline')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

@@ -584,7 +584,6 @@ use Carbon\Carbon;
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div class="">
-                        {{-- filter Date --}}
                         <div class="d-flex align-items-center gap-2">
                             <label for="filterDate" class="form-label">
                                 Filter

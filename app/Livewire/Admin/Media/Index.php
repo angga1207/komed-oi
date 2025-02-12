@@ -115,7 +115,6 @@ class Index extends Component
     function addOrder($id)
     {
         if (in_array($id, $this->selecteAgendaToOrder)) {
-            // unset
             $key = array_search($id, $this->selecteAgendaToOrder);
             unset($this->selecteAgendaToOrder[$key]);
             return;
@@ -190,6 +189,7 @@ class Index extends Component
                                 'tanggal_pelaksanaan_akhir' => $agd->tanggal_pelaksanaan_akhir,
                                 'waktu_pelaksanaan' => $agd->waktu_pelaksanaan,
                                 'leading_sector' => $agd->leading_sector,
+                                'deadline' => Carbon::parse($now)->addDays(7)->isoFormat('Y-mm-DD HH:mm:ss'),
                                 'status' => 'sent',
                                 'created_at' => $now,
                                 'updated_at' => $now,

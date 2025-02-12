@@ -73,7 +73,7 @@ class MediaOrderController extends Controller
                 // 'data_agenda' => $agenda->data ? json_decode($agenda->data) : [],
                 'status' => $order->status,
                 'created_at' => $order->created_at,
-                'deadline' => Carbon::parse($order->created_at)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),
+                'deadline' => $order->deadline ? Carbon::parse($order->deadline)->isoFormat('Y-MM-DD HH:mm:ss') : null,
                 'updated_at' => $order->updated_at,
                 'status_logs' => $statusLogs ?? [],
             ];
@@ -125,7 +125,7 @@ class MediaOrderController extends Controller
         $return['leading_sector'] = $data->leading_sector;
         $return['status'] = $data->status;
         $return['created_at'] = $data->created_at;
-        $return['deadline'] = Carbon::parse($data->created_at)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss');
+        $return['deadline'] = $data->deadline ? Carbon::parse($data->deadline)->isoFormat('Y-MM-DD HH:mm:ss') : null;
         $return['evidences'] = $evidences ?? [];
         $return['logs'] = $logs ?? [];
 

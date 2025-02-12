@@ -73,7 +73,7 @@ use Carbon\Carbon;
                                     </td>
 
                                     <td>
-                                        <div>
+                                        <div style="white-space: normal">
                                             {{ $data->lokasi }}
                                         </div>
                                         <div>
@@ -87,7 +87,7 @@ use Carbon\Carbon;
                                         <span class="badge badge-success">
                                             Belum Dikerjakan
                                         </span>
-                                        <div x-init="startTimer('{{ Carbon::parse($data->created_at)->addDays(7) }}','timer{{ $data->id }}')"
+                                        <div x-init="startTimer('{{ Carbon::parse($data->deadline) }}','timer{{ $data->id }}')"
                                             id="timer{{ $data->id }}">
                                         </div>
                                         @elseif($data->status == 'review')
@@ -173,7 +173,6 @@ use Carbon\Carbon;
             // Set the date we're counting down to
             // var countDownDate = new Date("Jan 5, 2021 15:37:25").getTime();
             var countDownDate = new Date(date).getTime();
-            console.log(date, countDownDate)
 
             // Update the count down every 1 second
             var x = setInterval(function() {

@@ -58,11 +58,11 @@ use Carbon\Carbon;
 
                                                     @if($mediaOrder->status == 'sent')
                                                     <span class="badge badge-success text-white">
-                                                        Belum Dikerjakan
+                                                        Dikirim
                                                     </span>
                                                     @elseif($mediaOrder->status == 'review')
                                                     <span class="badge badge-warning text-white">
-                                                        Sedang Direview Admin
+                                                        Menunggu Review
                                                     </span>
                                                     @elseif($mediaOrder->status == 'verified')
                                                     <span class="badge badge-primary text-white">
@@ -140,14 +140,14 @@ use Carbon\Carbon;
                                                 <thead>
                                                     <tr class="table-head">
                                                         <th scope="col" class="text-center" style="width:100px">
-                                                            Jenis Evidence
+                                                            Jenis Eviden
                                                         </th>
                                                         <th scope="col" class="text-center" style="width:200px">
                                                             Tautan
                                                         </th>
-                                                        <th scope="col" class="text-center" style="width:50px">
+                                                        {{-- <th scope="col" class="text-center" style="width:50px">
                                                             Opsi
-                                                        </th>
+                                                        </th> --}}
                                                     </tr>
                                                 </thead>
 
@@ -176,13 +176,13 @@ use Carbon\Carbon;
                                                                     style="width:100%; height:50px; object-fit:contain">
                                                                 @elseif($evi->type == 'link')
                                                                 <a href="{{ $evi->url }}" target="_blank"
-                                                                    style="width:250px" class="text-truncate">
+                                                                    style="max-width:300px" class="text-truncate">
                                                                     {{ $evi->url }}
                                                                 </a>
                                                                 @endif
                                                             </h6>
                                                         </td>
-                                                        <td>
+                                                        {{-- <td>
                                                             <div class="text-center">
                                                                 @if($mediaOrder->status == 'sent')
                                                                 <a href="javascript:void(0)"
@@ -193,7 +193,7 @@ use Carbon\Carbon;
                                                                 -
                                                                 @endif
                                                             </div>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                     @empty
                                                     <tr>
@@ -212,23 +212,19 @@ use Carbon\Carbon;
                             </div>
                         </div>
                         <div class="card-footer text-end border-0 pb-0 d-flex justify-content-end">
-                            @if($mediaOrder->status == 'sent' && $mediaOrder->deadline >= now())
+                            @if($mediaOrder->status == 'review')
                             <button class="btn btn-primary me-3" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalToggle" wire:click="addEvidence()">
-                                Unggah Evidence
+                                data-bs-target="#exampleModalToggle" wire:click.prevent='openRespond'>
+                                Tanggapi Media Order
                             </button>
-                            @elseif($mediaOrder->status == 'sent' && $mediaOrder->deadline <= now()) <button
-                                class="btn btn-secondary me-3">
-                                Sudah Lewat Batas
+                            @endif
+                            @if($mediaOrder->deadline <= now()) <button class="btn btn-primary me-3"
+                                data-bs-toggle="modal" data-bs-target="#openAddDuration"
+                                wire:click.prevent='openAddDuration'>
+                                Tambah Durasi Deadline
                                 </button>
                                 @endif
-
-                                @if(count($evidences) > 0 && $mediaOrder->status == 'sent')
-                                <button class="btn btn-primary me-3" wire:click="comfirmSendEvidence()">
-                                    Kirim Evidence
-                                </button>
-                                @endif
-                                <a href="{{ route('media-order') }}" class="btn btn-outline">
+                                <a href="{{ route('a.media-order') }}" class="btn btn-outline">
                                     Kembali
                                 </a>
                         </div>
@@ -238,14 +234,14 @@ use Carbon\Carbon;
         </div>
     </div>
 
-    @if($mediaOrder->status == 'sent')
+    @if($mediaOrder->status == 'review')
     <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true"
         tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        Tambah Evidence
+                        Tanggapi Media Order
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="closeModal">
@@ -253,59 +249,50 @@ use Carbon\Carbon;
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="row" wire:submit.prevent="uploadEvidence">
+                    <form class="row" wire:submit.prevent="comfirmRespondMediaOrder">
                         <div class="col-12">
-                            <label class="col-form-label">Jenis Evidence:</label>
-                            <select class="form-select" wire:model.live="input.type">
+                            <label class="col-form-label">Status:</label>
+                            <select class="form-select" wire:model.live="input.status">
                                 <option value="" hidden>
-                                    Pilih Jenis Evidence
+                                    Pilih Status
                                 </option>
-                                <option value="image">
-                                    Gambar
+                                <option value="sent">
+                                    Kembalikan
                                 </option>
-                                <option value="link">
-                                    Link / Tautan
+                                <option value="verified">
+                                    Verifikasi
+                                </option>
+                                <option value="done">
+                                    Verifikasi & Selesaikan
                                 </option>
                             </select>
 
-                            @error('input.type')
+                            @error('input.status')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
-                        @if($input['type'] == 'link')
                         <div class="col-12">
-                            <label for="link" class="col-form-label">Link / Tautan:</label>
-                            <input type="text" class="form-control" id="link" autocomplete="off"
-                                placeholder="Link / Tautan" wire:model="input.link">
+                            <label for="link" class="col-form-label">Pesan:</label>
+                            <textarea class="form-control" id="link" autocomplete="off" placeholder="Pesan"
+                                style="height: 250px" wire:model="input.note"></textarea>
 
-                            @error('input.link')
+                            @error('input.note')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
-                        @elseif($input['type'] == 'image')
-                        <div class="col-12">
-                            <label for="files" class="col-form-label">Berkas Eviden:</label>
-                            <input type="file" class="form-control" id="files" autocomplete="off" multiple
-                                accept=".jpeg,.jpg,.png" wire:model="input.files">
-                            @error('input.files')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        @endif
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success btn-animation btn-md fw-bold" data-bs-dismiss="modal"
                         wire:click="closeModal">
-                        Tutup
+                        Batal
                     </button>
-                    <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="uploadEvidence">
+                    <button type="button" class="btn btn-animation btn-md fw-bold"
+                        wire:click="comfirmRespondMediaOrder">
                         Simpan
                     </button>
                 </div>
@@ -313,6 +300,71 @@ use Carbon\Carbon;
         </div>
     </div>
     @endif
+
+    <div>
+        <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="openAddDuration" aria-hidden="true"
+            tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header d-block text-start">
+                        <h5 class="modal-title w-100" id="exampleModalLabel22">
+                            Tambah Durasi Deadline
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            wire:click="closeModal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row" wire:submit.prevent="comfirmRespondMediaOrder">
+                            <div class="col-12">
+                                <label class="col-form-label">Hari:</label>
+                                <input class="form-control" type="number" min="1" max="3" autocomplete="off"
+                                    placeholder="Pesan" wire:model="addDuration.days" />
+
+                                @error('addDuration.days')
+                                <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            {{-- <div class="col-4">
+                                <label class="col-form-label">Jam:</label>
+                                <input class="form-control" type="number" min="0" max="60" autocomplete="off"
+                                    placeholder="Pesan" wire:model="addDuration.hours" />
+
+                                @error('addDuration.hours')
+                                <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="col-4">
+                                <label class="col-form-label">Menit:</label>
+                                <input class="form-control" type="number" min="0" max="60" autocomplete="off"
+                                    placeholder="Pesan" wire:model="addDuration.minutes" />
+
+                                @error('addDuration.minutes')
+                                <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div> --}}
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
+                            data-bs-dismiss="modal" wire:click="closeModal">
+                            Batal
+                        </button>
+                        <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="confirmAddDuration">
+                            Tambahkan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @push('styles')
     <style>
