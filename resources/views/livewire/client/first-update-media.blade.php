@@ -6,7 +6,6 @@
         <div class="col-12">
             <div class="card py-0" style="height: calc(100vh - 180px); overflow-x:auto">
                 <div class="card-header-2 pt-4">
-                    {{ $step }}
                     @if(!$jenisMedia)
                     <h5>
                         Pilih Jenis Media
