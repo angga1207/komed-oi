@@ -107,12 +107,11 @@ class Register extends Component
                     'showConfirmButton' =>  true,
                     'confirmButtonText' =>  'Tutup',
                 ], 'client-dashboard');
-            } else {
-                return $this->validationErrorResponse(['nik' => 'N.I.K sudah terdaftar']);
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
         }
     }
 
