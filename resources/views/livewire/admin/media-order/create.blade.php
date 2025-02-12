@@ -90,6 +90,9 @@ use Carbon\Carbon;
                                                     <th style="font-size: 13px; width:150px" class="p-2 text-center">
                                                         Status
                                                     </th>
+                                                    <th style="font-size: 13px; width:1px" class="p-2 text-center">
+
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -130,15 +133,12 @@ use Carbon\Carbon;
                                                             Selesai
                                                         </span>
                                                         @endif
-
-                                                        {{-- @if($ord['deadline'])
-                                                        {{ Carbon::parse($ord['deadline'])->isoFormat('DD MMMM Y, HH:mm
-                                                        [WIB]') }}
-                                                        @else
-                                                        <span class="text-danger" style="font-size: 11px">
-                                                            Sudah Lewat Batas
-                                                        </span>
-                                                        @endif --}}
+                                                    </td>
+                                                    <td style="font-size: 13px" class="p-2 text-center">
+                                                        <a
+                                                            href="{{ route('a.media-order.detail', $ord['order_code']) }}">
+                                                            Lihat Media Order
+                                                        </a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
