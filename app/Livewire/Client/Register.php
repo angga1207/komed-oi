@@ -69,16 +69,17 @@ class Register extends Component
 
                 $unique_id = $this->generateUniqueID();
 
-                $pers = DB::table('pers_profile')->insert([
-                    'user_id' => $user->id,
-                    'unique_id' => $unique_id,
-                    'nik' => $this->username,
-                    'whatsapp' => $this->whatsapp,
-                    'verified_status' => null,
-                    'verification_deadline' => null,
-                    'created_at' => $now,
-                    'updated_at' => $now
-                ]);
+                $pers = DB::table('pers_profile')
+                    ->insert([
+                        'user_id' => $user->id,
+                        'unique_id' => $unique_id,
+                        'nik' => $this->username,
+                        'whatsapp' => $this->whatsapp,
+                        'verified_status' => null,
+                        'verification_deadline' => null,
+                        'created_at' => $now,
+                        'updated_at' => $now
+                    ]);
 
                 // make log start
                 $log = [

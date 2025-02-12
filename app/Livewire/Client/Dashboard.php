@@ -22,7 +22,6 @@ class Dashboard extends Component
             $this->isMediaUnverified = true;
         } else {
             $this->isMediaUnverified = false;
-            return;
         }
         $this->pers = $pers;
     }
