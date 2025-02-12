@@ -6,6 +6,7 @@
         <div class="col-12">
             <div class="card py-0" style="height: calc(100vh - 180px); overflow-x:auto">
                 <div class="card-header-2 pt-4">
+                    {{ $step }}
                     @if(!$jenisMedia)
                     <h5>
                         Pilih Jenis Media
@@ -469,7 +470,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.akta_pendirian' wire:loading.attr='disabled'>
+                                wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
                             @error('input.akta_pendirian')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -484,7 +485,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
                             @error('input.sk_kemenkumham')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -499,7 +500,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.siup' wire:loading.attr='disabled'>
+                                wire:model='input.siup' wire:loading.attr='disabled'>
                             @error('input.siup')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -514,7 +515,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.tdp_penerbitan_58130' wire:loading.attr='disabled'>
+                                wire:model='input.tdp_penerbitan_58130' wire:loading.attr='disabled'>
                             @error('input.tdp_penerbitan_58130')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -529,7 +530,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.spt_terakhir' wire:loading.attr='disabled'>
+                                wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
                             @error('input.spt_terakhir')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -544,7 +545,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
+                                wire:model='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
                             @error('input.sp_cakupan_wilayah')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -559,7 +560,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sp_pimpinan' wire:loading.attr='disabled'>
+                                wire:model='input.sp_pimpinan' wire:loading.attr='disabled'>
                             @error('input.sp_pimpinan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -574,7 +575,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
                             @error('input.surat_tugas_wartawan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -589,7 +590,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.akta_pendirian' wire:loading.attr='disabled'>
+                                wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
                             @error('input.akta_pendirian')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -604,7 +605,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
                             @error('input.sk_kemenkumham')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -619,7 +620,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.izin_ipp' wire:loading.attr='disabled'>
+                                wire:model='input.izin_ipp' wire:loading.attr='disabled'>
                             @error('input.izin_ipp')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -634,7 +635,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.izin_isr' wire:loading.attr='disabled'>
+                                wire:model='input.izin_isr' wire:loading.attr='disabled'>
                             @error('input.izin_isr')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -649,7 +650,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.siup' wire:loading.attr='disabled'>
+                                wire:model='input.siup' wire:loading.attr='disabled'>
                             @error('input.siup')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -664,7 +665,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.tdp_penyiaran_60102' wire:loading.attr='disabled'>
+                                wire:model='input.tdp_penyiaran_60102' wire:loading.attr='disabled'>
                             @error('input.tdp_penyiaran_60102')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -679,7 +680,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.spt_terakhir' wire:loading.attr='disabled'>
+                                wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
                             @error('input.spt_terakhir')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -694,7 +695,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
+                                wire:model='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
                             @error('input.sp_cakupan_wilayah')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -709,7 +710,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sp_pimpinan' wire:loading.attr='disabled'>
+                                wire:model='input.sp_pimpinan' wire:loading.attr='disabled'>
                             @error('input.sp_pimpinan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -724,7 +725,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sk_biro_iklan' wire:loading.attr='disabled'>
+                                wire:model='input.sk_biro_iklan' wire:loading.attr='disabled'>
                             @error('input.sk_biro_iklan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -739,7 +740,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
                             @error('input.surat_tugas_wartawan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -755,7 +756,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.akta_pendirian' wire:loading.attr='disabled'>
+                                wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
                             @error('input.akta_pendirian')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -770,7 +771,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
                             @error('input.sk_kemenkumham')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -785,7 +786,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.siup' wire:loading.attr='disabled'>
+                                wire:model='input.siup' wire:loading.attr='disabled'>
                             @error('input.siup')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -800,7 +801,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.tdp_penerbitan_63122' wire:loading.attr='disabled'>
+                                wire:model='input.tdp_penerbitan_63122' wire:loading.attr='disabled'>
                             @error('input.tdp_penerbitan_63122')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -815,7 +816,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.spt_terakhir' wire:loading.attr='disabled'>
+                                wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
                             @error('input.spt_terakhir')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -830,7 +831,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.situ' wire:loading.attr='disabled'>
+                                wire:model='input.situ' wire:loading.attr='disabled'>
                             @error('input.situ')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -845,7 +846,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.sk_domisili' wire:loading.attr='disabled'>
+                                wire:model='input.sk_domisili' wire:loading.attr='disabled'>
                             @error('input.sk_domisili')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
@@ -860,7 +861,7 @@
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
-                                wire:model.live='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
                             @error('input.surat_tugas_wartawan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
