@@ -171,7 +171,7 @@
         </div>
 
         <div class="col-12">
-            <button class="btn btn-animation w-100 justify-content-center" type="submit">
+            <button class="btn btn-warning btn-animation w-100 justify-content-center" type="submit">
                 Masuk
             </button>
             <h5 class="new-page mt-3 text-center">
@@ -183,7 +183,7 @@
         </div>
 
         {{-- <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg"
                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
                 Masuk
             </button>

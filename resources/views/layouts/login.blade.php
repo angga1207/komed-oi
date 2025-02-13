@@ -48,6 +48,17 @@
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{ asset('images/icon.png') }}" style="height: 75px; object-fit:contain" />
+                        <div class="text-center flex-grow-1">
+                            <h2 class="">
+                                Aplikasi Komunikasi Media
+                            </h2>
+                            <h2 class="">
+                                Kabupaten Ogan Ilir
+                            </h2>
+                        </div>
+                    </div>
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                         class="img-fluid" alt="Sample image">
                 </div>
@@ -57,10 +68,11 @@
             </div>
         </div>
         <div
-            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-warning">
             <!-- Copyright -->
             <div class="text-white mb-3 mb-md-0">
-                Copyright © 2020. All rights reserved.
+                {{ env('APP_NAME') }} | DISKOMINFO OGAN ILIR |
+                Copyright © {{ date('Y') == 2024 ? 2024 : '2024 - '. date('Y') }}
             </div>
             <!-- Copyright -->
         </div>

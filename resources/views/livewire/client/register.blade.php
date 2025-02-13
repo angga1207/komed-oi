@@ -203,7 +203,7 @@
                 </div> --}}
 
                 <div class="col-12">
-                    <button class="btn btn-animation w-100 justify-content-center" type="submit">
+                    <button class="btn btn-warning btn-animation w-100 justify-content-center" type="submit">
                         Daftar
                     </button>
                     <h5 class="new-page mt-3 text-center">
