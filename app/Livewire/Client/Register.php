@@ -16,7 +16,7 @@ class Register extends Component
     public function render()
     {
         return view('livewire.client.register')
-            ->layout('layouts.auth', [
+            ->layout('layouts.login', [
                 'title' => 'Pendaftaran Akun'
             ]);
     }

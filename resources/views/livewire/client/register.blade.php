@@ -1,10 +1,21 @@
 <div>
     <div class="log-in-box">
-        <div class="log-in-title">
+        {{-- <div class="log-in-title">
             <h3>
                 Selamat Datang di {{ env('APP_NAME') }}
             </h3>
             <h4>
+                Isi form di bawah ini untuk mendaftar.
+            </h4>
+        </div> --}}
+
+        <div class="divider d-flex align-items-center mt-2">
+            <h3 class="text-center fw-bold mx-3 mb-0">
+                Selamat Datang di {{ env('APP_NAME') }}
+            </h3>
+        </div>
+        <div class="divider d-flex align-items-center mb-2">
+            <h4 class="text-center fw-bold mx-3 mb-0">
                 Isi form di bawah ini untuk mendaftar.
             </h4>
         </div>

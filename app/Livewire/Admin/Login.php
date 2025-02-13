@@ -15,7 +15,7 @@ class Login extends Component
     public function render()
     {
         return view('livewire.admin.login')
-            ->layout('layouts.auth', [
+            ->layout('layouts.login', [
                 'title' => 'Login'
             ]);
     }
