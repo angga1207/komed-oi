@@ -107,7 +107,7 @@
 
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg"
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
                 placeholder="Masukkan Username / N.I.K." wire:model='username' />
             <label class="form-label" for="form3Example3">
                 Username / N.I.K
