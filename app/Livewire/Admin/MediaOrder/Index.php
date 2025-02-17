@@ -52,4 +52,9 @@ class Index extends Component
                 'title' => "Daftar Media Order"
             ]);
     }
+
+    function goSearch()
+    {
+        $this->resetPage();
+    }
 }

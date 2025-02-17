@@ -1,3 +1,8 @@
+<?php
+
+use Carbon\Carbon;
+
+?>
 <div>
     <!-- Page Header Start-->
     <div class="page-header">
@@ -43,26 +48,51 @@
                     <li class="onhover-dropdown">
                         <div class="notification-box">
                             <i class="ri-notification-line"></i>
-                            @if(count($notifications) > 0)
+                            @if(count(collect($notifications)->where('read_at', null)) > 0)
                             <span class="badge rounded-pill badge-theme">
-                                {{ count($notifications) }}
+                                {{ count(collect($notifications)->where('read_at', null)) }}
                             </span>
                             @endif
                         </div>
                         <ul class="notification-dropdown onhover-show-div">
                             <li>
                                 <i class="ri-notification-line"></i>
-                                <h6 class="f-18 mb-0">Notitications</h6>
+                                <h6 class="f-18 mb-0">
+                                    Notifikasi
+                                </h6>
                             </li>
                             @forelse($notifications as $notif)
                             <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-primary"></i>
-                                    Delivery processing
-                                    <span class="pull-right">
-                                        10 min.
-                                    </span>
-                                </p>
+                                @if($notif->type == 'App\Notifications\RegVerifNotification')
+                                <a href="#">
+                                    <p class="@if($notif->read_at == null) text-success @else text-primary @endif">
+                                        @if($notif->read_at == null)
+                                        <i class="fa fa-circle me-2 font-primary"></i>
+                                        @else
+                                        <i class="fa fa-circle me-2 font-secondary"></i>
+                                        @endif
+                                        {{ str()->headline($notif->data['title']) ?? '-' }}
+                                        <span class="pull-right">
+                                            {{ Carbon::parse($notif->created_at)->diffForHumans() }}
+                                        </span>
+                                    </p>
+                                </a>
+                                @elseif($notif->type == 'App\Notifications\OrderNotifications')
+                                <a href="{{ route('media-order') }}"
+                                    wire:click.prevent="markAsReadNotif('{{ $notif->id }}')">
+                                    <p class="@if($notif->read_at == null) text-success @else text-primary @endif">
+                                        @if($notif->read_at == null)
+                                        <i class="fa fa-circle me-2 font-primary"></i>
+                                        @else
+                                        <i class="fa fa-circle me-2 font-danger"></i>
+                                        @endif
+                                        {{ str()->headline($notif->data['title']) ?? '-' }}
+                                        <span class="pull-right">
+                                            {{ Carbon::parse($notif->created_at)->diffForHumans() }}
+                                        </span>
+                                    </p>
+                                </a>
+                                @endif
                             </li>
                             @empty
                             <li>
@@ -72,6 +102,11 @@
                                 </p>
                             </li>
                             @endforelse
+                            <li>
+                                <a class="btn btn-primary" href="javascript:void(0)">
+                                    Lihat Semua
+                                </a>
+                            </li>
                         </ul>
                     </li>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\MediaOrderController;
 use App\Http\Controllers\API\PersonalController;
 use App\Http\Controllers\API\RegisterController;
@@ -20,6 +21,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/updateFcmToken', [AuthController::class, 'updateFcmToken']);
 
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'getDashboard']);
+
     // Profile
     Route::get('/profile', [PersonalController::class, 'getMe']);
     Route::post('/profile/update', [PersonalController::class, 'updateProfile']);
@@ -31,6 +35,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Media Order
     Route::get('/media-order', [MediaOrderController::class, 'getMediaOrder']);
     Route::get('/media-order/{id}', [MediaOrderController::class, 'singleMediaOrder']);
+    Route::post('/media-order/{id}/upload-evidence', [MediaOrderController::class, 'uploadEvidences']);
+    Route::post('/media-order/{id}/send-evidence', [MediaOrderController::class, 'sentToVerificator']);
+    Route::post('/media-order/delete-evidence/{id}', [MediaOrderController::class, 'deleteEvidence']);
 
     Route::get('/media/get', [RegisterController::class, 'getMedia']);
     Route::post('/media/update', [RegisterController::class, 'updateMedia']);

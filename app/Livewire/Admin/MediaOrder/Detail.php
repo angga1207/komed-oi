@@ -28,6 +28,7 @@ class Detail extends Component
         return [
             'respondMediaOrder' => 'respondMediaOrder',
             'goAddDuration' => 'goAddDuration',
+            'deleteEvidence' => 'deleteEvidence',
         ];
     }
 
@@ -337,6 +338,57 @@ class Detail extends Component
             ];
             $this->dispatch('closeModal');
             $this->mount($mediaOrder->order_code);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
+            // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
+    }
+
+    function confirmDeleteEvidence($id)
+    {
+        $this->deleteEviId = $id;
+        $this->confirm('Hapus Lampiran Evidence', [
+            'text' => 'Apakah Anda yakin ingin menghapus lampiran evidence ini?',
+            'toast' => false,
+            'position' => 'center',
+            'timer' => null,
+            'showCancelButton' => true,
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Batal',
+            'confirmButtonText' => 'Ya, Hapus',
+            'onConfirmed' => 'deleteEvidence'
+        ]);
+    }
+
+    function deleteEvidence()
+    {
+        DB::beginTransaction();
+        try {
+            $evidence = DB::table('order_evidences')
+                ->where('id', $this->deleteEviId)
+                ->first();
+            if ($evidence) {
+                DB::table('order_evidences')
+                    ->where('id', $this->deleteEviId)
+                    ->delete();
+            }
+
+            DB::commit();
+
+            $this->alert('success', 'Berhasil Dihapus', [
+                'position' =>  'center',
+                'timer' => null,
+                'toast' => false,
+                'text' => 'Lampiran Evidence berhasil dihapus.',
+                'showCancelButton' => false,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'Tutup',
+            ]);
+            $this->deleteEviId = null;
+            $this->dispatch('closeModal');
+            $this->mount($this->mediaOrder->order_code);
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage() . ' - ' . $e->getLine());

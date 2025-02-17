@@ -131,4 +131,268 @@ class MediaOrderController extends Controller
 
         return $this->successResponse($return, 'Media Order berhasil diambil');
     }
+
+    function uploadEvidences($id, Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $now = now();
+        $data = DB::table('orders')
+            ->where('id', $id)
+            ->first();
+        if (!$data) {
+            return $this->notFoundResponse('Media Order tidak dapat kami temukan');
+        }
+        if ($data->status != 'sent') {
+            return $this->validationErrorResponse('Media Order tidak dalam status yang benar');
+        }
+
+        $agenda = DB::table('agendas')->where('id', $data->agenda_id)->first();
+        if (!$agenda) {
+            return $this->notFoundResponse('Agenda tidak dapat kami temukan');
+        }
+
+        $validated = Validator::make($request->all(), [
+            'type' => 'required|string',
+        ], [], [
+            'type' => 'Jenis Evidence',
+        ]);
+
+        if ($validated->fails()) {
+            // return $this->validationErrorResponse($validated->errors());
+            return $this->validationErrorResponse($validated->errors()->first());
+        }
+
+        if ($request->type == 'link') {
+            $validated2 = Validator::make($request->all(), [
+                'url' => 'required|url',
+            ], [], [
+                'url' => 'Link Evidence',
+            ]);
+
+            if ($validated2->fails()) {
+                // return $this->validationErrorResponse($validated2->errors());
+                return $this->validationErrorResponse($validated2->errors()->first());
+            }
+
+            DB::beginTransaction();
+            try {
+                DB::table('order_evidences')->insert([
+                    'order_id' => $id,
+                    'media_id' => $data->media_id,
+                    'agenda_id' => $data->agenda_id,
+                    'type' => 'link',
+                    'url' => $request->url,
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+
+                DB::table('log_order_status')->insert([
+                    'order_id' => $id,
+                    'media_id' => $data->media_id,
+                    'status' => 'evidence_uploaded',
+                    'note' => 'Evidence telah diupload',
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+
+                // make log start
+                $log = [
+                    'id' => uniqid(),
+                    'user_id' => auth()->id(),
+                    'action' => 'upload-evidence',
+                    'model' => 'media_order',
+                    'endpoint' => 'media-order',
+                    'payload' => json_encode(request()->all()),
+                    'message' => 'Menunggah Eviden Baru di Media Order ' . $data->order_code,
+                    'created_at' => now()
+                ];
+                DB::table('user_logs')->insert($log);
+                // make log end
+
+                DB::commit();
+                return $this->successResponse(null, 'Evidence berhasil diupload');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->errorResponse($e->getMessage());
+            }
+        } elseif ($request->type == 'image') {
+            // return $request->all();
+            $validated2 = Validator::make($request->all(), [
+                'evidences' => 'required|array',
+                'evidences.*.file' => 'required|image|mimes:png,jpeg,jpg|max:10000',
+                'evidences.*.description' => 'nullable|string|max:5000',
+            ], [], [
+                'evidences' => 'File Evidence',
+                'evidences.*.file' => 'File Evidence',
+                'evidences.*.description' => 'Deskripsi Evidence',
+            ]);
+
+            if ($validated2->fails()) {
+                // return $this->validationErrorResponse($validated2->errors());
+                return $this->validationErrorResponse($validated2->errors()->first());
+            }
+
+            DB::beginTransaction();
+            try {
+                foreach ($request->evidences as $key => $input) {
+                    // return $input;
+                    $file = $input['file'];
+                    if ($file) {
+                        $filename = $data->order_code . '-' . time() . $key . '.' . $file->extension();
+                        $file->storeAs('public/evidences/' . $data->id, $filename, 'public');
+                        $path = 'storage/public/evidences/' . $data->id . '/' . $filename;
+
+                        DB::table('order_evidences')->insert([
+                            'order_id' => $id,
+                            'media_id' => $data->media_id,
+                            'agenda_id' => $data->agenda_id,
+                            'type' => 'image',
+                            'url' => asset($path),
+                            'description' => $input['description'] ?? null,
+                            'created_at' => $now,
+                            'updated_at' => $now,
+                        ]);
+                    }
+                }
+
+                // make log start
+                $log = [
+                    'id' => uniqid(),
+                    'user_id' => auth()->id(),
+                    'action' => 'upload-evidence',
+                    'model' => 'media_order',
+                    'endpoint' => 'media-order',
+                    'payload' => json_encode(request()->all()),
+                    'message' => 'Menunggah Eviden Baru di Media Order ' . $data->order_code,
+                    'created_at' => now()
+                ];
+                DB::table('user_logs')->insert($log);
+                // make log end
+
+                DB::commit();
+                return $this->successResponse(null, 'Evidence berhasil diupload');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->errorResponse($e->getMessage());
+            }
+        }
+    }
+
+    function deleteEvidence($id, Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $now = now();
+        $data = DB::table('order_evidences')
+            ->where('id', $id)
+            ->first();
+        if (!$data) {
+            return $this->notFoundResponse('Evidence tidak dapat kami temukan');
+        }
+
+        $mediaOrder = DB::table('orders')
+            ->where('id', $data->order_id)
+            ->first();
+
+        DB::beginTransaction();
+        try {
+            DB::table('order_evidences')
+                ->where('id', $id)
+                ->delete();
+
+            // make log start
+            $log = [
+                'id' => uniqid(),
+                'user_id' => auth()->id(),
+                'action' => 'delete-evidence',
+                'model' => 'media_order',
+                'endpoint' => 'media-order',
+                'payload' => json_encode(request()->all()),
+                'message' => 'Menghapus Eviden di Media Order ' . $mediaOrder->order_code,
+                'created_at' => $now,
+            ];
+            DB::table('user_logs')->insert($log);
+            // make log end
+
+            DB::commit();
+            return $this->successResponse(null, 'Evidence berhasil dihapus');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage());
+        }
+    }
+
+    function sentToVerificator($id, Request $request)
+    {
+        if ($this->checkHeader($request) == false) {
+            return $this->unauthorizedResponse('Unauthorized');
+        }
+
+        $now = now();
+        $data = DB::table('orders')
+            ->where('id', $id)
+            ->first();
+        if (!$data) {
+            return $this->notFoundResponse('Media Order tidak dapat kami temukan');
+        }
+        if ($data->status != 'sent') {
+            return $this->validationErrorResponse('Media Order tidak dalam status yang benar');
+        }
+        $agenda = DB::table('agendas')->where('id', $data->agenda_id)->first();
+        if (!$agenda) {
+            return $this->notFoundResponse('Agenda tidak dapat kami temukan');
+        }
+
+        if ($data) {
+            DB::beginTransaction();
+            try {
+                DB::table('orders')
+                    ->where('order_code', $data->order_code)
+                    ->where('status', 'sent')
+                    ->update([
+                        'status' => 'review',
+                        'updated_at' => $now,
+                        'deadline' => null,
+                    ]);
+
+                $note = 'Mengirimkan Lampiran Eviden kepada Admin';
+
+                DB::table('log_order_status')
+                    ->insert([
+                        'order_id' => $data->id,
+                        'media_id' => $data->media_id,
+                        'agenda_id' => $data->agenda_id,
+                        'status' => 'review',
+                        'note' => $note,
+                        'user_id' => auth()->id(),
+                    ]);
+
+
+                // make log start
+                $log = [
+                    'id' => uniqid(),
+                    'user_id' => auth()->id(),
+                    'action' => 'sent-evidence',
+                    'model' => 'media_order',
+                    'endpoint' => 'media-order',
+                    'payload' => json_encode(request()->all()),
+                    'message' => $note,
+                    'created_at' => now()
+                ];
+                DB::table('user_logs')->insert($log);
+                // make log end
+
+                DB::commit();
+                return $this->successResponse(null, 'Evidence berhasil dikirim');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->errorResponse($e->getMessage());
+            }
+        }
+    }
 }

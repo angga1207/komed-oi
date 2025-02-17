@@ -12,8 +12,8 @@ class Navbar extends Component
 {
     public function render()
     {
-        $notifications = [];
-        return view('livewire.admin.components.navbar',[
+        $notifications = auth()->user()->notifications->take(5);
+        return view('livewire.admin.components.navbar', [
             'notifications' => $notifications
         ]);
     }
@@ -36,5 +36,26 @@ class Navbar extends Component
 
         auth()->logout();
         return redirect()->route('login');
+    }
+
+    function markAsReadNotif($id)
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('notifications')
+                ->where('id', $id)
+                ->update([
+                    'read_at' => now(),
+                ]);
+            DB::commit();
+            $notif = DB::table('notifications')
+                ->where('id', $id)
+                ->first();
+            if ($notif->type == 'App\Notifications\OrderNotifications') {
+                return redirect()->route('media-order');
+            };
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
     }
 }

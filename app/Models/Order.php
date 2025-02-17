@@ -36,5 +36,4 @@ class Order extends Model
     {
         return $this->hasMany(OrderStatusLogs::class, 'id', 'media_id');
     }
-
 }

@@ -196,7 +196,8 @@ class RegisterController extends Controller
         $arrFiles = [];
         $typeFiles = DB::table('pers_profile_files')
             ->where('pers_profile_id', $pers->id)
-            ->pluck('file_type');
+            ->pluck('file_type')
+            ->unique();
         foreach ($typeFiles as $type) {
             $file = DB::table('pers_profile_files')
                 ->where('pers_profile_id', $pers->id)

@@ -143,7 +143,10 @@ use Carbon\Carbon;
                                                             Jenis Evidence
                                                         </th>
                                                         <th scope="col" class="text-center" style="width:200px">
-                                                            Tautan
+                                                            Lampiran
+                                                        </th>
+                                                        <th scope="col" class="text-center" style="width:200px">
+                                                            Deskripsi
                                                         </th>
                                                         <th scope="col" class="text-center" style="width:50px">
                                                             Opsi
@@ -183,8 +186,20 @@ use Carbon\Carbon;
                                                             </h6>
                                                         </td>
                                                         <td>
+                                                            <p style="font-size: 12px; white-space: normal">
+                                                                {{ $evi->description }}
+                                                            </p>
+                                                        </td>
+                                                        <td>
                                                             <div class="text-center">
                                                                 @if($mediaOrder->status == 'sent')
+                                                                @if($evi->type == 'image')
+                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalEvidence"
+                                                                    wire:click="editEvidence({{ $evi->id }})">
+                                                                    <i class="ri-edit-2-line text-primary"></i>
+                                                                </a>
+                                                                @endif
                                                                 <a href="javascript:void(0)"
                                                                     wire:click="confirmDeleteEvidence({{ $evi->id }})">
                                                                     <i class="ri-delete-bin-5-line"></i>
@@ -306,6 +321,52 @@ use Carbon\Carbon;
                         Tutup
                     </button>
                     <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="uploadEvidence">
+                        Simpan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="modalEvidence" aria-hidden="true"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-block text-start">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">
+                        Edit Evidence
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        wire:click="closeModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if($detailEvidence)
+                    <form class="row gap-2" wire:submit.prevent="saveEditedEvidence">
+                        <div class="col-12">
+                            <a href="{{ asset($detailEvidence->url) }}" class="text-center w-100" target="_blank">
+                                <img src="{{ asset($detailEvidence->url) }}" class="img-thumbnail w-100"
+                                    style="height:300px; object-fit:contain">
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" wire:model="detailEvidence.description"
+                                placeholder="Deskripsi" style="min-height: 200px;"></textarea>
+                            @error('detailEvidence.description')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </form>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-animation btn-md fw-bold" data-bs-dismiss="modal"
+                        wire:click="closeModal">
+                        Tutup
+                    </button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="saveEditedEvidence">
                         Simpan
                     </button>
                 </div>

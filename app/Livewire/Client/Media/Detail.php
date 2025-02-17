@@ -12,7 +12,7 @@ class Detail extends Component
     use LivewireAlert, WithFileUploads;
     public $mediaOrder = null;
     public $input = [];
-    public $deleteEviId = null;
+    public $deleteEviId = null, $detailEvidence = null;
 
     function getListeners()
     {
@@ -72,6 +72,8 @@ class Detail extends Component
             'link' => null,
             'files' => [],
         ];
+        $this->detailEvidence = null;
+        $this->deleteEviId = null;
     }
 
     function uploadEvidence()
@@ -347,6 +349,43 @@ class Detail extends Component
             dd($e->getMessage() . ' - ' . $e->getLine());
             $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
             // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
+    }
+
+    function editEvidence($id)
+    {
+        $this->detailEvidence = DB::table('order_evidences')
+            ->where('id', $id)
+            ->first();
+    }
+
+    function saveEditedEvidence()
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('order_evidences')
+                ->where('id', $this->detailEvidence->id)
+                ->update([
+                    'description' => $this->detailEvidence->description,
+                ]);
+
+            DB::commit();
+
+            $this->alert('success', 'Berhasil Disimpan', [
+                'position' =>  'center',
+                'timer' => null,
+                'toast' => false,
+                'text' => 'Deskripsi Evidence berhasil disimpan.',
+                'showCancelButton' => false,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'Tutup',
+            ]);
+            $this->detailEvidence = null;
+            $this->dispatch('closeModal');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
         }
     }
 }

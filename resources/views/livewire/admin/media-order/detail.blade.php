@@ -143,11 +143,14 @@ use Carbon\Carbon;
                                                             Jenis Eviden
                                                         </th>
                                                         <th scope="col" class="text-center" style="width:200px">
-                                                            Tautan
+                                                            Lampiran
                                                         </th>
-                                                        {{-- <th scope="col" class="text-center" style="width:50px">
+                                                        <th scope="col" class="text-center" style="width:200px">
+                                                            Deskripsi
+                                                        </th>
+                                                        <th scope="col" class="text-center" style="width:50px">
                                                             Opsi
-                                                        </th> --}}
+                                                        </th>
                                                     </tr>
                                                 </thead>
 
@@ -172,8 +175,12 @@ use Carbon\Carbon;
                                                         <td>
                                                             <h6>
                                                                 @if($evi->type == 'image')
-                                                                <img src="{{ $evi->url }}" class="img-fluid"
+                                                                <a href="{{ $evi->url }}" target="_blank"
+                                                                    class="text-center"
                                                                     style="width:100%; height:50px; object-fit:contain">
+                                                                    <img src="{{ $evi->url }}" class="img-fluid"
+                                                                        style="width:100%; height:50px; object-fit:contain">
+                                                                </a>
                                                                 @elseif($evi->type == 'link')
                                                                 <a href="{{ $evi->url }}" target="_blank"
                                                                     style="max-width:300px" class="text-truncate">
@@ -182,7 +189,12 @@ use Carbon\Carbon;
                                                                 @endif
                                                             </h6>
                                                         </td>
-                                                        {{-- <td>
+                                                        <td>
+                                                            <p style="font-size: 12px; white-space: normal">
+                                                                {{ $evi->description }}
+                                                            </p>
+                                                        </td>
+                                                        <td>
                                                             <div class="text-center">
                                                                 @if($mediaOrder->status == 'sent')
                                                                 <a href="javascript:void(0)"
@@ -193,7 +205,7 @@ use Carbon\Carbon;
                                                                 -
                                                                 @endif
                                                             </div>
-                                                        </td> --}}
+                                                        </td>
                                                     </tr>
                                                     @empty
                                                     <tr>
@@ -218,8 +230,8 @@ use Carbon\Carbon;
                                 Tanggapi Media Order
                             </button>
                             @endif
-                            @if($mediaOrder->deadline <= now()) <button class="btn btn-primary me-3"
-                                data-bs-toggle="modal" data-bs-target="#openAddDuration"
+                            @if($mediaOrder->status == 'sent' && $mediaOrder->deadline <= now()) <button
+                                class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#openAddDuration"
                                 wire:click.prevent='openAddDuration'>
                                 Tambah Durasi Deadline
                                 </button>

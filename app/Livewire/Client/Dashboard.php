@@ -78,7 +78,8 @@ class Dashboard extends Component
                 ->get();
             $chartMediaOrder->addSeriesPoint('Media Order', $dateStr, count($order));
             $chartMediaOrder->addSeriesPoint('Selesai', $dateStr, count($order->whereIn('status', ['verified', 'done'])));
-            $chartMediaOrder->addSeriesPoint('Dikerjakan', $dateStr, count($order->whereIn('status', ['review'])));
+            $chartMediaOrder->addSeriesPoint('Dikerjakan', $dateStr, count($order->whereIn('status', ['sent'])));
+            $chartMediaOrder->addSeriesPoint('Direview', $dateStr, count($order->whereIn('status', ['review'])));
         }
 
         return view('livewire.client.dashboard', [

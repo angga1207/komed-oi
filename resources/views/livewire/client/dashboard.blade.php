@@ -56,7 +56,7 @@ use Carbon\Carbon;
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
-                        <i class="ri-shopping-bag-3-line"></i>
+                        <i class="ri-history-line"></i>
                     </div>
                 </div>
             </a>
@@ -98,7 +98,7 @@ use Carbon\Carbon;
                     </div>
 
                     <div class="align-self-center text-center">
-                        <i class="ri-user-add-line"></i>
+                        <i class="ri-check-double-line"></i>
                     </div>
                 </div>
             </a>

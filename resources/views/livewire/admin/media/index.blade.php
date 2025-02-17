@@ -118,7 +118,7 @@ use Carbon\Carbon;
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0)"
+                                                    <a href="{{ route('media.detail', $data->unique_id) }}"
                                                         class="badge badge-primary d-flex align-items-center gap-1">
                                                         <i class="ri-eye-line text-white"></i>
                                                         Detail
