@@ -9,30 +9,32 @@ use Carbon\Carbon;
         <div class="col-sm-12">
             <div class="card card-table">
                 <div class="card-body">
-                    <div class="title-header option-title flex-wrap gap-2">
+
+                    <div class="title-header option-title flex-wrap align-items-center justify-content-between gap-2">
                         <h5>
-                            Daftar Media Order
+                            Daftar Media Order <br>
+                            {{ Carbon::parse($filterDate)->isoFormat('dddd, DD MMMM Y') }}
                         </h5>
-                        <form class="d-inline-flex justify-content-end flex-grow-1 flex-wrap gap-1"
-                            wire:submit.prevent="goSearch">
-                            <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
-                                <option value="">Semua Status</option>
-                                <option value="sent">Belum Dikerjakan</option>
-                                <option value="review">Menunggu Review</option>
-                                <option value="verified">Terverifikasi</option>
-                                <option value="done">Selesai</option>
-                            </select>
-                            <input type="date" class="form-control" style="max-width:32%"
-                                wire:model.live="filterDate" />
-                            <input type="search" class="form-control" style="max-width:32%" placeholder="Pencarian..."
-                                wire:model="search" />
-                            @if($search || $filterDate)
-                            <div class="" wire:click.prevent="resetSearch" style="cursor: pointer">
-                                <i class="ri-close-circle-line"></i>
-                            </div>
-                            @endif
-                        </form>
                     </div>
+
+                    <form class="mb-2 d-flex align-items-center justify-content-between flex-grow-1 flex-wrap gap-1"
+                        wire:submit.prevent="goSearch">
+                        <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
+                            <option value="">Semua Status</option>
+                            <option value="sent">Belum Dikerjakan</option>
+                            <option value="review">Menunggu Review</option>
+                            <option value="verified">Terverifikasi</option>
+                            <option value="done">Selesai</option>
+                        </select>
+                        <input type="date" class="form-control" style="max-width:32%" wire:model.live="filterDate" />
+                        <input type="search" class="form-control" style="max-width:32%" placeholder="Pencarian..."
+                            wire:model="search" />
+                        @if($search || $filterDate)
+                        <div class="" wire:click.prevent="resetSearch" style="cursor: pointer">
+                            <i class="ri-close-circle-line"></i>
+                        </div>
+                        @endif
+                    </form>
 
                     <div class="table-responsive table-product">
                         <table class="table all-package theme-table" id="table_id">
