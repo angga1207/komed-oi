@@ -189,15 +189,6 @@ class MediaOrderController extends Controller
                     'updated_at' => $now,
                 ]);
 
-                DB::table('log_order_status')->insert([
-                    'order_id' => $id,
-                    'media_id' => $data->media_id,
-                    'status' => 'evidence_uploaded',
-                    'note' => 'Evidence telah diupload',
-                    'created_at' => $now,
-                    'updated_at' => $now,
-                ]);
-
                 // make log start
                 $log = [
                     'id' => uniqid(),
