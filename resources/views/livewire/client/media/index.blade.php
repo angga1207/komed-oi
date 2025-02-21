@@ -22,6 +22,7 @@ use Carbon\Carbon;
                         <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
                             <option value="">Semua Status</option>
                             <option value="sent">Belum Dikerjakan</option>
+                            <option value="rejected">Dikembalikan</option>
                             <option value="review">Menunggu Review</option>
                             <option value="verified">Terverifikasi</option>
                             <option value="done">Selesai</option>
@@ -95,6 +96,10 @@ use Carbon\Carbon;
                                         @elseif($data->status == 'review')
                                         <span class="badge badge-warning">
                                             Sedang Direview Admin
+                                        </span>
+                                        @elseif($data->status == 'rejected')
+                                        <span class="badge badge-warning">
+                                            Dikembalikan Admin
                                         </span>
                                         @elseif($data->status == 'verified')
                                         <span class="badge badge-primary">

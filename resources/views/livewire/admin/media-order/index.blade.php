@@ -28,6 +28,7 @@ use Carbon\Carbon;
                             <option value="">Semua Status</option>
                             Dikirim</option>
                             <option value="review">Menunggu Review</option>
+                            <option value="rejected">Dikembalikan</option>
                             <option value="verified">Terverifikasi</option>
                             <option value="done">Selesai</option>
                         </select>
@@ -130,6 +131,10 @@ use Carbon\Carbon;
                                         @elseif($data->status == 'review')
                                         <span class="badge badge-warning">
                                             Menunggu Review
+                                        </span>
+                                        @elseif($data->status == 'rejected')
+                                        <span class="badge badge-warning">
+                                            Dikembalikan
                                         </span>
                                         @elseif($data->status == 'verified')
                                         <span class="badge badge-primary">

@@ -64,6 +64,10 @@ use Carbon\Carbon;
                                                     <span class="badge badge-warning text-white">
                                                         Sedang Direview Admin
                                                     </span>
+                                                    @elseif($mediaOrder->status == 'rejected')
+                                                    <span class="badge badge-warning text-white">
+                                                        Dikembalikan Admin
+                                                    </span>
                                                     @elseif($mediaOrder->status == 'verified')
                                                     <span class="badge badge-primary text-white">
                                                         Terverifikasi

@@ -64,6 +64,10 @@ use Carbon\Carbon;
                                                     <span class="badge badge-warning text-white">
                                                         Menunggu Review
                                                     </span>
+                                                    @elseif($mediaOrder->status == 'rejected')
+                                                    <span class="badge badge-warning text-white">
+                                                        Dikembalikan
+                                                    </span>
                                                     @elseif($mediaOrder->status == 'verified')
                                                     <span class="badge badge-primary text-white">
                                                         Terverifikasi
@@ -105,6 +109,10 @@ use Carbon\Carbon;
                                                 @elseif($log->status == 'review')
                                                 <span class="fw-bold">
                                                     Sedang Direview Admin
+                                                </span>
+                                                @elseif($log->status == 'rejected')
+                                                <span class="fw-bold">
+                                                    Dikembalikan oleh Admin
                                                 </span>
                                                 @elseif($log->status == 'verified')
                                                 <span class="fw-bold">
@@ -268,7 +276,7 @@ use Carbon\Carbon;
                                 <option value="" hidden>
                                     Pilih Status
                                 </option>
-                                <option value="sent">
+                                <option value="rejected">
                                     Kembalikan
                                 </option>
                                 <option value="verified">
