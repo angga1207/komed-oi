@@ -3,9 +3,11 @@
 namespace App\Livewire\Admin\MediaOrder;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\OrderNotifications;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Detail extends Component
@@ -154,6 +156,12 @@ class Detail extends Component
                     ];
                     DB::table('user_logs')->insert($log);
                     // make log end
+
+                    // send notification start
+                    $user = User::find($media->user_id);
+                    $token = $user->routeNotificationForFcm();
+                    $user->notify(new OrderNotifications($media, $mediaOrder, 'rejected', $token, auth()->id()));
+                    // send notification end
                 } elseif ($this->input['status'] == 'verified') {
                     $note = 'Media Order telah diverifikasi oleh Admin';
                     DB::table('orders')
@@ -188,6 +196,12 @@ class Detail extends Component
                     ];
                     DB::table('user_logs')->insert($log);
                     // make log end
+
+                    // send notification start
+                    $user = User::find($media->user_id);
+                    $token = $user->routeNotificationForFcm();
+                    $user->notify(new OrderNotifications($media, $mediaOrder, 'verified', $token, auth()->id()));
+                    // send notification end
                 } elseif ($this->input['status'] == 'done') {
                     $note = 'Media Order telah diverifikasi dan diselesaikan oleh Admin';
                     DB::table('orders')
@@ -222,6 +236,12 @@ class Detail extends Component
                     ];
                     DB::table('user_logs')->insert($log);
                     // make log end
+
+                    // send notification start
+                    $user = User::find($media->user_id);
+                    $token = $user->routeNotificationForFcm();
+                    $user->notify(new OrderNotifications($media, $mediaOrder, 'done', $token, auth()->id()));
+                    // send notification end
                 }
             }
 
