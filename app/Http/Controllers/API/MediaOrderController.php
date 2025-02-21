@@ -331,7 +331,7 @@ class MediaOrderController extends Controller
         if (!$data) {
             return $this->notFoundResponse('Media Order tidak dapat kami temukan');
         }
-        if (in_array($data->status, ['sent', 'rejected'])) {
+        if (in_array($data->status, ['sent', 'rejected']) == false) {
             return $this->validationErrorResponse('Media Order tidak dalam status yang benar');
         }
         $agenda = DB::table('agendas')->where('id', $data->agenda_id)->first();
