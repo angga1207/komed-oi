@@ -31,9 +31,12 @@ class RegBannedNotification extends Notification
 
     public function toFcm($notifiable): FcmMessage
     {
+        $title = 'Registration Rejected';
+        $body = 'Permintaan verifikasi media pers telah ditolak. Silahkan hubungi admin.';
+
         $notif = FcmNotification::create()
-            ->title('Registration Rejected')
-            ->body('Permintaan verifikasi media pers telah ditolak. Silahkan hubungi admin.')
+            // ->title('Registration Rejected')
+            // ->body('Permintaan verifikasi media pers telah ditolak. Silahkan hubungi admin.')
             ->image(null);
         $admin = User::find($this->fromUserId);
 
@@ -42,6 +45,10 @@ class RegBannedNotification extends Notification
             ->token($this->token)
             ->topic('reg_rejected')
             ->condition('condition')
+            ->data([
+                'title' => $title,
+                'message' => $body,
+            ])
             ->notification($notif);
         return $data;
     }

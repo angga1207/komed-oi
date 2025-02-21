@@ -42,8 +42,8 @@ class OrderNotifications extends Notification
 
         if ($title && $body) {
             $notif = FcmNotification::create()
-                ->title($title)
-                ->body($body)
+                // ->title($title)
+                // ->body($body)
                 ->image(null);
             $admin = User::find($this->fromUserId);
 
@@ -51,7 +51,11 @@ class OrderNotifications extends Notification
                 ->name($title)
                 ->token($this->token)
                 ->topic('order')
-                ->notification($notif);
+                ->notification($notif)
+                ->data([
+                    'title' => $title,
+                    'message' => $body,
+                ]);
             return $data;
         }
     }

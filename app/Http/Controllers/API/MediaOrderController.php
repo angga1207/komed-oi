@@ -361,6 +361,8 @@ class MediaOrderController extends Controller
                         'status' => 'review',
                         'note' => $note,
                         'user_id' => auth()->id(),
+                        'created_at' => $now,
+                        'updated_at' => $now,
                     ]);
 
 
@@ -373,7 +375,7 @@ class MediaOrderController extends Controller
                     'endpoint' => 'media-order',
                     'payload' => json_encode(request()->all()),
                     'message' => $note,
-                    'created_at' => now()
+                    'created_at' => $now,
                 ];
                 DB::table('user_logs')->insert($log);
                 // make log end

@@ -31,9 +31,12 @@ class RegVerifNotification extends Notification
 
     public function toFcm($notifiable): FcmMessage
     {
+        $title = 'Registration Verified';
+        $body = 'Permintaan verifikasi media pers telah diverifikasi. Silahkan cek media pers anda.';
+
         $notif = FcmNotification::create()
-            ->title('Registration Verified')
-            ->body('Permintaan verifikasi media pers telah diverifikasi. Silahkan cek media pers anda.')
+            // ->title('Registration Verified')
+            // ->body('Permintaan verifikasi media pers telah diverifikasi. Silahkan cek media pers anda.')
             ->image(null);
         $admin = User::find($this->fromUserId);
 
@@ -42,7 +45,11 @@ class RegVerifNotification extends Notification
             ->token($this->token)
             ->topic('reg_verified')
             ->condition('condition')
-            ->notification($notif);
+            ->notification($notif)
+            ->data([
+                'title' => $title,
+                'body' => $body,
+            ]);
         return $data;
     }
 
