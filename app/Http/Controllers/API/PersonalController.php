@@ -256,7 +256,7 @@ class PersonalController extends Controller
                         'updated_at' => $dt->updated_at,
                     ];
                 }
-                $orderDate = collect($rawData['order'])[0]->created_at;
+                $orderDate = collect($rawData['order'])[0]->created_at ?? null;
                 // return $orderDate;
             }
             $returns[] = [
