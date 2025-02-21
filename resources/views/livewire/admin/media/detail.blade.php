@@ -104,6 +104,10 @@ use Carbon\Carbon;
                                                             <span class="badge badge-warning">
                                                                 Menunggu Review
                                                             </span>
+                                                            @elseif($data->status == 'rejected')
+                                                            <span class="badge badge-warning">
+                                                                Dikembalikan
+                                                            </span>
                                                             @elseif($mo->status == 'verified')
                                                             <span class="badge badge-primary">
                                                                 Terverifikasi
