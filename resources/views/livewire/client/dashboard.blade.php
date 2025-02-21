@@ -107,15 +107,6 @@ use Carbon\Carbon;
 
     <div class="col-12">
         <div class="card o-hidden card-hover">
-            <div style="min-width: 100%; height: 380px; overflow-x: auto; overflow-y:hidden; position: relative;">
-                <livewire:livewire-line-chart key="{{ $chartMediaOrder->reactiveKey() }}" style="width:100%"
-                    :line-chart-model="$chartMediaOrder" />
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12">
-        <div class="card o-hidden card-hover">
             <div class="card-header border-0 pb-1">
                 <div class="card-header-title p-0 d-flex justify-content-between align-items-center">
                     <h4>
@@ -180,6 +171,15 @@ use Carbon\Carbon;
                 </div>
                 @endif
 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card o-hidden card-hover">
+            <div style="min-width: 100%; height: 380px; overflow-x: auto; overflow-y:hidden; position: relative;">
+                <livewire:livewire-line-chart key="{{ $chartMediaOrder->reactiveKey() }}" style="width:100%"
+                    :line-chart-model="$chartMediaOrder" />
             </div>
         </div>
     </div>

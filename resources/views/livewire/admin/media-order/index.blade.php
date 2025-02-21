@@ -26,7 +26,7 @@ use Carbon\Carbon;
                         wire:submit.prevent="goSearch">
                         <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
                             <option value="">Semua Status</option>
-                            Dikirim</option>
+                            <option value="sent">Dikirim</option>
                             <option value="review">Menunggu Review</option>
                             <option value="rejected">Dikembalikan</option>
                             <option value="verified">Terverifikasi</option>
@@ -50,7 +50,7 @@ use Carbon\Carbon;
                                         Media Order
                                     </th>
                                     <th style="width:200px">
-                                        Media Pers
+                                        Media
                                     </th>
                                     <th style="width:150px">
                                         Status
@@ -94,12 +94,12 @@ use Carbon\Carbon;
                                                 {{ $data->MediaPers->nama_media }}
                                             </span>
                                         </div>
-                                        <div class="mt-1 d-flex align-items-center gap-1">
+                                        {{-- <div class="mt-1 d-flex align-items-center gap-1">
                                             <i class="ri-government-fill"></i>
                                             <span>
                                                 {{ $data->MediaPers->nama_perusahaan }}
                                             </span>
-                                        </div>
+                                        </div> --}}
                                         <div class="mt-1 d-flex align-items-center gap-1">
                                             <i class="ri-newspaper-line"></i>
                                             <span>
@@ -110,12 +110,6 @@ use Carbon\Carbon;
                                             <i class="ri-phone-line"></i>
                                             <span>
                                                 {{ $data->MediaPers->whatsapp }}
-                                            </span>
-                                        </div>
-                                        <div class="mt-1 d-flex align-items-center gap-1">
-                                            <i class="ri-medal-line"></i>
-                                            <span>
-                                                Tier {{ $data->MediaPers->tier }}
                                             </span>
                                         </div>
                                     </td>

@@ -79,11 +79,11 @@ use Carbon\Carbon;
 
                                         <td>
                                             <div class="">
-                                                <div
+                                                {{-- <div
                                                     class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                                     <div>Mendatang:</div>
                                                     <span>{{ count($data->OrdersFilter('mendatang')) }}</span>
-                                                </div>
+                                                </div> --}}
                                                 <div
                                                     class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
                                                     <div>Hari Ini:</div>
@@ -95,7 +95,7 @@ use Carbon\Carbon;
                                                 </div>
                                             </div>
 
-                                            <div class="mt-3">
+                                            {{-- <div class="mt-3">
                                                 <a href="javascript:void(0)"
                                                     class="badge badge-warning d-flex align-items-center justify-content-center gap-1"
                                                     data-bs-toggle="modal" data-bs-target="#modalAddOrder"
@@ -103,7 +103,7 @@ use Carbon\Carbon;
                                                     <i class="ri-add-circle-line text-white"></i>
                                                     Buat Order
                                                 </a>
-                                            </div>
+                                            </div> --}}
                                         </td>
 
                                         <td>

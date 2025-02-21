@@ -25,7 +25,7 @@ class RegisterController extends Controller
             'nik' => 'required|numeric|digits:16|unique:users,username',
             'email' => 'required|string|email|max:255|unique:users,email',
             'whatsapp' => 'required|string|numeric|digits_between:11,13|unique:users,whatsapp',
-            'password' => 'required|string|min:8',
+            'password' => 'required|alpha_dash|min:8',
             'password_confirmation' => 'required|same:password'
         ], [], [
             'fullname' => 'Nama Lengkap',

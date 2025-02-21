@@ -27,71 +27,94 @@ use Carbon\Carbon;
                                             <h4>
                                                 {{ $mediaOrder->nama_acara }}
                                             </h4>
-                                            <div class="tracker-number">
-                                                <p>
-                                                    Lokasi :
-                                                    <span>
-                                                        {{ $mediaOrder->lokasi }}
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    Waktu :
-                                                    <span>
-                                                        {{
-                                                        Carbon::parse($mediaOrder->tanggal_pelaksanaan)->isoFormat('DD
-                                                        MMMM Y') }}
-                                                    </span>
-                                                    <span>
-                                                        {{
-                                                        Carbon::parse($mediaOrder->waktu_pelaksanaan)->isoFormat('HH:mm
-                                                        [WIB]') }}
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    Leading Sector :
-                                                    <span>
-                                                        {{ $mediaOrder->leading_sector }}
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    Status :
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="tracker-number">
+                                                        <p>
+                                                            Lokasi :
+                                                            <span>
+                                                                {{ $mediaOrder->lokasi }}
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            Waktu :
+                                                            <span>
+                                                                {{
+                                                                Carbon::parse($mediaOrder->tanggal_pelaksanaan)->isoFormat('DD
+                                                                MMMM Y') }}
+                                                            </span>
+                                                            <span>
+                                                                {{
+                                                                Carbon::parse($mediaOrder->waktu_pelaksanaan)->isoFormat('HH:mm
+                                                                [WIB]') }}
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            Leading Sector :
+                                                            <span>
+                                                                {{ $mediaOrder->leading_sector }}
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            Status :
 
+                                                            @if($mediaOrder->status == 'sent')
+                                                            <span class="badge badge-success text-white">
+                                                                Dikirim
+                                                            </span>
+                                                            @elseif($mediaOrder->status == 'review')
+                                                            <span class="badge badge-warning text-white">
+                                                                Menunggu Review
+                                                            </span>
+                                                            @elseif($mediaOrder->status == 'rejected')
+                                                            <span class="badge badge-warning text-white">
+                                                                Dikembalikan
+                                                            </span>
+                                                            @elseif($mediaOrder->status == 'verified')
+                                                            <span class="badge badge-primary text-white">
+                                                                Terverifikasi
+                                                            </span>
+                                                            @elseif($mediaOrder->status == 'done')
+                                                            <span class="badge badge-primary text-white">
+                                                                Selesai
+                                                            </span>
+                                                            @endif
+                                                        </p>
+                                                    </div>
                                                     @if($mediaOrder->status == 'sent')
-                                                    <span class="badge badge-success text-white">
-                                                        Dikirim
-                                                    </span>
-                                                    @elseif($mediaOrder->status == 'review')
-                                                    <span class="badge badge-warning text-white">
-                                                        Menunggu Review
-                                                    </span>
-                                                    @elseif($mediaOrder->status == 'rejected')
-                                                    <span class="badge badge-warning text-white">
-                                                        Dikembalikan
-                                                    </span>
-                                                    @elseif($mediaOrder->status == 'verified')
-                                                    <span class="badge badge-primary text-white">
-                                                        Terverifikasi
-                                                    </span>
-                                                    @elseif($mediaOrder->status == 'done')
-                                                    <span class="badge badge-primary text-white">
-                                                        Selesai
-                                                    </span>
+                                                    <h5>
+                                                        Harap unggah hasil liputan sebelum
+                                                        <span
+                                                            x-init="startTimer('{{ Carbon::parse($mediaOrder->deadline) }}','timer{{ $mediaOrder->id }}')"
+                                                            id="timer{{ $mediaOrder->id }}">
+                                                        </span>.
+                                                    </h5>
+                                                    @else
+                                                    <h5>
+                                                        Timeline Media Order
+                                                    </h5>
                                                     @endif
-                                                </p>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="tracker-number">
+                                                        <p>
+                                                            Nama Media :
+                                                            <span>
+                                                                <a
+                                                                    href="{{ route('media.detail', $media->unique_id) }}">
+                                                                    {{ $media->nama_media }}
+                                                                </a>
+                                                            </span>
+                                                        </p>
+                                                        <p>
+                                                            Jenis Media :
+                                                            <span>
+                                                                {{ $media->jenis_media }}
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            @if($mediaOrder->status == 'sent')
-                                            <h5>
-                                                Harap unggah hasil liputan sebelum
-                                                <span
-                                                    x-init="startTimer('{{ Carbon::parse($mediaOrder->deadline) }}','timer{{ $mediaOrder->id }}')"
-                                                    id="timer{{ $mediaOrder->id }}">
-                                                </span>.
-                                            </h5>
-                                            @else
-                                            <h5>
-                                                Timeline Media Order
-                                            </h5>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -104,15 +127,15 @@ use Carbon\Carbon;
                                             <h5 class="text-uppercase">
                                                 @if($log->status == 'sent')
                                                 <span class="fw-bold">
-                                                    Dikirim oleh Admin
+                                                    Dikirim
                                                 </span>
                                                 @elseif($log->status == 'review')
                                                 <span class="fw-bold">
-                                                    Sedang Direview Admin
+                                                    Menunggu Review
                                                 </span>
                                                 @elseif($log->status == 'rejected')
                                                 <span class="fw-bold">
-                                                    Dikembalikan oleh Admin
+                                                    Dikembalikan
                                                 </span>
                                                 @elseif($log->status == 'verified')
                                                 <span class="fw-bold">
@@ -313,7 +336,7 @@ use Carbon\Carbon;
                     </button>
                     <button type="button" class="btn btn-animation btn-md fw-bold"
                         wire:click="comfirmRespondMediaOrder">
-                        Simpan
+                        Kirim
                     </button>
                 </div>
             </div>

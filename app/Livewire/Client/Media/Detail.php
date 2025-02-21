@@ -90,7 +90,7 @@ class Detail extends Component
             $mediaOrder = DB::table('orders')
                 ->where('order_code', $this->mediaOrder->order_code)
                 ->first();
-            if ($mediaOrder && $mediaOrder->status != 'sent') {
+            if ($mediaOrder && (in_array($mediaOrder->status, ['sent', 'rejected']) == false)) {
                 $this->alert('info', 'Gagal Menambah Evidence', [
                     'position' =>  'center',
                     'timer' => null,
@@ -288,7 +288,7 @@ class Detail extends Component
             $now = now();
             $mediaOrder = DB::table('orders')
                 ->where('order_code', $this->mediaOrder->order_code)
-                ->where('status', 'sent')
+                ->whereIn('status', ['sent', 'rejected'])
                 ->first();
             $media = DB::table('pers_profile')
                 ->where('id', $mediaOrder->media_id)
@@ -296,7 +296,7 @@ class Detail extends Component
             if ($mediaOrder && $media) {
                 DB::table('orders')
                     ->where('order_code', $this->mediaOrder->order_code)
-                    ->where('status', 'sent')
+                    ->whereIn('status', ['sent', 'rejected'])
                     ->update([
                         'status' => 'review',
                         'updated_at' => $now,
@@ -313,6 +313,7 @@ class Detail extends Component
                         'status' => 'review',
                         'note' => $note,
                         'user_id' => auth()->id(),
+                        'created_at' => $now,
                     ]);
 
 

@@ -145,7 +145,7 @@ class MediaOrderController extends Controller
         if (!$data) {
             return $this->notFoundResponse('Media Order tidak dapat kami temukan');
         }
-        if ($data->status != 'sent') {
+        if (in_array($data->status, ['sent', 'rejected']) == false) {
             return $this->validationErrorResponse('Media Order tidak dalam status yang benar');
         }
 

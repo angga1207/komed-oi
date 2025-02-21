@@ -14,7 +14,6 @@ class Dashboard extends Component
     public function render()
     {
         $mediaPers = DB::table('pers_profile')
-            ->where('verified_status', 'verified')
             ->get();
         $mediaOrders = DB::table('orders')
             ->whereMonth('tanggal_pelaksanaan', Carbon::now())
@@ -23,7 +22,7 @@ class Dashboard extends Component
 
         $timelines = [];
         $arrAgendas = DB::table('agendas')
-        // ->whereDate('tanggal_pelaksanaan', Carbon::now()->subDay())
+            // ->whereDate('tanggal_pelaksanaan', Carbon::now()->subDay())
             ->whereDate('tanggal_pelaksanaan', Carbon::now())
             ->orderBy('waktu_pelaksanaan')
             ->get();

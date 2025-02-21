@@ -62,7 +62,7 @@ class NeedVerification extends Component
 
     function confirmBanned($id = null)
     {
-        $this->confirm('Apakah Anda yakin ingin memblokir Media Pers ini?', [
+        $this->confirm('Apakah Anda yakin ingin menolak Media Pers ini?', [
             'toast' => false,
             'position' => 'center',
             'timer' => null,
@@ -90,11 +90,11 @@ class NeedVerification extends Component
             $data->verification_deadline = null;
             $data->save();
 
-            $this->alert('success', 'Media Pers ini berhasil diblokir', [
+            $this->alert('success', 'Media Pers ini berhasil ditolak', [
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Media Pers ini berhasil diblokir',
+                'text' => 'Media Pers ini berhasil ditolak',
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'cancelText' => '',
@@ -112,7 +112,7 @@ class NeedVerification extends Component
             'model' => 'media_pers',
             'endpoint' => 'media/need-approval',
             'payload' => json_encode(request()->all()),
-            'message' => 'Memblokir Media Pers dengan Kode Registrasi ' .  $data->unique_id,
+            'message' => 'Media Pers dengan Kode Registrasi ' .  $data->unique_id . ' ditolak',
             'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);

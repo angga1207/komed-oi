@@ -37,19 +37,22 @@ class OrderNotifications extends Notification
         $body = null;
         if ($this->type == 'sent') {
             $title = 'Media Order baru dikirim oleh Admin';
-            $body = 'Admin KOMED ID baru saja mengirimkan Media Order baru';
+            $body = 'Verifikator baru saja mengirimkan Media Order baru';
         } else if ($this->type == 'review') {
             $title = 'Media Order telah direview oleh Admin';
-            $body = 'Admin KOMED ID baru saja mereview Media Order anda';
+            $body = 'Verifikator baru saja mereview Media Order anda';
         } else if ($this->type == 'rejected') {
             $title = 'Media Order telah dikembalikan oleh Admin';
-            $body = 'Admin KOMED ID baru saja dikembalikan Media Order anda';
+            $body = 'Verifikator baru saja mengembalikan Media Order anda';
         } else if ($this->type == 'verified') {
             $title = 'Media Order telah diverifikasi oleh Admin';
-            $body = 'Admin KOMED ID baru saja memverifikasi Media Order anda';
+            $body = 'Verifikator baru saja memverifikasi Media Order anda';
         } else if ($this->type == 'done') {
             $title = 'Media Order telah selesai';
-            $body = 'Media Order anda telah selesai';
+            $body = 'Verifikator baru saja menyelesaikan Media Order anda';
+        } elseif ($this->type == 'add_duration') {
+            $title = 'Media Order telah ditambahkan durasi';
+            $body = 'Verifikator baru saja menambahkan durasi pada Media Order anda';
         }
 
         if ($title && $body) {
@@ -78,19 +81,22 @@ class OrderNotifications extends Notification
         $body = null;
         if ($this->type == 'sent') {
             $title = 'Media Order baru dikirim oleh Admin';
-            $body = 'Admin KOMED ID baru saja mengirimkan Media Order baru';
+            $body = 'Verifikator baru saja mengirimkan Media Order baru';
         } else if ($this->type == 'review') {
             $title = 'Media Order telah direview oleh Admin';
-            $body = 'Admin KOMED ID baru saja mereview Media Order anda';
+            $body = 'Verifikator baru saja mereview Media Order anda';
         } else if ($this->type == 'rejected') {
             $title = 'Media Order telah dikembalikan oleh Admin';
-            $body = 'Admin KOMED ID baru saja dikembalikan Media Order anda';
+            $body = 'Verifikator baru saja mengembalikan Media Order anda';
         } else if ($this->type == 'verified') {
             $title = 'Media Order telah diverifikasi oleh Admin';
-            $body = 'Admin KOMED ID baru saja memverifikasi Media Order anda';
+            $body = 'Verifikator baru saja memverifikasi Media Order anda';
         } else if ($this->type == 'done') {
             $title = 'Media Order telah selesai';
-            $body = 'Media Order anda telah selesai';
+            $body = 'Verifikator baru saja menyelesaikan Media Order anda';
+        } elseif ($this->type == 'add_duration') {
+            $title = 'Media Order telah ditambahkan durasi';
+            $body = 'Verifikator baru saja menambahkan durasi pada Media Order anda';
         }
 
 

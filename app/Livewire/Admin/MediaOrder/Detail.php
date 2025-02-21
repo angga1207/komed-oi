@@ -13,7 +13,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class Detail extends Component
 {
     use LivewireAlert, WithFileUploads;
-    public $mediaOrder = null;
+    public $mediaOrder = null, $media = null;
     public $input = [
         'status' => null,
         'note' => null,
@@ -38,17 +38,18 @@ class Detail extends Component
     {
         $mediaOrder = DB::table('orders')->where('order_code', $order_code)->firstOrFail();
         $this->mediaOrder = $mediaOrder;
+        $media = DB::table('pers_profile')->where('id', $mediaOrder->media_id)->first();
+        $this->media = $media;
     }
 
     public function render()
     {
         $logs = DB::table('log_order_status')
             ->where('order_id', $this->mediaOrder->id)
-            ->oldest('created_at')
+            ->oldest()
             ->get();
         $evidences = DB::table('order_evidences')
             ->where('order_id', $this->mediaOrder->id)
-            ->oldest('created_at')
             ->get();
 
         return view('livewire.admin.media-order.detail', [
@@ -151,7 +152,7 @@ class Detail extends Component
                         'model' => 'media_order',
                         'endpoint' => 'media-order',
                         'payload' => json_encode(request()->all()),
-                        'message' => 'Media Order ' . $this->mediaOrder->order_code . ' telah direview dan dikembalikan oleh Admin.',
+                        'message' => $note,
                         'created_at' => now()
                     ];
                     DB::table('user_logs')->insert($log);
@@ -191,7 +192,7 @@ class Detail extends Component
                         'model' => 'media_order',
                         'endpoint' => 'media-order',
                         'payload' => json_encode(request()->all()),
-                        'message' => 'Media Order ' . $this->mediaOrder->order_code . ' telah diverifikasi oleh Admin.',
+                        'message' => $note,
                         'created_at' => now()
                     ];
                     DB::table('user_logs')->insert($log);
@@ -231,7 +232,7 @@ class Detail extends Component
                         'model' => 'media_order',
                         'endpoint' => 'media-order',
                         'payload' => json_encode(request()->all()),
-                        'message' => 'Media Order ' . $this->mediaOrder->order_code . ' telah diverifikasi dan diselesaikan oleh Admin.',
+                        'message' => $note,
                         'created_at' => now()
                     ];
                     DB::table('user_logs')->insert($log);
@@ -251,7 +252,7 @@ class Detail extends Component
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Lampiran Evidence ' . $this->mediaOrder->order_code . ' berhasil dikirim kepada Admin.',
+                'text' => $note ?? null,
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'Tutup',
@@ -345,6 +346,12 @@ class Detail extends Component
             }
 
             DB::commit();
+
+            // send notification start
+            $user = User::find($media->user_id);
+            $token = $user->routeNotificationForFcm();
+            $user->notify(new OrderNotifications($media, $mediaOrder, 'add_duration', $token, auth()->id()));
+            // send notification end
 
             $this->alert('success', 'Berhasil Ditambahkan', [
                 'position' =>  'center',

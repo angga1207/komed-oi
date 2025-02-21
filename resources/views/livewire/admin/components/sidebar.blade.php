@@ -62,7 +62,7 @@
                             <ul class="sidebar-submenu">
                                 <li>
                                     <a href="{{ route('media') }}">
-                                        Media
+                                        Daftar Media
                                     </a>
                                 </li>
 

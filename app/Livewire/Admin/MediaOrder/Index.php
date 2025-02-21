@@ -53,6 +53,14 @@ class Index extends Component
             ]);
     }
 
+    function resetSearch()
+    {
+        $this->search = null;
+        $this->filterDate = null;
+        $this->filterStatus = null;
+        $this->resetPage();
+    }
+
     function goSearch()
     {
         $this->resetPage();

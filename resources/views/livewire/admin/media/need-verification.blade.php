@@ -48,7 +48,7 @@ use Carbon\Carbon;
                                         </th>
                                         <th>
                                             <span>
-                                                Tier / Tier Point
+                                                Tanggal Pendaftaran
                                             </span>
                                         </th>
                                         <th>
@@ -56,11 +56,11 @@ use Carbon\Carbon;
                                                 Status Verifikasi
                                             </span>
                                         </th>
-                                        <th>
+                                        {{-- <th>
                                             <span>
                                                 Kelengkapan Berkas
                                             </span>
-                                        </th>
+                                        </th> --}}
                                         <th>
                                             <span>
                                                 Opsi
@@ -80,10 +80,6 @@ use Carbon\Carbon;
                                                 <div>
                                                     <div>
                                                         {{ $data->unique_id }}
-                                                    </div>
-                                                    <div style="font-size: 10px" class="text-muted">
-                                                        {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
-                                                        HH:mm [WIB]') }}
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +102,10 @@ use Carbon\Carbon;
                                         </td>
 
                                         <td>
-                                            Tier {{ $data->tier }} / {{ $data->tier_point }} Point
+                                            <div class="text-muted">
+                                                {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
+                                                HH:mm [WIB]') }}
+                                            </div>
                                         </td>
 
                                         <td>
@@ -115,16 +114,16 @@ use Carbon\Carbon;
                                                 <span class="badge badge-warning text-capitalize">
                                                     {{ $data->verified_status }}
                                                 </span>
-                                                <div class="" style="font-size: 10px">
+                                                {{-- <div class="" style="font-size: 10px">
                                                     {{ Carbon::parse($data->verification_deadline)->isoFormat('D MMM Y,
                                                     HH:mm [WIB]') }}
                                                     <br>
                                                     ({{ Carbon::parse($data->verification_deadline)->diffForHumans() }})
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </td>
 
-                                        <td>
+                                        {{-- <td>
                                             <div class="d-flex align-items-center flex-column gap-2">
                                                 <div>
                                                     <span
@@ -141,7 +140,7 @@ use Carbon\Carbon;
                                                     </a>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> --}}
 
                                         <td>
                                             <ul>
@@ -469,7 +468,7 @@ use Carbon\Carbon;
                         </div>
                         @endforeach
 
-                        <div class="col-12 col-md-6">
+                        {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="tier" class="form-label">
                                     Tier
@@ -485,9 +484,9 @@ use Carbon\Carbon;
                                 <input type="text" class="form-control" id="tier_point" wire:model="detail.tier_point"
                                     readonly>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="col-12 col-md-6">
+                        {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="verification_deadline" class="form-label">
                                     Dapat Diverifikasi Sebelum
@@ -496,7 +495,7 @@ use Carbon\Carbon;
                                     value="{{ Carbon::parse($detail['verification_deadline'])->isoFormat('D MMM Y, HH:mm [WIB]') }}"
                                     readonly>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     @endif
                 </div>
@@ -512,7 +511,7 @@ use Carbon\Carbon;
                     <div class="d-flex justify-content-end gap-2">
                         <button type="button" class="btn btn-danger btn-animation btn-md fw-bold"
                             wire:click="confirmBanned">
-                            Banned
+                            Tolak
                         </button>
                         <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="confirmVerification">
                             Verifikasi

@@ -13,8 +13,8 @@ use Carbon\Carbon;
     </div>
 
     <!-- chart caard section start -->
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 border-0  card-hover card o-hidden">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
+        <a class="main-tiles border-5 border-0  card-hover card o-hidden" href="{{ route('media') }}">
             <div class="custome-1-bg b-r-4 card-body">
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
@@ -22,7 +22,7 @@ use Carbon\Carbon;
                             Jumlah Mitra Media
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaPers) ?? 0 }}
+                            {{ count($mediaPers->where('verified_status', 'verified')) ?? 0 }}
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
@@ -30,11 +30,31 @@ use Carbon\Carbon;
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
 
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
+        <a class="main-tiles border-5 border-0  card-hover card o-hidden" href="{{ route('media.need-approval') }}">
+            <div class="custome-3-bg b-r-4 card-body">
+                <div class="media align-items-center static-top-widget">
+                    <div class="media-body p-0">
+                        <span class="m-0">
+                            Media Menunggu Verifikasi
+                        </span>
+                        <h4 class="mb-0 counter">
+                            {{ count($mediaPers->where('verified_status','!=', 'verified')) ?? 0 }}
+                        </h4>
+                    </div>
+                    <div class="align-self-center text-center">
+                        <i class="ri-database-2-line"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
+        <a class="main-tiles border-5 card-hover border-0 card o-hidden" href="{{ route('a.media-order') }}">
             <div class="custome-2-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
@@ -50,12 +70,54 @@ use Carbon\Carbon;
                     </div>
                 </div>
             </div>
+        </a>
+    </div>
+
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
+        <div class="main-tiles border-5 card-hover border-0  card o-hidden">
+            <div class="custome-2-bg b-r-4 card-body">
+                <div class="media static-top-widget">
+                    <div class="media-body p-0">
+                        <span class="m-0">
+                            Menunggu Review
+                        </span>
+                        <h4 class="mb-0 counter">
+                            {{ count($mediaOrders->whereIn('status',['review'])) }}
+                        </h4>
+                    </div>
+
+                    <div class="align-self-center text-center">
+                        <i class="ri-check-double-line"></i>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
+        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
+            <div class="custome-4-bg b-r-4 card-body">
+                <div class="media static-top-widget">
+                    <div class="media-body p-0">
+                        <span class="m-0">
+                            Sedang Dikerjakan
+                        </span>
+                        <h4 class="mb-0 counter">
+                            {{ count($mediaOrders->whereIn('status',['sent','rejected'])) }}
+                        </h4>
+                    </div>
+
+                    <div class="align-self-center text-center">
+                        <i class="ri-history-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-xxl-4 col-lg-6">
         <div class="main-tiles border-5 card-hover border-0  card o-hidden">
-            <div class="custome-3-bg b-r-4 card-body">
+            <div class="custome-1-bg b-r-4 card-body">
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
@@ -73,38 +135,6 @@ use Carbon\Carbon;
             </div>
         </div>
     </div>
-
-    <div class="col-sm-6 col-xxl-3 col-lg-6">
-        <div class="main-tiles border-5 card-hover border-0 card o-hidden">
-            <div class="custome-4-bg b-r-4 card-body">
-                <div class="media static-top-widget">
-                    <div class="media-body p-0">
-                        <span class="m-0">
-                            Belum Selesai Dikerjakan
-                        </span>
-                        <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['sent','review'])) }}
-                        </h4>
-                    </div>
-
-                    <div class="align-self-center text-center">
-                        <i class="ri-history-line"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-12">
-        <div class="card o-hidden card-hover">
-            <div style="min-width: 100%; height: 380px; overflow-x: auto; overflow-y:hidden; position: relative;">
-                <livewire:livewire-line-chart key="{{ $chartMediaOrder->reactiveKey() }}" style="width:100%"
-                    :line-chart-model="$chartMediaOrder" />
-            </div>
-        </div>
-    </div>
-
 
     <div class="col-12">
         <div class="card o-hidden card-hover">
@@ -172,6 +202,15 @@ use Carbon\Carbon;
                 </div>
                 @endif
 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card o-hidden card-hover">
+            <div style="min-width: 100%; height: 380px; overflow-x: auto; overflow-y:hidden; position: relative;">
+                <livewire:livewire-line-chart key="{{ $chartMediaOrder->reactiveKey() }}" style="width:100%"
+                    :line-chart-model="$chartMediaOrder" />
             </div>
         </div>
     </div>

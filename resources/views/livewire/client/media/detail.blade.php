@@ -110,6 +110,10 @@ use Carbon\Carbon;
                                                 <span class="fw-bold">
                                                     Sedang Direview Admin
                                                 </span>
+                                                @elseif($log->status == 'rejected')
+                                                <span class="fw-bold">
+                                                    Dikembalikan Admin
+                                                </span>
                                                 @elseif($log->status == 'verified')
                                                 <span class="fw-bold">
                                                     Terverifikasi
@@ -196,7 +200,8 @@ use Carbon\Carbon;
                                                         </td>
                                                         <td>
                                                             <div class="text-center">
-                                                                @if($mediaOrder->status == 'sent')
+                                                                @if($mediaOrder->status == 'sent' || $mediaOrder->status
+                                                                == 'rejected')
                                                                 @if($evi->type == 'image')
                                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                                     data-bs-target="#modalEvidence"
@@ -231,20 +236,22 @@ use Carbon\Carbon;
                             </div>
                         </div>
                         <div class="card-footer text-end border-0 pb-0 d-flex justify-content-end">
-                            @if($mediaOrder->status == 'sent' && $mediaOrder->deadline >= now())
+                            @if(($mediaOrder->status == 'sent' || $mediaOrder->status == 'rejected') &&
+                            $mediaOrder->deadline >= now())
                             <button class="btn btn-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle" wire:click="addEvidence()">
                                 Unggah Evidence
                             </button>
-                            @elseif($mediaOrder->status == 'sent' && $mediaOrder->deadline <= now()) <button
-                                class="btn btn-secondary me-3">
+                            @elseif(($mediaOrder->status == 'sent' || $mediaOrder->status == 'rejected') &&
+                            $mediaOrder->deadline <= now()) <button class="btn btn-secondary me-3">
                                 Sudah Lewat Batas
                                 </button>
                                 @endif
 
-                                @if(count($evidences) > 0 && $mediaOrder->status == 'sent')
+                                @if(count($evidences) > 0 && ($mediaOrder->status == 'sent' || $mediaOrder->status ==
+                                'rejected'))
                                 <button class="btn btn-primary me-3" wire:click="comfirmSendEvidence()">
-                                    Kirim Evidence
+                                    Kirim ke Verifikator
                                 </button>
                                 @endif
                                 <a href="{{ route('media-order') }}" class="btn btn-outline">
@@ -257,7 +264,7 @@ use Carbon\Carbon;
         </div>
     </div>
 
-    @if($mediaOrder->status == 'sent')
+    @if($mediaOrder->status == 'sent' || $mediaOrder->status == 'rejected')
     <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true"
         tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
