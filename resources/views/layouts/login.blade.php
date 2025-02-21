@@ -41,11 +41,13 @@
             }
         }
     </style>
+
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 
 <body>
-    <section class="vh-100">
-        <div class="container-fluid h-custom">
+    <section class="vh-100s">
+        <div class="container-fluid h-custom mt-5" style="min-height: 80vh;">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-9 col-lg-6 col-xl-5">
                     <div class="d-flex align-items-center gap-2">
@@ -59,8 +61,16 @@
                             </h2>
                         </div>
                     </div>
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                        class="img-fluid" alt="Sample image">
+                    {{-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                        class="img-fluid" alt="Sample image"> --}}
+
+                    <div class="d-flex align-items-center justify-content-center">
+                        <dotlottie-player
+                            src="https://lottie.host/706006ec-5ef5-4104-920d-01c6c11b16a2/bvnEZ2BGlq.lottie"
+                            background="transparent" speed="1" style="width: 80%; height: 80%" loop autoplay>
+                        </dotlottie-player>
+                    </div>
+
                 </div>
                 <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                     {{ $slot }}
@@ -68,7 +78,7 @@
             </div>
         </div>
         <div
-            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-warning">
+            class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-warning mt-5">
             <!-- Copyright -->
             <div class="text-white mb-3 mb-md-0">
                 {{ env('APP_NAME') }} | DISKOMINFO OGAN ILIR |
