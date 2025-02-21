@@ -47,7 +47,7 @@ class RegBannedNotification extends Notification
             ->condition('condition')
             ->data([
                 'title' => $title,
-                'message' => $body,
+                'body' => $body,
             ])
             ->notification($notif);
         return $data;

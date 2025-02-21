@@ -54,7 +54,7 @@ class OrderNotifications extends Notification
                 ->notification($notif)
                 ->data([
                     'title' => $title,
-                    'message' => $body,
+                    'body' => $body,
                 ]);
             return $data;
         }
