@@ -119,13 +119,13 @@ class Detail extends Component
                 ->where('id', $mediaOrder->media_id)
                 ->first();
             if ($mediaOrder && $media) {
-                if ($this->input['status'] == 'sent') {
+                if ($this->input['status'] == 'rejected') {
                     $note = 'Media Order dikembalikan oleh Admin';
                     DB::table('orders')
                         ->where('order_code', $this->mediaOrder->order_code)
                         ->where('status', 'review')
                         ->update([
-                            'status' => 'sent',
+                            'status' => 'rejected',
                             'updated_at' => $now,
                             'deadline' => Carbon::now()->addDays(3)->isoFormat('Y-MM-DD HH:mm:ss'),
                         ]);
@@ -135,9 +135,10 @@ class Detail extends Component
                             'order_id' => $mediaOrder->id,
                             'media_id' => $mediaOrder->media_id,
                             'agenda_id' => $mediaOrder->agenda_id,
-                            'status' => 'sent',
+                            'status' => 'rejected',
                             'note' => $this->input['note'] ?? $note,
                             'user_id' => auth()->id(),
+                            'created_at' => $now,
                         ]);
 
                     // make log start
@@ -171,6 +172,7 @@ class Detail extends Component
                             'status' => 'verified',
                             'note' => $this->input['note'] ?? $note,
                             'user_id' => auth()->id(),
+                            'created_at' => $now,
                         ]);
 
                     // make log start
@@ -204,6 +206,7 @@ class Detail extends Component
                             'status' => 'done',
                             'note' => $this->input['note'] ?? $note,
                             'user_id' => auth()->id(),
+                            'created_at' => $now,
                         ]);
 
                     // make log start
@@ -303,6 +306,7 @@ class Detail extends Component
                         'status' => 'sent',
                         'note' => $this->input['note'] ?? $note,
                         'user_id' => auth()->id(),
+                        'created_at' => $now,
                     ]);
 
                 // make log start
