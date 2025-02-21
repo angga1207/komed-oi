@@ -344,7 +344,7 @@ class MediaOrderController extends Controller
             try {
                 DB::table('orders')
                     ->where('order_code', $data->order_code)
-                    ->where('status', 'sent')
+                    ->whereIn('status', ['sent', 'rejected'])
                     ->update([
                         'status' => 'review',
                         'updated_at' => $now,
