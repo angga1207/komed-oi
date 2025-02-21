@@ -38,6 +38,15 @@ class OrderNotifications extends Notification
         if ($this->type == 'sent') {
             $title = 'Media Order baru dikirim oleh Admin';
             $body = 'Admin KOMED ID baru saja mengirimkan Media Order baru';
+        } else if ($this->type == 'review') {
+            $title = 'Media Order telah direview oleh Admin';
+            $body = 'Admin KOMED ID baru saja mereview Media Order anda';
+        } else if ($this->type == 'verified') {
+            $title = 'Media Order telah diverifikasi oleh Admin';
+            $body = 'Admin KOMED ID baru saja memverifikasi Media Order anda';
+        } else if ($this->type == 'done') {
+            $title = 'Media Order telah selesai';
+            $body = 'Media Order anda telah selesai';
         }
 
         if ($title && $body) {
@@ -67,6 +76,15 @@ class OrderNotifications extends Notification
         if ($this->type == 'sent') {
             $title = 'Media Order baru dikirim oleh Admin';
             $body = 'Admin KOMED ID baru saja mengirimkan Media Order baru';
+        } else if ($this->type == 'review') {
+            $title = 'Media Order telah direview oleh Admin';
+            $body = 'Admin KOMED ID baru saja mereview Media Order anda';
+        } else if ($this->type == 'verified') {
+            $title = 'Media Order telah diverifikasi oleh Admin';
+            $body = 'Admin KOMED ID baru saja memverifikasi Media Order anda';
+        } else if ($this->type == 'done') {
+            $title = 'Media Order telah selesai';
+            $body = 'Media Order anda telah selesai';
         }
 
 
