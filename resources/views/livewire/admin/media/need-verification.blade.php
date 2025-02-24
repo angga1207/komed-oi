@@ -247,6 +247,19 @@ use Carbon\Carbon;
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
+                                <label for="logo_media" class="form-label">
+                                    Logo Media
+                                </label>
+                                <div class="form-control" readonly>
+                                    <a href="{{ asset($detail['logo_media']) }}" target="_blank"
+                                        class="badge badge-primary">
+                                        Lihat Logo Media
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
                                 <label for="whatsapp" class="form-label">
                                     No. WhatsApp
                                 </label>
@@ -300,6 +313,15 @@ use Carbon\Carbon;
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
+                                <label for="cakupan_media" class="form-label">
+                                    Cakupan Media
+                                </label>
+                                <input type="text" class="form-control" id="cakupan_media"
+                                    wire:model="detail.cakupan_media" readonly>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
                                 <label for="profil_perusahaan" class="form-label">
                                     Profil Perusahaan
                                 </label>
@@ -314,15 +336,6 @@ use Carbon\Carbon;
                                 </label>
                                 <textarea style="min-height:100px; max-height:100px" class="form-control"
                                     id="alamat_media" wire:model="detail.alamat_media" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="cakupan_media" class="form-label">
-                                    Cakupan Media
-                                </label>
-                                <input type="text" class="form-control" id="cakupan_media"
-                                    wire:model="detail.cakupan_media" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">

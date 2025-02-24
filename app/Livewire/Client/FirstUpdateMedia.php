@@ -254,6 +254,18 @@ class FirstUpdateMedia extends Component
 
 
             // UPLOAD DATA BASIC START
+            if ($this->input['logo_media']) {
+                $fileName = 'logo_media_' . $pers->unique_id . '.' . $this->input['logo_media']->extension();
+                $this->input['logo_media']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
+                $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
+
+                DB::table('pers_profile')
+                    ->where('id', $pers->id)
+                    ->update([
+                        'logo_media' => $path
+                    ]);
+                $this->input['logo_media'] = null;
+            }
             if ($this->input['file_jumlah_oplah']) {
                 $fileName = 'jumlah_oplah_' . $pers->unique_id . '.' . $this->input['file_jumlah_oplah']->extension();
                 $this->input['file_jumlah_oplah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');

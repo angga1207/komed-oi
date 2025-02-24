@@ -138,6 +138,81 @@
 
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
+                            Website Media
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Website Media" wire:model='input.website'
+                                wire:loading.attr='disabled'>
+                            @error('input.website')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
+                            Logo Media
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="file" accept="*" class="form-control"
+                                wire:model.live='input.logo_media' wire:loading.attr='disabled'>
+                            @error('input.logo_media')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
+                            Nomor NPWP
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Nomor NPWP"
+                                wire:model='input.no_npwp' wire:loading.attr='disabled'>
+                            @error('input.no_npwp')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
+                            Nomor Ref Bank
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Nomor Ref Bank"
+                                wire:model='input.no_ref_bank' wire:loading.attr='disabled'>
+                            @error('input.no_ref_bank')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
+                            Nomor Giro Perusahaan
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Nomor Giro Perusahaan"
+                                wire:model='input.no_giro_perusahaan' wire:loading.attr='disabled'>
+                            @error('input.no_giro_perusahaan')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
                             Jabatan yang Mendaftarkan
                         </label>
                         <div class="col-sm-9">
