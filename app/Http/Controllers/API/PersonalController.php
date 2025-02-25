@@ -40,6 +40,7 @@ class PersonalController extends Controller
                 'email' => $user->email,
                 'nik' => $user->username,
                 'username' => $user->username,
+                'whatsapp' => $user->whatsapp,
                 'photo' => asset($user->photo),
                 'role_id' => $user->role_id,
                 'role_name' => DB::table('roles')->where('id', $user->role_id)->value('name'),

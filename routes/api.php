@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AnnouncementController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DashboardController;
 use App\Http\Controllers\API\MediaOrderController;
@@ -23,6 +24,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'getDashboard']);
+
+    // Announcement
+    Route::get('/announcements', [AnnouncementController::class, 'index']);
 
     // Profile
     Route::get('/profile', [PersonalController::class, 'getMe']);

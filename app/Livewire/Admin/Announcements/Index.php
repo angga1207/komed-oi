@@ -70,10 +70,11 @@ class Index extends Component
                 'is_active' => $this->detail['is_active'],
                 'published_at' => $this->detail['published_at'],
                 'created_by' => auth()->id(),
+                'created_at' => now(),
             ]);
 
             if ($this->detail['image']) {
-                $fileName = time() . $this->detail['image']->extension();
+                $fileName = time() . '.' . $this->detail['image']->extension();
                 $path = $this->detail['image']->storeAs('images/announcements/', $fileName, 'public');
                 DB::table('announcements')
                     ->where('image', $this->detail['image'])
@@ -133,7 +134,7 @@ class Index extends Component
                 ]);
 
             if ($this->detail['image']) {
-                $fileName = time() . $this->detail['image']->extension();
+                $fileName = time() . '.' . $this->detail['image']->extension();
                 $path = $this->detail['image']->storeAs('images/announcements/', $fileName, 'public');
                 DB::table('announcements')
                     ->where('image', $this->detail['image'])
