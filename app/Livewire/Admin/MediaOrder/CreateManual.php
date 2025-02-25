@@ -32,6 +32,7 @@ class CreateManual extends Component
     {
         return [
             'applyOrder' => 'applyOrder',
+            'deleteData' => 'deleteData',
         ];
     }
 
@@ -318,6 +319,68 @@ class CreateManual extends Component
             $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
             // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
         }
+    }
+
+    function getDetail($id)
+    {
+        $this->resetErrorBag();
+        $this->detail = Agenda::where('id', $id)
+            ->first()
+            ->toArray();
+
+        $this->detail['tanggal_pelaksanaan'] = date('Y-m-d', strtotime($this->detail['tanggal_pelaksanaan']));
+        $this->detail['tanggal_pelaksanaan_akhir'] = date('Y-m-d', strtotime($this->detail['tanggal_pelaksanaan_akhir']));
+
+        $this->inputType = 'update';
+    }
+
+    function confirmDelete($id)
+    {
+        $this->confirm('Apakah Anda yakin ingin menghapus data ini?', [
+            'toast' => false,
+            'position' => 'center',
+            'timer' => null,
+            'showCancelButton' => true,
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Batal',
+            'confirmButtonText' => 'Hapus',
+            'onConfirmed' => 'deleteData'
+        ]);
+        $this->detail = Agenda::where('id', $id)->first()->toArray();
+    }
+
+    function deleteData()
+    {
+        DB::table('agendas')->where('id', $this->detail['id'])->delete();
+
+        $this->alert('success', 'Data berhasil dihapus', [
+            'position' =>  'center',
+            'timer' => null,
+            'toast' => false,
+            'text' => 'Data berhasil dihapus',
+            'showCancelButton' => true,
+            'showConfirmButton' => false,
+            'cancelButtonText' => 'Tutup',
+            'confirmText' => '',
+        ]);
+
+        $log = [
+            'id' => uniqid(),
+            'user_id' => auth()->id(),
+            'action' => 'delete',
+            'model' => 'agendas',
+            'endpoint' => 'a/media-order/create_manual',
+            'payload' => json_encode(request()->all()),
+            'message' => 'Menghapus agenda manual dengan nama acara ' . $this->detail['nama_acara'],
+            'created_at' => now()
+        ];
+        DB::table('user_logs')->insert($log);
+        // make log end
+
+        $this->dispatch('closeModal');
+        $this->closeModal();
+        $this->isLoading = true;
+        $this->_initGetMedia();
     }
 
     function closeModal()

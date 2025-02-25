@@ -34,6 +34,16 @@ use Carbon\Carbon;
                                 <li class="@if($agenda['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif border-bottom pt-2 pb-3 ms-2"
                                     style="cursor: pointer">
                                     <div class=" position-relative">
+                                        <div class="position-absolute d-flex align-items-center gap-2" style="top:0px; right:5px">
+                                            <a href="javascript:void(0)" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"
+                                                wire:click="getDetail({{ $agenda['id'] }})">
+                                                <i class="ri-edit-box-line" style="font-size: 20px"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="text-danger"
+                                                wire:click="confirmDelete({{ $agenda['id'] }})" wire:confirm="Apakah Anda yakin ingin menghapus agenda ini?">
+                                                <i class="ri-delete-bin-line" style="font-size: 20px"></i>
+                                            </a>
+                                        </div>
                                         <div class="position-absolute d-flex align-items-center gap-1"
                                             style="bottom:0px; right:5px" data-bs-toggle="modal"
                                             data-bs-target="#modalAddOrder"
