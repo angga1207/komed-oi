@@ -82,4 +82,9 @@ class User extends Authenticatable
         // return $tokens[0];
         // return $this->fcm_token;
     }
+
+    function announcements()
+    {
+        return $this->hasMany(Announcement::class, 'created_by', 'id');
+    }
 }

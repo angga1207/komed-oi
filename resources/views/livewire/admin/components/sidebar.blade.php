@@ -75,6 +75,13 @@
                         </li>
 
                         <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('announcements') }}">
+                                <i class="ri-list-check-2"></i>
+                                <span>Pengumuman</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-list">
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 <i class="ri-user-6-line"></i>
                                 <span>

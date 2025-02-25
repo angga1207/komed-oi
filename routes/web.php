@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('a/media-order/create', App\Livewire\Admin\MediaOrder\Create::class)->name('a.media-order.create');
         Route::get('a/media-order/{order_code}', App\Livewire\Admin\MediaOrder\Detail::class)->name('a.media-order.detail');
 
+        Route::get('announcements', App\Livewire\Admin\Announcements\Index::class)->name('announcements');
+
         // Users
         Route::get('users/user', App\Livewire\Admin\Users\User::class)->name('users.user');
         Route::get('users/admin', App\Livewire\Admin\Users\Admin::class)->name('users.admin');
