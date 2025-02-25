@@ -2,172 +2,167 @@
 use Carbon\Carbon;
 ?>
 <div>
+    <div wire:init="_initGetMedia"></div>
     <div class="row">
         <div class="col-sm-12">
             <div class="card card-table">
                 <div class="card-body">
                     <div class="title-header option-title flex-wrap align-items-center justify-content-between gap-2">
                         <h5>
-                            Agenda Manual <br>
+                            Daftar Agenda Manual <br>
+                            {{ Carbon::parse($filterDate)->isoFormat('dddd, DD MMMM Y') }}
                         </h5>
 
-                        <a class="align-items-center btn btn-outline d-flex" href="javascript:void(0)"
-                            data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click="addData()" wire:ignore>
-                            Buat Agenda Manual
-                        </a>
-                    </div>
-
-                    <form class="mb-2 d-flex align-items-center justify-content-between flex-grow-1 flex-wrap gap-1"
-                        wire:submit.prevent="goSearch">
-                        <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
-                            <option value="">Semua Status</option>
-                            <option value="sent">Dikirim</option>
-                            <option value="review">Menunggu Review</option>
-                            <option value="rejected">Dikembalikan</option>
-                            <option value="verified">Terverifikasi</option>
-                            <option value="done">Selesai</option>
-                        </select>
-                        <input type="date" class="form-control" style="max-width:32%" wire:model.live="filterDate" />
-                        <input type="search" class="form-control" style="max-width:32%" placeholder="Pencarian..."
-                            wire:model="search" />
-                        <div class="" wire:click.prevent="resetSearch" style="cursor: pointer">
-                            <i class="ri-close-circle-line"></i>
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="date" class="form-control" wire:model.live="filterDate">
+                            </div>
+                            <a class="align-items-center btn btn-outline d-flex" href="javascript:void(0)"
+                                data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click="addData()" wire:ignore>
+                                Buat Agenda Manual
+                            </a>
                         </div>
-                    </form>
+                    </div>
                 </div>
 
                 <div class="row">
                     <div class="col-12">
-                        @if(count($agendas) > 0)
-                        <ol class="progtrckr ps-0" style="flex-wrap: wrap">
-                            @foreach($agendas as $agenda)
-                            <li class="@if($agenda['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif border-bottom pt-2 pb-3 ms-2"
-                                style="cursor: pointer">
-                                <div class=" position-relative">
-                                    <div class="position-absolute d-flex align-items-center gap-1"
-                                        style="bottom:0px; right:5px" data-bs-toggle="modal"
-                                        data-bs-target="#modalAddOrder"
-                                        wire:click.prevent="openWizardAdd({{ $agenda['id'] }})">
-                                        <i class="ri-add-circle-line text-success" style="font-size: 20px"></i>
-                                        <span class="text-success">
-                                            Media Order
-                                        </span>
+                        @if($isLoading == false)
+                            @if(count($agendas) > 0)
+                            <ol class="progtrckr ps-0" style="flex-wrap: wrap">
+                                @foreach($agendas as $agenda)
+                                <li class="@if($agenda['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif border-bottom pt-2 pb-3 ms-2"
+                                    style="cursor: pointer">
+                                    <div class=" position-relative">
+                                        <div class="position-absolute d-flex align-items-center gap-1"
+                                            style="bottom:0px; right:5px" data-bs-toggle="modal"
+                                            data-bs-target="#modalAddOrder"
+                                            wire:click.prevent="openWizardAdd({{ $agenda['id'] }})">
+                                            <i class="ri-add-circle-line text-success" style="font-size: 20px"></i>
+                                            <span class="text-success">
+                                                Media Order
+                                            </span>
+                                        </div>
+                                        <h5>
+                                            {{ $agenda['nama_acara'] }}
+                                        </h5>
+                                        <div class="content d-flex align-items-center gap-2">
+                                            <i class="ri-map-pin-line"></i>
+                                            <span>
+                                                {{ $agenda['lokasi'] ?? '' }}
+                                            </span>
+                                        </div>
+                                        <div class="content d-flex align-items-center gap-2">
+                                            <i class="ri-calendar-todo-fill"></i>
+                                            <span>
+                                                {{ Carbon::parse($agenda['tanggal_pelaksanaan'])->isoFormat('DD MMMM Y') }} |
+                                                {{ Carbon::parse($agenda['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
+                                            </span>
+                                        </div>
+                                        <div class="content d-flex align-items-center gap-2">
+                                            <i class="ri-government-line"></i>
+                                            <span>
+                                                {{ $agenda['leading_sector'] ?? '' }}
+                                            </span>
+                                        </div>
+                                        <div class="content d-flex align-items-center gap-2">
+                                            <span>
+                                                Media Order :
+                                            </span>
+                                            <span>
+                                                {{ $agenda['order_count'] ?? '' }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <h5>
-                                        {{ $agenda['nama_acara'] }}
-                                    </h5>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-map-pin-line"></i>
-                                        <span>
-                                            {{ $agenda['lokasi'] ?? '' }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-calendar-todo-fill"></i>
-                                        <span>
-                                            {{ Carbon::parse($agenda['tanggal_pelaksanaan'])->isoFormat('DD MMMM Y') }} |
-                                            {{ Carbon::parse($agenda['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-government-line"></i>
-                                        <span>
-                                            {{ $agenda['leading_sector'] ?? '' }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <span>
-                                            Media Order :
-                                        </span>
-                                        <span>
-                                            {{ $agenda['order_count'] ?? '' }}
-                                        </span>
-                                    </div>
-                                </div>
-                                @if(count($agenda['orders']) > 0)
-                                <div class="content">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="bg-primary">
-                                                <tr>
-                                                    <th style="font-size: 13px; width:200px" class="p-2 text-center">
-                                                        Nama Media
-                                                    </th>
-                                                    <th style="font-size: 13px; width:200px" class="p-2 text-center">
-                                                        Kode Order
-                                                    </th>
-                                                    <th style="font-size: 13px; width:150px" class="p-2 text-center">
-                                                        Status
-                                                    </th>
-                                                    <th style="font-size: 13px; width:1px" class="p-2 text-center">
+                                    @if(count($agenda['orders']) > 0)
+                                    <div class="content">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-primary">
+                                                    <tr>
+                                                        <th style="font-size: 13px; width:200px" class="p-2 text-center">
+                                                            Nama Media
+                                                        </th>
+                                                        <th style="font-size: 13px; width:200px" class="p-2 text-center">
+                                                            Kode Order
+                                                        </th>
+                                                        <th style="font-size: 13px; width:150px" class="p-2 text-center">
+                                                            Status
+                                                        </th>
+                                                        <th style="font-size: 13px; width:1px" class="p-2 text-center">
 
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($agenda['orders'] as $ord)
-                                                <tr>
-                                                    <td style="font-size: 13px" class="p-2">
-                                                        {{ $ord['nama_media'] }}
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        {{ $ord['order_code'] }}
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        @if($ord['status'] == 'sent')
-                                                        <span class="badge badge-success">
-                                                            Dikirim
-                                                        </span>
-                                                        <div>
-                                                            @if($ord['deadline'])
-                                                            {{ Carbon::parse($ord['deadline'])->isoFormat('DD MMMM Y,
-                                                            HH:mm
-                                                            [WIB]') }}
-                                                            @else
-                                                            <span class="text-danger" style="font-size: 11px">
-                                                                Sudah Lewat Batas
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($agenda['orders'] as $ord)
+                                                    <tr>
+                                                        <td style="font-size: 13px" class="p-2">
+                                                            {{ $ord['nama_media'] }}
+                                                        </td>
+                                                        <td style="font-size: 13px" class="p-2 text-center">
+                                                            {{ $ord['order_code'] }}
+                                                        </td>
+                                                        <td style="font-size: 13px" class="p-2 text-center">
+                                                            @if($ord['status'] == 'sent')
+                                                            <span class="badge badge-success">
+                                                                Dikirim
+                                                            </span>
+                                                            <div>
+                                                                @if($ord['deadline'])
+                                                                {{ Carbon::parse($ord['deadline'])->isoFormat('DD MMMM Y,
+                                                                HH:mm
+                                                                [WIB]') }}
+                                                                @else
+                                                                <span class="text-danger" style="font-size: 11px">
+                                                                    Sudah Lewat Batas
+                                                                </span>
+                                                                @endif
+                                                            </div>
+                                                            @elseif($ord['status'] == 'review')
+                                                            <span class="badge badge-warning">
+                                                                Menunggu Review
+                                                            </span>
+                                                            @elseif($ord['status'] == 'verified')
+                                                            <span class="badge badge-primary">
+                                                                Terverifikasi
+                                                            </span>
+                                                            @elseif($ord['status'] == 'done')
+                                                            <span class="badge badge-primary">
+                                                                Selesai
                                                             </span>
                                                             @endif
-                                                        </div>
-                                                        @elseif($ord['status'] == 'review')
-                                                        <span class="badge badge-warning">
-                                                            Menunggu Review
-                                                        </span>
-                                                        @elseif($ord['status'] == 'verified')
-                                                        <span class="badge badge-primary">
-                                                            Terverifikasi
-                                                        </span>
-                                                        @elseif($ord['status'] == 'done')
-                                                        <span class="badge badge-primary">
-                                                            Selesai
-                                                        </span>
-                                                        @endif
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a
-                                                            href="{{ route('a.media-order.detail', $ord['order_code']) }}">
-                                                            Lihat Media Order
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                        </td>
+                                                        <td style="font-size: 13px" class="p-2 text-center">
+                                                            <a
+                                                                href="{{ route('a.media-order.detail', $ord['order_code']) }}">
+                                                                Lihat Media Order
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
+                                    @endif
+                                </li>
+                                @endforeach
+                            </ol>
+                            @else
+                            <div class="">
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">Hmmm!</h4>
+                                    <p>
+                                        Tidak ada jadwal untuk hari ini.
+                                    </p>
                                 </div>
-                                @endif
-                            </li>
-                            @endforeach
-                        </ol>
-                        @else
-                        <div class="">
-                            <div class="alert alert-success" role="alert">
-                                <h4 class="alert-heading">Hmmm!</h4>
-                                <p>
-                                    Tidak ada jadwal untuk hari ini.
-                                </p>
                             </div>
-                        </div>
+                            @endif
+                        @else
+                            <div class="">
+                                Loading...
+                            </div>
                         @endif
                     </div>
                 </div>

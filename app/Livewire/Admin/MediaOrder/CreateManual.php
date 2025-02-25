@@ -24,6 +24,7 @@ class CreateManual extends Component
     public $search;
     public $detail = [], $inputType = 'create';
 
+    public $agendas = [], $isLoading = true;
     public $selectedAgendaID = null, $selectedAgenda = null;
     public $selectedMediaPers = [];
 
@@ -36,7 +37,19 @@ class CreateManual extends Component
 
     function mount()
     {
+        if (!$this->filterDate) {
+            $this->filterDate = date('Y-m-d');
+        }
+
         $this->inputType = 'create';
+    }
+
+    function updated($field)
+    {
+        if ($field == 'filterDate') {
+            $this->isLoading = true;
+            $this->_initGetMedia();
+        }
     }
 
     function addData()
@@ -162,6 +175,11 @@ class CreateManual extends Component
             DB::table('user_logs')->insert($log);
             // make log end
         }
+
+        $this->dispatch('closeModal');
+        $this->closeModal();
+        $this->isLoading = true;
+        $this->_initGetMedia();
     }
 
     function openWizardAdd($id)
@@ -292,6 +310,8 @@ class CreateManual extends Component
 
             $this->dispatch('closeModal');
             $this->closeModal();
+            $this->isLoading = true;
+            $this->_initGetMedia();
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage() . ' - ' . $e->getLine());
@@ -311,16 +331,24 @@ class CreateManual extends Component
         $this->searchMedia = null;
     }
 
-    public function render()
+    function _getAgenda($date)
+    {
+        $this->isLoading = true;
+        $agendas = Agenda::where('jadwalin_bae_id', null)
+            ->whereDate('tanggal_pelaksanaan', $date)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $agendas;
+    }
+
+    function _initGetMedia()
     {
         $datas = [];
-        $agendas = Agenda::search($this->search)
-            ->where('jadwalin_bae_id', null)
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $dataAgendas = $this->_getAgenda($this->filterDate);
 
-        if (count($agendas) > 0) {
-            foreach ($agendas as $agenda) {
+        if (count($dataAgendas) > 0) {
+            foreach ($dataAgendas as $agenda) {
                 $orders = [];
                 $arrOrders = DB::table('orders')
                     ->where('agenda_id', $agenda->id)
@@ -363,13 +391,19 @@ class CreateManual extends Component
             }
         }
 
+        $this->agendas = $datas;
+        $this->isLoading = false;
+    }
+
+    public function render()
+    {
         $arrMediaPers = MediaPers::search($this->searchMedia)
             ->where('verified_status', 'verified')
             ->orderBy('tier')
             ->get();
 
         return view('livewire.admin.media-order.create-manual', [
-            'agendas' => $datas,
+            // 'agendas' => $datas,
             'arrMediaPers' => $arrMediaPers,
         ])->layout('layouts.app', ['title' => 'Agenda Manual']);
     }
