@@ -26,7 +26,11 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('a/media-order', App\Livewire\Admin\MediaOrder\Index::class)->name('a.media-order');
         Route::get('a/media-order/create', App\Livewire\Admin\MediaOrder\Create::class)->name('a.media-order.create');
+        Route::get('a/media-order/create_manual', App\Livewire\Admin\MediaOrder\CreateManual::class)->name('a.media-order.create_manual');
         Route::get('a/media-order/{order_code}', App\Livewire\Admin\MediaOrder\Detail::class)->name('a.media-order.detail');
+
+
+
 
         Route::get('announcements', App\Livewire\Admin\Announcements\Index::class)->name('announcements');
 

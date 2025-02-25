@@ -43,10 +43,14 @@
                                         Media Order
                                     </a>
                                 </li>
-
                                 <li>
                                     <a href="{{ route('a.media-order.create') }}">
                                         Agenda Jadwalin Bae
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('a.media-order.create_manual') }}">
+                                        Agenda Manual
                                     </a>
                                 </li>
                             </ul>
