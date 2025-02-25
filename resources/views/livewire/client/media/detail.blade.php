@@ -313,16 +313,48 @@ use Carbon\Carbon;
                             @enderror
                         </div>
                         @elseif($input['type'] == 'image')
-                        <div class="col-12">
-                            <label for="files" class="col-form-label">Berkas Eviden:</label>
-                            <input type="file" class="form-control" id="files" autocomplete="off" multiple
-                                accept=".jpeg,.jpg,.png" wire:model="input.files">
-                            @error('input.files')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                            @foreach($imageInputs as $index => $imageInput)
+                            <div class="col-12 mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="card-title mb-0">Evidence {{ $index + 1 }}</h6>
+                                    @if(count($imageInputs) > 1)
+                                    <button type="button" class="btn btn-danger btn-sm" wire:click="removeImageInput({{ $index }})">
+                                        <i class="ri-delete-bin-line"></i> Hapus
+                                    </button>
+                                    @endif
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="files_{{ $index }}" class="form-label">File Gambar:</label>
+                                    <input type="file" class="form-control" id="files_{{ $index }}"
+                                        accept=".jpeg,.jpg,.png" wire:model="imageInputs.{{ $index }}.file">
+                                    @error("imageInputs.{$index}.file")
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="description_{{ $index }}" class="form-label">Deskripsi:</label>
+                                    <textarea class="form-control" id="description_{{ $index }}"
+                                        wire:model="imageInputs.{{ $index }}.description"
+                                        rows="3"
+                                        placeholder="Masukkan deskripsi gambar..."></textarea>
+                                    @error("imageInputs.{$index}.description")
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
+                            @endforeach
+
+                            <div class="col-12">
+                                <button type="button" class="btn btn-primary mt-3 w-100" wire:click="addImageInput">
+                                    <i class="ri-add-line"></i> Tambah Evidence Baru
+                                </button>
+                            </div>
                         @endif
                     </form>
                 </div>

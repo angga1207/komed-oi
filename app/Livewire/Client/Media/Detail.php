@@ -13,6 +13,7 @@ class Detail extends Component
     public $mediaOrder = null;
     public $input = [];
     public $deleteEviId = null, $detailEvidence = null;
+    public $imageInputs = [];
 
     function getListeners()
     {
@@ -34,6 +35,12 @@ class Detail extends Component
             'type' => null,
             'link' => null,
             'files' => [],
+        ];
+        $this->imageInputs = [
+            [
+                'file' => null,
+                'description' => '',
+            ]
         ];
     }
 
@@ -63,6 +70,26 @@ class Detail extends Component
             'link' => null,
             'files' => [],
         ];
+        $this->imageInputs = [
+            [
+                'file' => null,
+                'description' => '',
+            ]
+        ];
+    }
+
+    function addImageInput()
+    {
+        $this->imageInputs[] = [
+            'file' => null,
+            'description' => '',
+        ];
+    }
+
+    function removeImageInput($index)
+    {
+        unset($this->imageInputs[$index]);
+        $this->imageInputs = array_values($this->imageInputs); // Re-index array
     }
 
     function closeModal()
@@ -72,17 +99,40 @@ class Detail extends Component
             'link' => null,
             'files' => [],
         ];
+        $this->imageInputs = [
+            [
+                'file' => null,
+                'description' => '',
+            ]
+        ];
         $this->detailEvidence = null;
         $this->deleteEviId = null;
     }
 
     function uploadEvidence()
     {
-        $this->validate([
-            'input.type' => 'required|in:image,link',
-            'input.link' => 'nullable|required_if:input.type,link',
-            'input.files' => 'nullable|array|required_if:input.type,image',
-        ]);
+        // $this->validate([
+        //     'input.type' => 'required|in:image,link',
+        //     'input.link' => 'nullable|required_if:input.type,link',
+        //     'input.files' => 'nullable|array|required_if:input.type,image',
+        // ]);
+
+        if ($this->input['type'] == 'image') {
+            $this->validate([
+                'imageInputs.*.file' => 'required|image|max:2048', // Validate each image file
+                'imageInputs.*.description' => 'nullable|string|max:1000', // Validate each description
+            ], [
+                'imageInputs.*.file.required' => 'File gambar wajib diisi',
+                'imageInputs.*.file.image' => 'File harus berupa gambar',
+                'imageInputs.*.file.max' => 'Ukuran file maksimal 2MB',
+                'imageInputs.*.description.max' => 'Deskripsi maksimal 1000 karakter',
+            ]);
+        } else {
+            $this->validate([
+                'input.type' => 'required|in:image,link',
+                'input.link' => 'nullable|required_if:input.type,link',
+            ]);
+        }
 
         DB::beginTransaction();
         try {
@@ -118,20 +168,24 @@ class Detail extends Component
 
 
             if ($this->input['type'] == 'image') {
-                $files = $this->input['files'];
-                foreach ($files as $key => $file) {
-                    $fileName = $this->mediaOrder->order_code . '-' . time() . $key . '.' . $file->extension();
-                    $upload = $file->storeAs('public/evidences/' . $this->mediaOrder->id, $fileName, 'public');
-                    $path = 'storage/public/evidences/' . $this->mediaOrder->id . '/' . $fileName;
+                foreach ($this->imageInputs as $input) {
+                    if ($input['file']) {
+                        $file = $input['file'];
+                        $fileName = $this->mediaOrder->order_code . '-' . time() . rand(1000, 9999) . '.' . $file->extension();
+                        $upload = $file->storeAs('public/evidences/' . $this->mediaOrder->id, $fileName, 'public');
+                        $path = 'storage/public/evidences/' . $this->mediaOrder->id . '/' . $fileName;
 
-                    DB::table('order_evidences')
-                        ->insert([
-                            'order_id' => $this->mediaOrder->id,
-                            'media_id' => $this->mediaOrder->media_id,
-                            'agenda_id' => $this->mediaOrder->agenda_id,
-                            'type' => $this->input['type'],
-                            'url' => asset($path),
-                        ]);
+                        DB::table('order_evidences')
+                            ->insert([
+                                'order_id' => $this->mediaOrder->id,
+                                'media_id' => $this->mediaOrder->media_id,
+                                'agenda_id' => $this->mediaOrder->agenda_id,
+                                'type' => $this->input['type'],
+                                'url' => asset($path),
+                                'description' => $input['description'] ?? null,
+                                'created_at' => now(),
+                            ]);
+                    }
                 }
             } elseif ($this->input['type'] == 'link') {
                 DB::table('order_evidences')
