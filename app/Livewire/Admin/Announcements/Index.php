@@ -122,18 +122,24 @@ class Index extends Component
                 'detail.published_at' => 'Tanggal Publish',
             ]);
 
+            $oldImage = DB::table('announcements')
+                ->where('id', $this->detail['id'])
+                ->first()
+                ->image;
+
             DB::table('announcements')
                 ->where('id', $this->detail['id'])
                 ->update([
                     'title' => $this->detail['title'],
                     'content' => $this->detail['content'],
-                    'image' => $this->detail['image'],
                     'link' => $this->detail['link'],
+                    'image' => $this->detail['image'],
                     'is_active' => $this->detail['is_active'],
                     'published_at' => $this->detail['published_at'],
                 ]);
 
-            if ($this->detail['image']) {
+            // check if image is updated
+            if ($this->detail['image'] && $oldImage != $this->detail['image']) {
                 $fileName = time() . '.' . $this->detail['image']->extension();
                 $path = $this->detail['image']->storeAs('images/announcements/', $fileName, 'public');
                 DB::table('announcements')
@@ -172,6 +178,8 @@ class Index extends Component
             // make log end
         }
         $this->resetErrorBag();
+        $this->dispatch('closeModal');
+        $this->closeModal();
     }
 
     function getDetail($id)

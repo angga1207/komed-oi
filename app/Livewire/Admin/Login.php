@@ -10,7 +10,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class Login extends Component
 {
     use LivewireAlert;
-    public $username, $password;
+    public $username, $password, $captcha;
 
     public function render()
     {
@@ -25,13 +25,16 @@ class Login extends Component
         $this->validate([
             'username' => 'required|exists:users,username',
             'password' => 'required',
-        ], [], [
+            'captcha' => 'required|captcha'
+        ], [
+            'captcha.required' => 'Captcha tidak boleh kosong',
+            'captcha.captcha' => 'Captcha tidak cocok'
+        ], [
             'username' => 'Username / N.I.K',
             'password' => 'Kata Sandi',
         ]);
 
         if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
-
             $user = Auth::user();
             // make log start
             $log = [
@@ -66,5 +69,10 @@ class Login extends Component
                 'confirmButtonText' =>  'Tutup',
             ]);
         }
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

@@ -10,13 +10,13 @@ use Carbon\Carbon;
                         <h5>
                             Pengumuman
                         </h5>
-                        <form class="d-inline-flex">
+                        {{-- <form class="d-inline-flex">
                             <a class="align-items-center btn btn-theme d-flex" href="javascript:void(0)"
                                 data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click="addData()" wire:ignore>
                                 <i data-feather="plus"></i>
                                 Tambah Pengumuman
                             </a>
-                        </form>
+                        </form> --}}
                     </div>
 
                     <div class="table-responsive table-product">
@@ -29,13 +29,10 @@ use Carbon\Carbon;
                                     <th>
                                         Judul
                                     </th>
-                                    <th>
+                                    <th style="width: 10px !important">
                                         Isi
                                     </th>
-                                    <th style="width: 100px !important">
-                                        Tanggal Publish
-                                    </th>
-                                    <th class="text-center" style="width: 100px !important">
+                                    <th class="text-center" style="width: 10px !important">
                                         Status
                                     </th>
                                     <th class="text-center" style="width: 100px">
@@ -47,10 +44,16 @@ use Carbon\Carbon;
                             <tbody>
                                 @forelse($announcements as $announcement)
                                 <tr wire:key="{{ $announcement->id }}">
-                                    <td>
+                                    <td class="text-center">
+                                        @if ($announcement->image)
                                         <div class="table-image">
                                             <img src="{{ asset($announcement->image) }}" class="img-fluid" alt="">
                                         </div>
+                                        @else
+                                            <span class="badge badge-danger">
+                                                Tidak ada gambar
+                                            </span>
+                                        @endif
                                     </td>
 
                                     <td>
@@ -66,10 +69,6 @@ use Carbon\Carbon;
 
                                     <td>
                                         {{ $announcement->content }}
-                                    </td>
-
-                                    <td>
-                                        {{ Carbon::parse($announcement->published_at)->isoFormat('DD MMM Y') }}
                                     </td>
 
                                     <td>
@@ -208,7 +207,7 @@ use Carbon\Carbon;
                             </div>
                             @enderror
                         </div>
-                        <div class="col-12 col-xl-6">
+                        <div class="col-12 col-xl-12">
                             <label for="message-text" class="col-form-label">Link:</label>
                             <input type="text" class="form-control" id="message-text" autocomplete="off"
                                 placeholder="Link" wire:model="detail.link">
@@ -219,7 +218,7 @@ use Carbon\Carbon;
                             </div>
                             @enderror
                         </div>
-                        <div class="col-12 col-xl-6">
+                        {{-- <div class="col-12 col-xl-6">
                             <label for="recipient-name" class="col-form-label">
                                 Tanggal Publish
                             </label>
@@ -230,7 +229,7 @@ use Carbon\Carbon;
                                 {{ $message }}
                             </div>
                             @enderror
-                        </div>
+                        </div> --}}
                     </form>
                     @endif
                 </div>

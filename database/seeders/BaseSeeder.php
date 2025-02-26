@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Announcement;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -97,5 +98,15 @@ class BaseSeeder extends Seeder
                 DB::table('users')->where('username', $user['username'])->update($user);
             }
         }
+
+        Announcement::create([
+            'title' => 'Selamat Datang di Aplikasi KOMED',
+            'content' => 'Selamat datang di aplikasi KOMED. ',
+            'image' => null,
+            'link' => null,
+            'is_active' => 1,
+            'published_at' => now(),
+            'created_by' => 1
+        ]);
     }
 }
