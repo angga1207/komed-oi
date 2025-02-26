@@ -1,35 +1,16 @@
 <div>
     <div class="log-in-box">
-        {{-- <div class="log-in-title">
-            <h3>
-                Selamat Datang di {{ env('APP_NAME') }}
-            </h3>
-            <h4>
-                Isi form di bawah ini untuk mendaftar.
-            </h4>
-        </div> --}}
-
-        <div class="divider d-flex align-items-center mt-2">
-            <h3 class="text-center fw-bold mx-3 mb-0">
-                Selamat Datang di {{ env('APP_NAME') }}
-            </h3>
-        </div>
-        <div class="divider d-flex align-items-center mb-2">
-            <h4 class="text-center fw-bold mx-3 mb-0">
-                Isi form di bawah ini untuk mendaftar.
-            </h4>
+        <div class="log-in-title mb-4">
+            <h3 class="mt-4">Pendaftaran Akun Baru</h3>
+            <h4>Aplikasi Komed Ogan Ilir,</h4>
         </div>
 
         <div class="input-box">
             <form class="row g-4" wire:submit.prevent="register">
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="text" class="form-control" id="fullname" placeholder="Masukkan Nama Lengkap"
-                            wire:model='fullname'>
-                        <label for="fullname">
-                            Nama Lengkap
-                        </label>
-
+                        <input type="text" class="form-control" id="name" placeholder="Nama Lengkap" wire:model="fullname">
+                        <label for="name">Nama Lengkap</label>
                         @error('fullname')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                             {{ $message }}
@@ -40,12 +21,8 @@
 
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="text" class="form-control" id="username" placeholder="Masukkan N.I.K"
-                            wire:model='username'>
-                        <label for="username">
-                            N.I.K
-                        </label>
-
+                        <input type="number" class="form-control" id="nik" placeholder="Masukkan N.I.K" wire:model="username">
+                        <label for="nik">Nomor Induk Kependudukan</label>
                         @error('username')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                             {{ $message }}
@@ -56,12 +33,8 @@
 
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="email" class="form-control" id="email" placeholder="Masukkan Email"
-                            wire:model='email'>
-                        <label for="email">
-                            Email
-                        </label>
-
+                        <input type="email" class="form-control" id="email" placeholder="Email Address" wire:model="email">
+                        <label for="email">Email Address</label>
                         @error('email')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                             {{ $message }}
@@ -72,11 +45,9 @@
 
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="text" class="form-control" id="whatsapp" placeholder="Masukkan Nomor WhatsApp"
-                            wire:model='whatsapp'>
-                        <label for="whatsapp">
-                            Nomor WhatsApp
-                        </label>
+                        <input type="number" class="form-control" id="handphone"
+                            placeholder="Masukkan Nomor Whatsapp" wire:model="whatsapp">
+                        <label for="handphone">Nomor Whatsapp</label>
 
                         @error('whatsapp')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
@@ -88,11 +59,8 @@
 
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form" x-data={showPassword:false}>
-                        <input :type="showPassword ? 'text' : 'password'" class="form-control" id="password"
-                            placeholder="Kata Sandi" wire:model='password'>
-                        <label for="password">
-                            Kata Sandi
-                        </label>
+                        <input :type="showPassword ? 'text' : 'password'" class="form-control" id="password" placeholder="Password" wire:model="password">
+                        <label for="password">Password</label>
 
                         <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center">
                             <button type="button" class="btn" @click="showPassword = !showPassword">
@@ -142,9 +110,7 @@
                     <div class="form-floating theme-form-floating log-in-form" x-data={showPassword:false}>
                         <input :type="showPassword ? 'text' : 'password'" class="form-control"
                             id="password_confirmation" placeholder="Kata Sandi" wire:model='password_confirmation'>
-                        <label for="password_confirmation">
-                            Konfirmasi Kata Sandi
-                        </label>
+                        <label for="confirm_password">Konfirmasi Kata Sandi</label>
 
                         <div class="position-absolute top-0 end-0 h-100 d-flex align-items-center">
                             <button type="button" class="btn" @click="showPassword = !showPassword">
@@ -190,29 +156,10 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-12">
-                    <div class="forgot-box">
-                        <div class="form-check ps-0 m-0 remember-box">
-                            <input class="checkbox_animated check-box" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                I accept the terms and privacy policy.
-                            </label>
-                        </div>
-                        <!-- <a href="forgot.html" class="forgot-password">Forgot Password?</a> -->
-                    </div>
-                </div> --}}
 
                 <div class="col-12">
-                    <button class="btn btn-warning btn-animation w-100 justify-content-center" type="submit">
-                        Daftar
-                    </button>
-                    <h5 class="new-page mt-3 text-center">
-                        Sudah mempunyai Akun?
-                        <a href="{{ route('login') }}">
-                            Login
-                            Di sini
-                        </a>
-                    </h5>
+                    <button type="submit" class="btn btn-animation w-100 justify-content-center">Buat Akun</button>
+                    <h5 class="new-page mt-3 text-start">Sudah memilik akun? <a href="{{ route('login') }}" style="color: #1b71FF !important">Login  Komed </a></h5>
                 </div>
             </form>
         </div>
