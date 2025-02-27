@@ -78,6 +78,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Nama Perusahaan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input class="form-control" type="text" placeholder="Nama Perusahaan"
@@ -93,6 +94,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Nama Media
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input class="form-control" type="text" placeholder="Nama Media"
@@ -108,6 +110,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Alamat Media
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <textarea class="form-control" type="text" placeholder="Alamat Media"
@@ -124,6 +127,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Email Media
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input class="form-control" type="email" placeholder="Email Media" wire:model='input.email'
@@ -171,9 +175,24 @@
                             NPWP
                         </label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="NPWP"
+                            <input class="form-control" type="number" placeholder="NPWP"
                                 wire:model='input.no_npwp' wire:loading.attr='disabled'>
                             @error('input.no_npwp')
+                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mb-4 row align-items-center">
+                        <label class="form-label-title col-sm-3 mb-0">
+                            Nama Bank
+                        </label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" placeholder="Nama Bank" wire:model='input.nama_bank'
+                                wire:loading.attr='disabled'>
+                            @error('input.nama_bank')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                 {{ $message }}
                             </div>
@@ -186,7 +205,7 @@
                             Nomor Ref Bank
                         </label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Nomor Ref Bank"
+                            <input class="form-control" type="number" placeholder="Nomor Ref Bank"
                                 wire:model='input.no_ref_bank' wire:loading.attr='disabled'>
                             @error('input.no_ref_bank')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
@@ -201,7 +220,7 @@
                             Nomor Giro Perusahaan
                         </label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Nomor Giro Perusahaan"
+                            <input class="form-control" type="number" placeholder="Nomor Giro Perusahaan"
                                 wire:model='input.no_giro_perusahaan' wire:loading.attr='disabled'>
                             @error('input.no_giro_perusahaan')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
@@ -214,6 +233,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Jabatan yang Mendaftarkan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input class="form-control" type="text" placeholder="Jabatan yang Mendaftarkan"
@@ -229,6 +249,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Cakupan Media
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model='input.cakupan_media' wire:loading.attr='disabled'>
@@ -254,6 +275,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Jumlah Oplah
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model='input.jumlah_oplah' wire:loading.attr='disabled'>
@@ -284,6 +306,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Sebaran Oplah
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model='input.sebaran_oplah' wire:loading.attr='disabled'>
@@ -308,6 +331,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Lampiran Jumlah Oplah
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -323,6 +347,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Status Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model.live='input.status_wartawan'
@@ -349,7 +374,8 @@
                     @if(in_array($input['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
-                            Lampiran Status Wartawan <span class="text-danger">*</span>
+                            Lampiran Status Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -366,6 +392,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Kompetensi Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model.live='input.kompetensi_wartawan'
@@ -389,7 +416,8 @@
                     @if($input['kompetensi_wartawan'] == 'Memiliki Sertifikat Kompetensi')
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
-                            Lampiran Kompetensi Wartawan <span class="text-danger">*</span>
+                            Lampiran Kompetensi Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -406,16 +434,17 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Status Dewan Pers
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model.live='input.status_dewan_pers'
                                 wire:loading.attr='disabled'>
                                 <option value="" hidden>Pilih Status Dewan Pers</option>
                                 <option value="Terdaftar">
-                                    Terdaftar
+                                    Terverifikasi
                                 </option>
                                 <option value="Tidak Terdaftar">
-                                    Tidak Terdaftar
+                                    Belum Terverifikasi
                                 </option>
                             </select>
                             @error('input.status_dewan_pers')
@@ -429,7 +458,8 @@
                     @if($input['status_dewan_pers'] == 'Terdaftar')
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
-                            Lampiran Status Dewan Pers <span class="text-danger">*</span>
+                            Lampiran Status Dewan Pers
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -446,6 +476,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Kantor
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model='input.kantor' wire:loading.attr='disabled'>
@@ -468,6 +499,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Frekuensi Terbitan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model='input.frekuensi_terbitan'
@@ -497,6 +529,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Terbitan 3 Edisi Terakhir
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <select class="form-control" wire:model.live='input.terbitan_3_edisi_terakhir'
@@ -541,6 +574,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Akta Pendirian
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -556,6 +590,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SK Kemenkumham
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -571,6 +606,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SIUP
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -586,6 +622,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             TDP Penerbitan 58130
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -601,6 +638,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SPT Terakhir
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -616,6 +654,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SP Cakupan Wilayah
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -631,6 +670,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SP Pimpinan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -646,6 +686,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Surat Tugas Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -661,6 +702,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Akta Pendirian
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -676,6 +718,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SK Kemenkumham
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -691,6 +734,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Izin IPP
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -706,6 +750,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Izin ISR
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -721,6 +766,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SIUP
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -736,6 +782,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             TDP Penyiaran 60102
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -751,6 +798,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SPT Terakhir
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -766,6 +814,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SP Cakupan Wilayah
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -781,6 +830,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SP Pimpinan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -796,6 +846,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SK Biro Iklan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -811,6 +862,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Surat Tugas Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -827,6 +879,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Akta Pendirian
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -842,6 +895,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SK Kemenkumham
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -857,6 +911,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SIUP
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -872,6 +927,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             TDP Penerbitan 63122
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -887,6 +943,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SPT Terakhir
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -902,6 +959,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SITU
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -917,6 +975,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             SK Domisili
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -932,6 +991,7 @@
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
                             Surat Tugas Wartawan
+                            <span class="text-danger">*</span>
                         </label>
                         <div class="col-sm-9">
                             <input type="file" accept="*" class="form-control"
@@ -976,7 +1036,6 @@
                     </div>
                 </div>
                 @endif
-
             </div>
         </div>
     </div>

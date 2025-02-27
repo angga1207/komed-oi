@@ -53,6 +53,7 @@ return new class extends Migration
             $table->longText('whatsapp')->nullable();
             $table->longText('email')->nullable();
             $table->longText('no_npwp')->nullable();
+            $table->text('nama_bank')->nullable();
             $table->longText('no_ref_bank')->nullable();
             $table->longText('no_giro_perusahaan')->nullable();
             $table->longText('website')->nullable();

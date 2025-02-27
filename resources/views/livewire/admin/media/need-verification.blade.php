@@ -286,6 +286,15 @@ use Carbon\Carbon;
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
+                                <label for="nama_bank" class="form-label">
+                                    Nama Bank
+                                </label>
+                                <input type="text" class="form-control" id="nama_bank" wire:model="detail.nama_bank"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
                                 <label for="no_ref_bank" class="form-label">
                                     No. Referensi Bank
                                 </label>
@@ -313,15 +322,6 @@ use Carbon\Carbon;
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="cakupan_media" class="form-label">
-                                    Cakupan Media
-                                </label>
-                                <input type="text" class="form-control" id="cakupan_media"
-                                    wire:model="detail.cakupan_media" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
                                 <label for="profil_perusahaan" class="form-label">
                                     Profil Perusahaan
                                 </label>
@@ -336,6 +336,15 @@ use Carbon\Carbon;
                                 </label>
                                 <textarea style="min-height:100px; max-height:100px" class="form-control"
                                     id="alamat_media" wire:model="detail.alamat_media" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label for="cakupan_media" class="form-label">
+                                    Cakupan Media
+                                </label>
+                                <input type="text" class="form-control" id="cakupan_media"
+                                    wire:model="detail.cakupan_media" readonly>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
