@@ -11,8 +11,8 @@
         <form wire:submit.prevent="login" class="row g-4">
             <div class="col-12">
                 <div class="form-floating theme-form-floating log-in-form">
-                    <input type="text" class="form-control" id="email" placeholder="Username / N.I.K" wire:model='username'>
-                    <label for="email">Username / N.I.K</label>
+                    <input type="text" class="form-control" id="email" placeholder="NIK" wire:model='username'>
+                    <label for="email">NIK</label>
                     @error('username')
                     <div class="text-danger mt-1" style="font-size: 0.8rem;">
                         {{ $message }}

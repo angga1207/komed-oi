@@ -9,8 +9,8 @@
             <form class="row g-4" wire:submit.prevent="register">
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="text" class="form-control" id="name" placeholder="Nama Lengkap" wire:model="fullname">
-                        <label for="name">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nama Lengkap Sesuai KTP" wire:model="fullname">
+                        <label for="name">Nama Lengkap Sesuai KTP</label>
                         @error('fullname')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                             {{ $message }}
@@ -33,8 +33,8 @@
 
                 <div class="col-12">
                     <div class="form-floating theme-form-floating log-in-form">
-                        <input type="email" class="form-control" id="email" placeholder="Email Address" wire:model="email">
-                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Alamat Email" wire:model="email">
+                        <label for="email">Alamat Email</label>
                         @error('email')
                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                             {{ $message }}

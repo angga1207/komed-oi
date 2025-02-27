@@ -291,9 +291,9 @@ class CreateManual extends Component
                 // make log end
 
                 // send notification start
-                // $user = User::find($mediaPers->user_id);
-                // $token = $user->routeNotificationForFcm();
-                // $user->notify(new OrderNotifications($mediaPers, $orders, 'sent', $token, auth()->id()));
+                $user = User::find($mediaPers->user_id);
+                $token = $user->routeNotificationForFcm();
+                $user->notify(new OrderNotifications($mediaPers, $orders, 'sent', $token, auth()->id()));
                 // send notification end
             }
 

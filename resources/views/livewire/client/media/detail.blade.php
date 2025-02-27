@@ -62,7 +62,7 @@ use Carbon\Carbon;
                                                     </span>
                                                     @elseif($mediaOrder->status == 'review')
                                                     <span class="badge badge-warning text-white">
-                                                        Sedang Direview Admin
+                                                        Laporan Dikirim
                                                     </span>
                                                     @elseif($mediaOrder->status == 'rejected')
                                                     <span class="badge badge-warning text-white">
@@ -108,7 +108,7 @@ use Carbon\Carbon;
                                                 </span>
                                                 @elseif($log->status == 'review')
                                                 <span class="fw-bold">
-                                                    Sedang Direview Admin
+                                                    Laporan Dikirim
                                                 </span>
                                                 @elseif($log->status == 'rejected')
                                                 <span class="fw-bold">
@@ -240,7 +240,7 @@ use Carbon\Carbon;
                             $mediaOrder->deadline >= now())
                             <button class="btn btn-primary me-3" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalToggle" wire:click="addEvidence()">
-                                Unggah Evidence
+                                Unggah Bukti
                             </button>
                             @elseif(($mediaOrder->status == 'sent' || $mediaOrder->status == 'rejected') &&
                             $mediaOrder->deadline <= now()) <button class="btn btn-secondary me-3">
@@ -251,7 +251,7 @@ use Carbon\Carbon;
                                 @if(count($evidences) > 0 && ($mediaOrder->status == 'sent' || $mediaOrder->status ==
                                 'rejected'))
                                 <button class="btn btn-primary me-3" wire:click="comfirmSendEvidence()">
-                                    Kirim ke Verifikator
+                                    Kirim Laporan
                                 </button>
                                 @endif
                                 <a href="{{ route('media-order') }}" class="btn btn-outline">

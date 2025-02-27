@@ -168,10 +168,10 @@
 
                     <div class="mb-4 row align-items-center">
                         <label class="form-label-title col-sm-3 mb-0">
-                            Nomor NPWP
+                            NPWP
                         </label>
                         <div class="col-sm-9">
-                            <input class="form-control" type="text" placeholder="Nomor NPWP"
+                            <input class="form-control" type="text" placeholder="NPWP"
                                 wire:model='input.no_npwp' wire:loading.attr='disabled'>
                             @error('input.no_npwp')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">

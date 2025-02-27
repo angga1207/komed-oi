@@ -191,7 +191,7 @@ class FirstUpdateMedia extends Component
                 'input.alamat_media' => 'Alamat Media',
                 'input.whatsapp' => 'Nomor Whatsapp',
                 'input.email' => 'Email',
-                'input.no_npwp' => 'Nomor NPWP',
+                'input.no_npwp' => 'NPWP',
                 'input.no_ref_bank' => 'Nomor Referensi Bank',
                 'input.no_giro_perusahaan' => 'Nomor Giro Perusahaan',
                 'input.website' => 'Website',

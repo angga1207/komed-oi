@@ -93,7 +93,7 @@ class Detail extends Component
             'input.note' => 'nullable|string|max:500',
         ], [], [
             'input.status' => 'Status',
-            'input.note' => 'Pesan',
+            'input.note' => 'Penjelasan',
         ]);
 
         $this->confirm('Kirimkan Tanggapan', [

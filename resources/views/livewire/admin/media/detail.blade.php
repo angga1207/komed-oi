@@ -230,7 +230,7 @@ use Carbon\Carbon;
                                             <li>
                                                 <div class="d-flex gap-1 align-items-center">
                                                     <div class="" style="width:110px">
-                                                        Nomor NPWP
+                                                        NPWP
                                                     </div>
                                                     <div>
                                                         : {{ $pers->no_npwp }}

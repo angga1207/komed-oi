@@ -290,7 +290,7 @@ class RegisterController extends Controller
             'alamat_media' => 'Alamat Media',
             'whatsapp' => 'Nomor Whatsapp',
             'email' => 'Email',
-            'no_npwp' => 'Nomor NPWP',
+            'no_npwp' => 'NPWP',
             'no_ref_bank' => 'Nomor Referensi Bank',
             'no_giro_perusahaan' => 'Nomor Giro Perusahaan',
             'website' => 'Website',

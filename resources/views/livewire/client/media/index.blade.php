@@ -95,7 +95,7 @@ use Carbon\Carbon;
                                         </div>
                                         @elseif($data->status == 'review')
                                         <span class="badge badge-warning">
-                                            Sedang Direview Admin
+                                            Laporan Dikirim
                                         </span>
                                         @elseif($data->status == 'rejected')
                                         <span class="badge badge-warning">

@@ -57,14 +57,13 @@ use Carbon\Carbon;
                                                         </p>
                                                         <p>
                                                             Status :
-
                                                             @if($mediaOrder->status == 'sent')
                                                             <span class="badge badge-success text-white">
-                                                                Dikirim
+                                                                Media Order Diterima
                                                             </span>
                                                             @elseif($mediaOrder->status == 'review')
                                                             <span class="badge badge-warning text-white">
-                                                                Menunggu Review
+                                                                Laporan Diterima
                                                             </span>
                                                             @elseif($mediaOrder->status == 'rejected')
                                                             <span class="badge badge-warning text-white">
@@ -72,7 +71,7 @@ use Carbon\Carbon;
                                                             </span>
                                                             @elseif($mediaOrder->status == 'verified')
                                                             <span class="badge badge-primary text-white">
-                                                                Terverifikasi
+                                                                Laporan Selesai
                                                             </span>
                                                             @elseif($mediaOrder->status == 'done')
                                                             <span class="badge badge-primary text-white">
@@ -139,7 +138,7 @@ use Carbon\Carbon;
                                                 </span>
                                                 @elseif($log->status == 'verified')
                                                 <span class="fw-bold">
-                                                    Terverifikasi
+                                                    Laporan Selesai
                                                 </span>
                                                 @elseif($log->status == 'done')
                                                 <span class="fw-bold">
@@ -256,9 +255,8 @@ use Carbon\Carbon;
                         </div>
                         <div class="card-footer text-end border-0 pb-0 d-flex justify-content-end">
                             @if($mediaOrder->status == 'review')
-                            <button class="btn btn-primary me-3" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalToggle" wire:click.prevent='openRespond'>
-                                Tanggapi Media Order
+                            <button class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click.prevent='openRespond'>
+                                Verifikasi Laporan
                             </button>
                             @endif
                             @if($mediaOrder->status == 'sent' && $mediaOrder->deadline <= now()) <button
@@ -317,8 +315,8 @@ use Carbon\Carbon;
                             @enderror
                         </div>
                         <div class="col-12">
-                            <label for="link" class="col-form-label">Pesan:</label>
-                            <textarea class="form-control" id="link" autocomplete="off" placeholder="Pesan"
+                            <label for="link" class="col-form-label">Penjelasan:</label>
+                            <textarea class="form-control" id="link" autocomplete="off" placeholder="Penjelasan"
                                 style="height: 250px" wire:model="input.note"></textarea>
 
                             @error('input.note')

@@ -197,7 +197,7 @@ class MediaOrderController extends Controller
                     'model' => 'media_order',
                     'endpoint' => 'media-order',
                     'payload' => json_encode(request()->all()),
-                    'message' => 'Menunggah Eviden Baru di Media Order ' . $data->order_code,
+                    'message' => 'Menunggah Bukti Baru di Media Order ' . $data->order_code,
                     'created_at' => now()
                 ];
                 DB::table('user_logs')->insert($log);
@@ -257,7 +257,7 @@ class MediaOrderController extends Controller
                     'model' => 'media_order',
                     'endpoint' => 'media-order',
                     'payload' => json_encode(request()->all()),
-                    'message' => 'Menunggah Eviden Baru di Media Order ' . $data->order_code,
+                    'message' => 'Menunggah Bukti Baru di Media Order ' . $data->order_code,
                     'created_at' => now()
                 ];
                 DB::table('user_logs')->insert($log);

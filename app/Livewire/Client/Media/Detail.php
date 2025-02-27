@@ -207,7 +207,7 @@ class Detail extends Component
                     'model' => 'media_order',
                     'endpoint' => 'media-order',
                     'payload' => json_encode(request()->all()),
-                    'message' => 'Menunggah Eviden Baru di Media Order ' . $this->mediaOrder->order_code,
+                    'message' => 'Menunggah Bukti Baru di Media Order ' . $this->mediaOrder->order_code,
                     'created_at' => now()
                 ];
                 DB::table('user_logs')->insert($log);
@@ -215,7 +215,7 @@ class Detail extends Component
 
                 DB::commit();
 
-                $this->alert('success', 'Unggah Evidence', [
+                $this->alert('success', 'Unggah Bukti', [
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,

@@ -246,7 +246,7 @@ class PersonalController extends Controller
                     $orderData[] = [
                         'order_id' => $dt->id,
                         'agenda_id' => $dt->agenda_id,
-                        'nama_acara' => $dataAgenda['nama_acara'],
+                        'nama_acara' => $dataAgenda['nama_acara'] ?? $agenda->nama_acara,
                         'tanggal_pelaksanaan' => $dt->tanggal_pelaksanaan,
                         'tanggal_pelaksanaan_akhir' => $dt->tanggal_pelaksanaan_akhir,
                         'waktu_pelaksanaan' => $dt->waktu_pelaksanaan,
