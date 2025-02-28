@@ -121,7 +121,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('media-order.report') }}">
                                         Laporan
                                     </a>
                                 </li>

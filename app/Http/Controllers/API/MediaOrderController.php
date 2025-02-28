@@ -22,8 +22,10 @@ class MediaOrderController extends Controller
 
         $validated = Validator::make($request->all(), [
             'date' => 'nullable|date',
+            'status' => 'nullable|string',
         ], [], [
             'date' => 'Tanggal',
+            'status' => 'Status',
         ]);
 
         if ($validated->fails()) {
@@ -34,10 +36,22 @@ class MediaOrderController extends Controller
         $returns = [];
         $mediaPers = DB::table('pers_profile')
             ->where('user_id', auth()->id())->first();
-        if ($request->date) {
+        if ($request->date && $request->status) {
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
                 ->whereDate('tanggal_pelaksanaan', $request->date)
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } elseif ($request->date) {
+            $datas = DB::table('orders')
+                ->where('media_id', $mediaPers->id)
+                ->whereDate('tanggal_pelaksanaan', $request->date)
+                ->orderBy('tanggal_pelaksanaan')
+                ->get();
+        } elseif ($request->status) {
+            $datas = DB::table('orders')
+                ->where('media_id', $mediaPers->id)
+                ->where('status', $request->status)
                 ->orderBy('tanggal_pelaksanaan')
                 ->get();
         } else {

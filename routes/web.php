@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('firstUpdateMedia', App\Livewire\Client\FirstUpdateMedia::class)->name('firstUpdateMedia');
 
         Route::get('c/media-order', App\Livewire\Client\Media\Index::class)->name('media-order');
+        Route::get('c/media-order/report', App\Livewire\Client\Media\Report::class)->name('media-order.report');
         Route::get('c/media-order/{order_code}', App\Livewire\Client\Media\Detail::class)->name('media-order.detail');
     });
 
