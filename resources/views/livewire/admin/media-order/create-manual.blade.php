@@ -174,7 +174,7 @@ use Carbon\Carbon;
                                                     <tr>
                                                         <td colspan="4" class="p-2 text-center">
                                                             <a href="javascript:void(0);"
-                                                                wire:click="sendAllOrder('{{ $agenda['jadwalin_bae_id'] }}')"
+                                                                wire:click="sendAllOrder('{{ $agenda['agenda_id'] }}')"
                                                                 class="btn btn-primary">
                                                                 Kirim Semua Media Order
                                                             </a>

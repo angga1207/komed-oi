@@ -608,17 +608,17 @@ class CreateManual extends Component
         }
     }
 
-    function sendAllOrder($jadwalinBaeID)
+    function sendAllOrder($agendaID)
     {
         DB::beginTransaction();
         try {
             $now = now();
             $agd = DB::table('agendas')
-                ->where('jadwalin_bae_id', $jadwalinBaeID)
+                ->where('id', $agendaID)
                 ->first();
 
             $arrOrders = DB::table('orders')
-                ->where('jadwalin_bae_id', $jadwalinBaeID)
+                ->where('agenda_id', $agendaID)
                 ->where('status', 'unsent')
                 ->get();
 
