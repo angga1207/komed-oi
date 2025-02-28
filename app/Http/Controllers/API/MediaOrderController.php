@@ -34,17 +34,20 @@ class MediaOrderController extends Controller
 
         $now = now();
         $returns = [];
-        $mediaPers = DB::table('pers_profile')
-            ->where('user_id', auth()->id())->first();
+        $mediaPers = DB::table('pers_profile')->where('user_id', auth()->id())->first();
+
         if ($request->date && $request->status) {
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
                 ->whereDate('tanggal_pelaksanaan', $request->date)
+                ->where('status', $request->status)
+                ->where('status', '!=', 'unsent')
                 ->orderBy('tanggal_pelaksanaan')
                 ->get();
         } elseif ($request->date) {
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
+                ->where('status', '!=', 'unsent')
                 ->whereDate('tanggal_pelaksanaan', $request->date)
                 ->orderBy('tanggal_pelaksanaan')
                 ->get();
@@ -52,11 +55,13 @@ class MediaOrderController extends Controller
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
                 ->where('status', $request->status)
+                ->where('status', '!=', 'unsent')
                 ->orderBy('tanggal_pelaksanaan')
                 ->get();
         } else {
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
+                ->whereNotIn('status', ['unsent', 'sent'])
                 ->whereMonth('tanggal_pelaksanaan', $now)
                 ->whereDate('tanggal_pelaksanaan', '>=', $now)
                 ->orderBy('tanggal_pelaksanaan')
