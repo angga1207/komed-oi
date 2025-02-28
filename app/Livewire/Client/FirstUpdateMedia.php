@@ -222,11 +222,13 @@ class FirstUpdateMedia extends Component
         try {
             $now = now();
             $pers = DB::table('pers_profile')->where('id', $this->pers->id)->first();
+            $newUniqueID = $this->changeUniqueID($pers->unique_id, $this->input['jenis_media']);
 
             // update pers profile
             DB::table('pers_profile')
                 ->where('id', $pers->id)
                 ->update([
+                    'unique_id' => $newUniqueID,
                     'jenis_media' => $this->input['jenis_media'],
                     'nama_media' => $this->input['nama_media'],
                     'nama_perusahaan' => $this->input['nama_perusahaan'],
@@ -1014,5 +1016,23 @@ class FirstUpdateMedia extends Component
             DB::rollBack();
             dd($e->getMessage() . ' - ' . $e->getLine());
         }
+    }
+
+    function changeUniqueID($oldUniqueID, $jenisMedia)
+    {
+        if ($jenisMedia == 'Media Cetak') {
+            $jenisMedia = '01';
+        } elseif ($jenisMedia == 'Media Elektronik') {
+            $jenisMedia = '02';
+        } elseif ($jenisMedia == 'Media Siber') {
+            $jenisMedia = '03';
+        }
+
+        $temp = explode('.', $oldUniqueID);
+        if (count($temp) == 3) {
+            $newUniqueID = $temp[0] . '.' . $jenisMedia . '.' . $temp[1] . '.' . $temp[2];
+        }
+
+        return $newUniqueID ?? $oldUniqueID;
     }
 }

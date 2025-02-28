@@ -127,8 +127,13 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('client.profile') }}">
+                                <i class="ri-profile-line"></i>
+                                <span>Profil</span>
+                            </a>
+                        </li>
                         @endif
-
                     </ul>
                 </div>
 
