@@ -139,9 +139,16 @@ use Carbon\Carbon;
                                                         @endif
                                                     </td>
                                                     @if ($ord['status'] == 'unsent')
-                                                    <td style="font-size: 13px" class="p-2 text-center">
+                                                    {{-- <td style="font-size: 13px" class="p-2 text-center">
                                                         <a href="javascript:void(0);" wire:click="sendOrder('{{ $ord['id'] }}')">
                                                             Kirim Media Order
+                                                        </a>
+                                                    </td> --}}
+                                                    {{-- Delete --}}
+                                                    <td style="font-size: 13px" class="p-2 text-center">
+                                                        <a href="javascript:void(0);" wire:click="deleteOrder('{{ $ord['id'] }}')"
+                                                            class="text-danger">
+                                                            Hapus
                                                         </a>
                                                     </td>
                                                     @else
@@ -154,6 +161,17 @@ use Carbon\Carbon;
                                                     @endif
                                                 </tr>
                                                 @endforeach
+                                                @if ($data['is_all_sent'] == false)
+                                                <tr>
+                                                    <td colspan="4" class="p-2 text-center">
+                                                        <a href="javascript:void(0);"
+                                                            wire:click="sendAllOrder('{{ $data['jadwalin_bae_id'] }}')"
+                                                            class="btn btn-primary">
+                                                            Kirim Semua Media Order
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

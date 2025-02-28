@@ -249,53 +249,53 @@ class CreateManual extends Component
                             'waktu_pelaksanaan' => $agd->waktu_pelaksanaan,
                             'leading_sector' => $agd->leading_sector,
                             'deadline' => Carbon::parse($now)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),
-                            'status' => 'sent',
+                            'status' => 'unsent',
                             'created_at' => $now,
                             'updated_at' => $now,
                         ]);
 
-                    DB::table('log_order_status')
-                        ->insert([
-                            'order_id' => $orderID,
-                            'media_id' => $mediaPers->id,
-                            'agenda_id' => $agd->id,
-                            'jadwalin_bae_id' => $agd->jadwalin_bae_id,
-                            'status' => 'sent',
-                            'note' => 'Media Order dikirim oleh Admin kepada ' . $mediaPers->nama_media,
-                            'user_id' => auth()->id(),
-                            'created_at' => $now,
-                            'updated_at' => $now,
-                        ]);
+                    // DB::table('log_order_status')
+                    //     ->insert([
+                    //         'order_id' => $orderID,
+                    //         'media_id' => $mediaPers->id,
+                    //         'agenda_id' => $agd->id,
+                    //         'jadwalin_bae_id' => $agd->jadwalin_bae_id,
+                    //         'status' => 'sent',
+                    //         'note' => 'Media Order dikirim oleh Admin kepada ' . $mediaPers->nama_media,
+                    //         'user_id' => auth()->id(),
+                    //         'created_at' => $now,
+                    //         'updated_at' => $now,
+                    //     ]);
                 }
             }
 
-            foreach ($arrMediaPers as $mediaPers) {
-                $orders = DB::table('orders')
-                    ->where('agenda_id', $agd->id)
-                    ->where('media_id', $mediaPers->id)
-                    ->where('jadwalin_bae_id', null)
-                    ->where('status', 'sent')
-                    ->get();
-                // make log start
-                $log = [
-                    'id' => uniqid(),
-                    'user_id' => auth()->id(),
-                    'action' => 'sent',
-                    'model' => 'media_order',
-                    'endpoint' => 'media',
-                    'payload' => json_encode(request()->all()),
-                    'message' => 'Mengirimkan Media Order Baru kepada ' . $mediaPers->nama_media,
-                    'created_at' => now()
-                ];
-                DB::table('user_logs')->insert($log);
-                // make log end
+            // foreach ($arrMediaPers as $mediaPers) {
+            //     $orders = DB::table('orders')
+            //         ->where('agenda_id', $agd->id)
+            //         ->where('media_id', $mediaPers->id)
+            //         ->where('jadwalin_bae_id', null)
+            //         ->where('status', 'sent')
+            //         ->get();
+            //     // make log start
+            //     $log = [
+            //         'id' => uniqid(),
+            //         'user_id' => auth()->id(),
+            //         'action' => 'sent',
+            //         'model' => 'media_order',
+            //         'endpoint' => 'media',
+            //         'payload' => json_encode(request()->all()),
+            //         'message' => 'Mengirimkan Media Order Baru kepada ' . $mediaPers->nama_media,
+            //         'created_at' => now()
+            //     ];
+            //     DB::table('user_logs')->insert($log);
+            //     // make log end
 
-                // send notification start
-                $user = User::find($mediaPers->user_id);
-                $token = $user->routeNotificationForFcm();
-                $user->notify(new OrderNotifications($mediaPers, $orders, 'sent', $token, auth()->id()));
-                // send notification end
-            }
+            //     // send notification start
+            //     $user = User::find($mediaPers->user_id);
+            //     $token = $user->routeNotificationForFcm();
+            //     $user->notify(new OrderNotifications($mediaPers, $orders, 'sent', $token, auth()->id()));
+            //     // send notification end
+            // }
 
             DB::commit();
 
@@ -450,6 +450,7 @@ class CreateManual extends Component
                     'leading_sector' => $agenda->leading_sector ?? '',
                     'order_count' => count($orders),
                     'orders' => collect($orders)->toArray(),
+                    'is_all_sent' => $arrOrders->where('status', 'sent')->count() == $arrOrders->count() ? true : false,
                 ];
             }
         }
@@ -469,6 +470,230 @@ class CreateManual extends Component
             // 'agendas' => $datas,
             'arrMediaPers' => $arrMediaPers,
         ])->layout('layouts.app', ['title' => 'Agenda Manual']);
+    }
+
+    function deleteOrder($orderID)
+    {
+        DB::beginTransaction();
+        try {
+            $order = DB::table('orders')
+                ->where('id', $orderID)
+                ->first();
+            $mediaPers = DB::table('pers_profile')
+                ->where('id', $order->media_id)
+                ->first();
+            $agd = DB::table('agendas')
+                ->where('id', $order->agenda_id)
+                ->first();
+
+            DB::table('orders')
+                ->where('id', $orderID)
+                ->delete();
+
+            // make log start
+            $log = [
+                'id' => uniqid(),
+                'user_id' => auth()->id(),
+                'action' => 'delete',
+                'model' => 'media_order',
+                'endpoint' => 'media',
+                'payload' => json_encode(request()->all()),
+                'message' => 'Menghapus Media Order Baru kepada ' . $mediaPers->nama_media,
+                'created_at' => now()
+            ];
+            DB::table('user_logs')->insert($log);
+            // make log end
+
+            DB::commit();
+
+            $this->alert('success', 'Media Order', [
+                'position' =>  'center',
+                'timer' => null,
+                'toast' => false,
+                'text' => 'Media Order berhasil dihapus dari ' . $mediaPers->nama_media,
+                'showCancelButton' => false,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'Tutup',
+            ]);
+
+            $this->isLoading = true;
+            $this->_initGetMedia();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
+            // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
+    }
+
+    function sendOrder($orderID)
+    {
+        DB::beginTransaction();
+        try {
+            $now = now();
+            $order = DB::table('orders')
+                ->where('id', $orderID)
+                ->first();
+            $mediaPers = DB::table('pers_profile')
+                ->where('id', $order->media_id)
+                ->first();
+            $agd = DB::table('agendas')
+                ->where('id', $order->agenda_id)
+                ->first();
+
+            $checkExists = DB::table('log_order_status')
+                ->where('order_id', $orderID)
+                ->first();
+            if (!$checkExists) {
+                DB::table('orders')
+                    ->where('id', $orderID)
+                    ->update([
+                        'status' => 'sent',
+                        'updated_at' => $now,
+                    ]);
+
+                DB::table('log_order_status')
+                    ->insert([
+                        'order_id' => $orderID,
+                        'media_id' => $mediaPers->id,
+                        'agenda_id' => $agd->id,
+                        'jadwalin_bae_id' => $agd->jadwalin_bae_id,
+                        'status' => 'sent',
+                        'note' => 'Media Order dikirim oleh Admin kepada ' . $mediaPers->nama_media,
+                        'user_id' => auth()->id(),
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ]);
+            }
+
+            // make log start
+            $log = [
+                'id' => uniqid(),
+                'user_id' => auth()->id(),
+                'action' => 'sent',
+                'model' => 'media_order',
+                'endpoint' => 'media',
+                'payload' => json_encode(request()->all()),
+                'message' => 'Mengirimkan Media Order Baru kepada ' . $mediaPers->nama_media,
+                'created_at' => now()
+            ];
+            DB::table('user_logs')->insert($log);
+            // make log end
+
+            // send notification start
+            $user = User::find($mediaPers->user_id);
+            $token = $user->routeNotificationForFcm();
+            $user->notify(new OrderNotifications($mediaPers, $order, 'sent', $token, auth()->id()));
+            // send notification end
+
+            DB::commit();
+
+            $this->alert('success', 'Media Order', [
+                'position' =>  'center',
+                'timer' => null,
+                'toast' => false,
+                'text' => 'Media Order berhasil dikirimkan ke ' . $mediaPers->nama_media,
+                'showCancelButton' => false,
+                'showConfirmButton' => true,
+                'confirmButtonText' => 'Tutup',
+            ]);
+
+            $this->isLoading = true;
+            $this->_initGetMedia();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
+            // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
+    }
+
+    function sendAllOrder($jadwalinBaeID)
+    {
+        DB::beginTransaction();
+        try {
+            $now = now();
+            $agd = DB::table('agendas')
+                ->where('jadwalin_bae_id', $jadwalinBaeID)
+                ->first();
+
+            $arrOrders = DB::table('orders')
+                ->where('jadwalin_bae_id', $jadwalinBaeID)
+                ->where('status', 'unsent')
+                ->get();
+
+            foreach ($arrOrders as $order) {
+                $mediaPers = DB::table('pers_profile')
+                    ->where('id', $order->media_id)
+                    ->first();
+
+                $checkExists = DB::table('log_order_status')
+                    ->where('order_id', $order->id)
+                    ->first();
+
+                if (!$checkExists) {
+                    DB::table('orders')
+                        ->where('id', $order->id)
+                        ->update([
+                            'status' => 'sent',
+                            'updated_at' => $now,
+                        ]);
+
+                    DB::table('log_order_status')
+                        ->insert([
+                            'order_id' => $order->id,
+                            'media_id' => $mediaPers->id,
+                            'agenda_id' => $agd->id,
+                            'jadwalin_bae_id' => $agd->jadwalin_bae_id,
+                            'status' => 'sent',
+                            'note' => 'Media Order dikirim oleh Admin kepada ' . $mediaPers->nama_media,
+                            'user_id' => auth()->id(),
+                            'created_at' => $now,
+                            'updated_at' => $now,
+                        ]);
+                }
+
+                // make log start
+                $log = [
+                    'id' => uniqid(),
+                    'user_id' => auth()->id(),
+                    'action' => 'sent',
+                    'model' => 'media_order',
+                    'endpoint' => 'media',
+                    'payload' => json_encode(request()->all()),
+                    'message' => 'Mengirimkan Media Order Baru kepada ' . $mediaPers->nama_media,
+                    'created_at' => now()
+                ];
+                DB::table('user_logs')->insert($log);
+                // make log end
+
+                // send notification start
+                $user = User::find($mediaPers->user_id);
+                $token = $user->routeNotificationForFcm();
+                $user->notify(new OrderNotifications($mediaPers, $order, 'sent', $token, auth()->id()));
+                // send notification end
+
+                DB::commit();
+
+                $this->alert('success', 'Media Order', [
+                    'position' =>  'center',
+                    'timer' => null,
+                    'toast' => false,
+                    'text' => 'Media Order berhasil dikirimkan ke ' . $mediaPers->nama_media,
+                    'showCancelButton' => false,
+                    'showConfirmButton' => true,
+                    'confirmButtonText' => 'Tutup',
+                ]);
+
+                $this->isLoading = true;
+                $this->_initGetMedia();
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', $e->getMessage() . ' - ' . $e->getLine());
+            // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
+        }
     }
 
     function generateOrderCode()
