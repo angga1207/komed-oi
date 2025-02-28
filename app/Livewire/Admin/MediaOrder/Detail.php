@@ -40,6 +40,11 @@ class Detail extends Component
         $this->mediaOrder = $mediaOrder;
         $media = DB::table('pers_profile')->where('id', $mediaOrder->media_id)->first();
         $this->media = $media;
+
+        // check if media order status is not unsent
+        if ($mediaOrder->status == 'unsent') {
+            return redirect()->route('a.media-order');
+        }
     }
 
     public function render()

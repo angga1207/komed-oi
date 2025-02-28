@@ -30,12 +30,14 @@ class Dashboard extends Component
     {
         $mediaOrders = DB::table('orders')
             ->where('media_id', $this->pers->id)
+            ->whereNotIn('status', ['unsent'])
             ->select(['id', 'order_code', 'status'])
             ->get();
 
         $timelines = [];
         $arrTimeline = DB::table('orders')
             ->where('media_id', $this->pers->id)
+            ->whereNotIn('status', ['unsent'])
             // ->whereDate('tanggal_pelaksanaan', Carbon::now()->subDay())
             ->whereDate('tanggal_pelaksanaan', Carbon::now())
             ->orderBy('waktu_pelaksanaan')
@@ -73,6 +75,7 @@ class Dashboard extends Component
             $dateYMD = Carbon::parse($date)->isoFormat('Y-MM-DD');
             $dateStr = Carbon::parse($date)->isoFormat('D MMM YY');
             $order = DB::table('orders')
+                ->whereNotIn('status', ['unsent'])
                 ->where('media_id', $this->pers->id)
                 ->whereDate('tanggal_pelaksanaan', $dateYMD)
                 ->get();

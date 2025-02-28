@@ -105,7 +105,11 @@ use Carbon\Carbon;
                                                         {{ $ord['order_code'] }}
                                                     </td>
                                                     <td style="font-size: 13px" class="p-2 text-center">
-                                                        @if($ord['status'] == 'sent')
+                                                        @if($ord['status'] == 'unsent')
+                                                        <span class="badge badge-danger">
+                                                            Belum Dikirim
+                                                        </span>
+                                                        @elseif($ord['status'] == 'sent')
                                                         <span class="badge badge-success">
                                                             Dikirim
                                                         </span>
@@ -134,12 +138,20 @@ use Carbon\Carbon;
                                                         </span>
                                                         @endif
                                                     </td>
+                                                    @if ($ord['status'] == 'unsent')
+                                                    <td style="font-size: 13px" class="p-2 text-center">
+                                                        <a href="javascript:void(0);" wire:click="sendOrder('{{ $ord['id'] }}')">
+                                                            Kirim Media Order
+                                                        </a>
+                                                    </td>
+                                                    @else
                                                     <td style="font-size: 13px" class="p-2 text-center">
                                                         <a
                                                             href="{{ route('a.media-order.detail', $ord['order_code']) }}">
                                                             Lihat Media Order
                                                         </a>
                                                     </td>
+                                                    @endif
                                                 </tr>
                                                 @endforeach
                                             </tbody>

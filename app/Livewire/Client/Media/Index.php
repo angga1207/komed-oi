@@ -24,9 +24,10 @@ class Index extends Component
     {
         $datas = Order::search($this->search)
             ->where('media_id', auth()->user()->getMedia->id)
-            ->when($this->filterStatus, function ($q) {
-                $q->where('status', $this->filterStatus);
-            })
+            // ->when($this->filterStatus, function ($q) {
+            //     $q->where('status', $this->filterStatus);
+            // })
+            ->where('status', 'sent')
             ->where(function ($q) {
                 if ($this->filterDate) {
                     return $q->whereDate('tanggal_pelaksanaan', $this->filterDate);
@@ -41,10 +42,12 @@ class Index extends Component
         if ($this->getPage() == 1 && !$this->search && !$this->filterDate && !$this->filterStatus && $datas->count() == 0) {
             $latestDate = DB::table('orders')
                 ->where('media_id', auth()->user()->getMedia->id)
+                ->where('status', 'sent')
                 ->max('tanggal_pelaksanaan');
             $this->filterDate = Carbon::parse($latestDate)->isoFormat('Y-MM-DD');
             $datas = Order::where('media_id', auth()->user()->getMedia->id)
                 ->whereDate('tanggal_pelaksanaan', $latestDate)
+                ->where('status', 'sent')
                 ->latest('tanggal_pelaksanaan')
                 ->latest('waktu_pelaksanaan')
                 ->paginate(10);

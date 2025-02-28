@@ -19,17 +19,16 @@ use Carbon\Carbon;
 
                     <form class="mb-2 d-flex align-items-center justify-content-between flex-grow-1 flex-wrap gap-1"
                         wire:submit.prevent="goSearch">
-                        <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
+                        {{-- <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
                             <option value="">Semua Status</option>
                             <option value="sent">Belum Dikerjakan</option>
                             <option value="rejected">Dikembalikan</option>
                             <option value="review">Menunggu Review</option>
                             <option value="verified">Terverifikasi</option>
                             <option value="done">Selesai</option>
-                        </select>
-                        <input type="date" class="form-control" style="max-width:32%" wire:model.live="filterDate" />
-                        <input type="search" class="form-control" style="max-width:32%" placeholder="Pencarian..."
-                            wire:model="search" />
+                        </select> --}}
+                        <input type="date" class="form-control" style="max-width:49%" wire:model.live="filterDate" />
+                        <input type="search" class="form-control" style="max-width:49%" placeholder="Pencarian..."  wire:model="search" />
                         @if($search || $filterDate)
                         <div class="" wire:click.prevent="resetSearch" style="cursor: pointer">
                             <i class="ri-close-circle-line"></i>
