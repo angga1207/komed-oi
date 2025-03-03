@@ -281,7 +281,7 @@ use Carbon\Carbon;
                 <div class="modal-body">
                     <form class="row" wire:submit.prevent="uploadEvidence">
                         <div class="col-12">
-                            <label class="col-form-label">Jenis Evidence:</label>
+                            <label class="col-form-label">Jenis Bukti:</label>
                             <select class="form-select" wire:model.live="input.type">
                                 <option value="" hidden>
                                     Pilih Jenis Bukti
@@ -305,6 +305,9 @@ use Carbon\Carbon;
                             <label for="link" class="col-form-label">Link / Tautan:</label>
                             <input type="text" class="form-control" id="link" autocomplete="off"
                                 placeholder="Link / Tautan" wire:model="input.link">
+                            <small class="text-muted">
+                                Contoh: https://oganilirkab.go.id
+                            </small>
 
                             @error('input.link')
                             <div class="text-danger mt-1" style="font-size: 0.8rem;">
@@ -316,7 +319,7 @@ use Carbon\Carbon;
                             @foreach($imageInputs as $index => $imageInput)
                             <div class="col-12 mt-4">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="card-title mb-0">Evidence {{ $index + 1 }}</h6>
+                                    <h6 class="card-title mb-0">Bukti {{ $index + 1 }}</h6>
                                     @if(count($imageInputs) > 1)
                                     <button type="button" class="btn btn-danger btn-sm" wire:click="removeImageInput({{ $index }})">
                                         <i class="ri-delete-bin-line"></i> Hapus

@@ -130,7 +130,7 @@ class Detail extends Component
         } else {
             $this->validate([
                 'input.type' => 'required|in:image,link',
-                'input.link' => 'nullable|required_if:input.type,link',
+                'input.link' => 'nullable|required_if:input.type,link|url',
             ]);
         }
 
@@ -243,7 +243,7 @@ class Detail extends Component
 
     function confirmDeleteEvidence($id)
     {
-        $this->confirm('Hapus Evidence', [
+        $this->confirm('Hapus Bukti', [
             'text' => 'Apakah Anda yakin ingin menghapus bukti ini?',
             'toast' => false,
             'position' => 'center',

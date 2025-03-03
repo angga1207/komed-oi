@@ -282,7 +282,7 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        Tanggapi Media Order
+                        Verifikasi Laporan
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="closeModal">
@@ -303,9 +303,6 @@ use Carbon\Carbon;
                                 <option value="verified">
                                     Verifikasi
                                 </option>
-                                <option value="done">
-                                    Verifikasi & Selesaikan
-                                </option>
                             </select>
 
                             @error('input.status')
@@ -314,6 +311,7 @@ use Carbon\Carbon;
                             </div>
                             @enderror
                         </div>
+                        @if ($showSelect == 'rejected')
                         <div class="col-12">
                             <label for="link" class="col-form-label">Penjelasan:</label>
                             <textarea class="form-control" id="link" autocomplete="off" placeholder="Penjelasan"
@@ -325,6 +323,118 @@ use Carbon\Carbon;
                             </div>
                             @enderror
                         </div>
+                        @elseif ($showSelect == 'verified')
+                        <div class="col-12 mb-4 mt-4">
+                            <label class="col-form-label" style="font-size: 1.1rem;">Informasi Media:</label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover border">
+                                    <tbody>
+                                        <tr>
+                                            <td width="30%" class="fw-bold">Nama Media Cetak</td>
+                                            <td width="5%">:</td>
+                                            <td>{{ $media->nama_media }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Nomor Registrasi</td>
+                                            <td>:</td>
+                                            <td>{{ $media->unique_id }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-bold">Jenis Media</td>
+                                            <td>:</td>
+                                            <td>{{ $media->jenis_media }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="col-12 mb-4">
+                            <label class="col-form-label" style="font-size: 1.1rem;">Jenis Publikasi:</label>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover border">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th width="40%">Ukuran</th>
+                                            <th width="60%">Harga (Rp)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="publikasiType" id="publikasi1" value="1/4" wire:model="input.jenis_publikasi">
+                                                    <label class="form-check-label" for="publikasi1">1/4 Halaman</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" wire:model="input.harga_1_4" placeholder="Masukkan harga">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="publikasiType" id="publikasi2" value="1/2" wire:model="input.jenis_publikasi">
+                                                    <label class="form-check-label" for="publikasi2">1/2 Halaman</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" wire:model="input.harga_1_2" placeholder="Masukkan harga">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="publikasiType" id="publikasi3" value="1" wire:model="input.jenis_publikasi">
+                                                    <label class="form-check-label" for="publikasi3">1 Halaman Penuh</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" wire:model="input.harga_1" placeholder="Masukkan harga">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="publikasiType" id="publikasi4" value="2" wire:model="input.jenis_publikasi">
+                                                    <label class="form-check-label" for="publikasi4">2 Halaman</label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" wire:model="input.harga_2" placeholder="Masukkan harga">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="border rounded p-3 mt-3">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Jumlah Harga:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control" wire:model="input.total_harga" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">PPN (11%):</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control" wire:model="input.ppn" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label fw-bold">Total Pembayaran:</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Rp</span>
+                                            <input type="number" class="form-control fw-bold" wire:model="input.total_pembayaran" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </form>
                 </div>
                 <div class="modal-footer">

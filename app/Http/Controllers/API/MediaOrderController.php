@@ -400,7 +400,7 @@ class MediaOrderController extends Controller
                 // make log end
 
                 DB::commit();
-                return $this->successResponse(null, 'Evidence berhasil dikirim');
+                return $this->successResponse(null, 'Bukti berhasil dikirim');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->errorResponse($e->getMessage());

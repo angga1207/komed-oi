@@ -123,51 +123,41 @@ use Carbon\Carbon;
             <div class="">
 
                 @if(count($timelines) > 0)
-                <ol class="progtrckr" style="flex-wrap: wrap">
-                    @foreach($timelines as $tl)
-                    <li
-                        class="@if($tl['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif">
-                        <h5>
-                            {{ $tl['nama_acara'] }}
-                        </h5>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-map-pin-line"></i>
-                            <span>
-                                {{ $tl['lokasi'] }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-calendar-todo-fill"></i>
-                            <span>
-                                {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
-                                {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-government-line"></i>
-                            <span>
-                                {{ $tl['leading_sector'] }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-links-line"></i>
-                            <span style="font-size: 12px">
-                                <a href="{{ route('media-order.detail', $tl['order_code']) }}">
-                                    Buka Media Order
-                                </a>
-                            </span>
-                        </div>
-                    </li>
-                    @endforeach
-                </ol>
+                <div class="table-responsive table-product">
+                    <table class="table all-package theme-table" id="table_id">
+                        <thead>
+                            <tr>
+                                <th style="width:10px">Nama Acara</th>
+                                <th style="width:20%">Lokasi</th>
+                                <th style="width:20%">Waktu</th>
+                                <th style="width:20%">Leading Sector</th>
+                                <th style="width:20%">Media Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($timelines as $tl)
+                            <tr>
+                                <td style="white-space:normal;">{{ $tl['nama_acara'] }}</td>
+                                <td>{{ $tl['lokasi'] }}</td>
+                                <td>
+                                    {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
+                                    {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
+                                </td>
+                                <td>{{ $tl['leading_sector'] }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('media-order.detail', $tl['order_code']) }}">
+                                        Buka Media Order
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 @else
                 <div class="alert alert-primary" role="alert">
-                    <h4 class="alert-heading">
-                        Hhhmmm!
-                    </h4>
-                    <p>
-                        Sepertinya Tidak Ada Media Order untuk Hari Ini.
-                    </p>
+                    <h4 class="alert-heading">Hhhmmm!</h4>
+                    <p>Sepertinya Tidak Ada Media Order untuk Hari Ini.</p>
                 </div>
                 @endif
 

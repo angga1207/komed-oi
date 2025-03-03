@@ -24,6 +24,7 @@ class Detail extends Component
         'minutes' => 0,
     ];
     public $deleteEviId = null;
+    public $showSelect = '';
 
     function getListeners()
     {
@@ -32,6 +33,21 @@ class Detail extends Component
             'goAddDuration' => 'goAddDuration',
             'deleteEvidence' => 'deleteEvidence',
         ];
+    }
+
+    function updatingInput($name, $value)
+    {
+        if ($value == 'status') {
+            if ($name == 'rejected') {
+                $this->showSelect = 'rejected';
+            } elseif ($name == 'verified') {
+                $this->showSelect = 'verified';
+            } elseif ($name == 'done') {
+                $this->showSelect = 'done';
+            } else {
+                $this->showSelect = '';
+            }
+        }
     }
 
     function mount($order_code)

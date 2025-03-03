@@ -31,29 +31,10 @@
 
                         @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                         <li class="sidebar-list">
-                            <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order.indexx') }}">
                                 <i class="ri-newspaper-line"></i>
-                                <span>
-                                    Media Order
-                                </span>
+                                <span>Media Order</span>
                             </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="{{ route('a.media-order') }}">
-                                        Media Order
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('a.media-order.create') }}">
-                                        Agenda Jadwalin Bae
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('a.media-order.create_manual') }}">
-                                        Agenda Manual
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
 
                         <li class="sidebar-list">
@@ -115,25 +96,19 @@
                         </li>
                         @elseif (in_array(auth()->user()->role_id, [4]))
                         <li class="sidebar-list">
-                            <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('media-order') }}">
                                 <i class="ri-newspaper-line"></i>
-                                <span>
-                                    Media Order
-                                </span>
+                                <span>Media Order</span>
                             </a>
-                            <ul class="sidebar-submenu">
-                                <li>
-                                    <a href="{{ route('media-order') }}">
-                                        Daftar Media Order
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('media-order.report') }}">
-                                        Laporan
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
+
+                        <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('media-order.report') }}">
+                                <i class="ri-file-chart-line"></i>
+                                <span>Laporan</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-list">
                             <a class="sidebar-link sidebar-title link-nav" href="{{ route('client.profile') }}">
                                 <i class="ri-profile-line"></i>
