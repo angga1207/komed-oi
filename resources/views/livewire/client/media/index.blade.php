@@ -52,9 +52,9 @@ use Carbon\Carbon;
                                     <th style="width:150px">
                                         Status
                                     </th>
-                                    <th style="width:100px">
+                                    {{-- <th style="width:100px">
                                         Opsi
-                                    </th>
+                                    </th> --}}
                                 </tr>
                             </thead>
 
@@ -84,7 +84,7 @@ use Carbon\Carbon;
                                         </div>
                                     </td>
 
-                                    <td>
+                                    <td class="text-center">
                                         @if($data->status == 'sent')
                                         <span class="badge badge-success">
                                             Belum Dikerjakan
@@ -111,7 +111,7 @@ use Carbon\Carbon;
                                         @endif
                                     </td>
 
-                                    <td>
+                                    {{-- <td>
                                         <ul>
                                             <li>
                                                 <a href="{{ route('media-order.detail', $data->order_code) }}">
@@ -124,7 +124,7 @@ use Carbon\Carbon;
                                                 </a>
                                             </li>
                                         </ul>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                                 @empty
                                 <tr>

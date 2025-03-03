@@ -148,7 +148,7 @@ use Carbon\Carbon;
                                                 <thead>
                                                     <tr class="table-head">
                                                         <th scope="col" class="text-center" style="width:100px">
-                                                            Jenis Evidence
+                                                            Jenis Bukti
                                                         </th>
                                                         <th scope="col" class="text-center" style="width:200px">
                                                             Lampiran
@@ -223,7 +223,7 @@ use Carbon\Carbon;
                                                     <tr>
                                                         <td colspan="100">
                                                             <h6 class="text-center">
-                                                                Belum ada Evidence
+                                                                Belum ada Bukti
                                                             </h6>
                                                         </td>
                                                     </tr>
@@ -271,7 +271,7 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        Tambah Evidence
+                        Tambah Bukti
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="closeModal">
@@ -284,7 +284,7 @@ use Carbon\Carbon;
                             <label class="col-form-label">Jenis Evidence:</label>
                             <select class="form-select" wire:model.live="input.type">
                                 <option value="" hidden>
-                                    Pilih Jenis Evidence
+                                    Pilih Jenis Bukti
                                 </option>
                                 <option value="image">
                                     Gambar
@@ -352,7 +352,7 @@ use Carbon\Carbon;
 
                             <div class="col-12">
                                 <button type="button" class="btn btn-primary mt-3 w-100" wire:click="addImageInput">
-                                    <i class="ri-add-line"></i> Tambah Evidence Baru
+                                    <i class="ri-add-line"></i> Tambah Bukti Baru
                                 </button>
                             </div>
                         @endif
@@ -376,7 +376,7 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        Edit Evidence
+                        Edit Bukti
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         wire:click="closeModal">

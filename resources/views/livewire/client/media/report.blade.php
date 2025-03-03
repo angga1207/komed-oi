@@ -20,6 +20,7 @@ use Carbon\Carbon;
                         wire:submit.prevent="goSearch">
                         <select class="form-control" style="max-width:32%" wire:model.live="filterStatus">
                             <option value="">Semua Status</option>
+                            <option value="sent">Belum Dikerjakan</option>
                             <option value="review">Menunggu Review</option>
                             <option value="rejected">Dikembalikan</option>
                             <option value="verified">Terverifikasi</option>
@@ -137,9 +138,16 @@ use Carbon\Carbon;
                                     <td class="text-center">
                                         <ul>
                                             <li>
+                                                @if($data->status == 'sent')
+                                                <a href="{{ route('media-order.detail', $data->order_code) }}">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                                @else
                                                 <a href="{{ route('a.media-order.detail', $data->order_code) }}">
                                                     <i class="ri-eye-line"></i>
                                                 </a>
+                                                @endif
+
                                             </li>
                                             <li>
                                                 <a href="javascript:void(0)">

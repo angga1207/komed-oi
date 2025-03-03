@@ -141,11 +141,11 @@ class Detail extends Component
                 ->where('order_code', $this->mediaOrder->order_code)
                 ->first();
             if ($mediaOrder && (in_array($mediaOrder->status, ['sent', 'rejected']) == false)) {
-                $this->alert('info', 'Gagal Menambah Evidence', [
+                $this->alert('info', 'Gagal Menambah Bukti', [
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,
-                    'text' => 'Tidak dapat menambah evidence karena status Media Order sudah berubah!',
+                    'text' => 'Tidak dapat menambah bukti karena status Media Order sudah berubah!',
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
                     'confirmButtonText' => 'Tutup',
@@ -154,11 +154,11 @@ class Detail extends Component
             }
 
             if ($mediaOrder && $mediaOrder->deadline <= now()) {
-                $this->alert('info', 'Gagal Menambah Evidence', [
+                $this->alert('info', 'Gagal Menambah Bukti', [
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,
-                    'text' => 'Tidak dapat menambah evidence karena sudah melewati batas Deadline pelaporan evidence!',
+                    'text' => 'Tidak dapat menambah bukti karena sudah melewati batas Deadline pelaporan bukti!',
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
                     'confirmButtonText' => 'Tutup',
@@ -219,7 +219,7 @@ class Detail extends Component
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,
-                    'text' => 'Evidence berhasil diunggah ke ' . $this->mediaOrder->order_code,
+                    'text' => 'Bukti berhasil diunggah ke ' . $this->mediaOrder->order_code,
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
                     'confirmButtonText' => 'Tutup',
@@ -244,7 +244,7 @@ class Detail extends Component
     function confirmDeleteEvidence($id)
     {
         $this->confirm('Hapus Evidence', [
-            'text' => 'Apakah Anda yakin ingin menghapus evidence ini?',
+            'text' => 'Apakah Anda yakin ingin menghapus bukti ini?',
             'toast' => false,
             'position' => 'center',
             'timer' => null,
@@ -269,11 +269,11 @@ class Detail extends Component
             // check status media order
             $mediaOrder = DB::table('orders')->where('order_code', $this->mediaOrder->order_code)->first();
             if ($mediaOrder && $mediaOrder->status != 'sent') {
-                $this->alert('info', 'Gagal Menghapus Evidence', [
+                $this->alert('info', 'Gagal Menghapus Bukti', [
                     'position' =>  'center',
                     'timer' => null,
                     'toast' => false,
-                    'text' => 'Tidak dapat menghapus evidence karena status Media Order sudah berubah!',
+                    'text' => 'Tidak dapat menghapus bukti karena status Media Order sudah berubah!',
                     'showCancelButton' => false,
                     'showConfirmButton' => true,
                     'confirmButtonText' => 'Tutup',
@@ -303,11 +303,11 @@ class Detail extends Component
 
             DB::commit();
 
-            $this->alert('success', 'Hapus Evidence', [
+            $this->alert('success', 'Hapus Bukti', [
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Evidence berhasil dihapus dari ' . $this->mediaOrder->order_code,
+                'text' => 'Bukti berhasil dihapus dari ' . $this->mediaOrder->order_code,
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'Tutup',
@@ -322,8 +322,8 @@ class Detail extends Component
 
     function comfirmSendEvidence()
     {
-        $this->confirm('Kirimkan Evidence', [
-            'text' => 'Apakah Anda yakin ingin mengirimkan evidence ini ke Admin untuk Diverifikasi?',
+        $this->confirm('Kirimkan Bukti', [
+            'text' => 'Apakah Anda yakin ingin mengirimkan bukti ini ke Admin untuk Diverifikasi?',
             'toast' => false,
             'position' => 'center',
             'timer' => null,
@@ -357,7 +357,7 @@ class Detail extends Component
                         'deadline' => null,
                     ]);
 
-                $note = 'Lampiran Evidence dikirim oleh ' . auth()->user()->fullname . ' dari ' . $media->nama_media;
+                $note = 'Lampiran Bukti dikirim oleh ' . auth()->user()->fullname . ' dari ' . $media->nama_media;
 
                 DB::table('log_order_status')
                     ->insert([
@@ -392,7 +392,7 @@ class Detail extends Component
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Lampiran Evidence ' . $this->mediaOrder->order_code . ' berhasil dikirim kepada Admin.',
+                'text' => 'Lampiran Bukti ' . $this->mediaOrder->order_code . ' berhasil dikirim kepada Admin.',
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'Tutup',
@@ -430,7 +430,7 @@ class Detail extends Component
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Deskripsi Evidence berhasil disimpan.',
+                'text' => 'Deskripsi Bukti berhasil disimpan.',
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'Tutup',

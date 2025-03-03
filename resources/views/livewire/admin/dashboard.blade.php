@@ -137,74 +137,57 @@ use Carbon\Carbon;
     </div>
 
     <div class="col-12">
-        <div class="card o-hidden card-hover">
-            <div class="card-header border-0 pb-1">
-                <div class="card-header-title p-0 d-flex justify-content-between align-items-center">
-                    <h4>
-                        Agenda Hari ini - Timeline
-                    </h4>
-                    <h4 class="">
-                        @if(count($timelines) > 0)
-                        {{ count($timelines) }}
-                        Agenda
-                        @endif
-                    </h4>
-                </div>
-            </div>
-            <div class="">
-
-                @if(count($timelines) > 0)
-                <ol class="progtrckr" style="flex-wrap: wrap">
-                    @foreach($timelines as $tl)
-                    <li
-                        class="@if($tl['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif">
-                        <h5>
-                            {{ $tl['nama_acara'] }}
-                        </h5>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-map-pin-line"></i>
-                            <span>
-                                {{ $tl['lokasi'] }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-calendar-todo-fill"></i>
-                            <span>
-                                {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
-                                {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-government-line"></i>
-                            <span>
-                                {{ $tl['leading_sector'] }}
-                            </span>
-                        </div>
-                        <div class="content d-flex align-items-center gap-2">
-                            <i class="ri-todo-line"></i>
-                            <span>
-                                <a href="#">
-                                    {{ count($tl['orders']) }} Media Order
-                                </a>
-                            </span>
-                        </div>
-                    </li>
-                    @endforeach
-                </ol>
-                @else
-                <div class="alert alert-primary" role="alert">
-                    <h4 class="alert-heading">
-                        Hhhmmm!
-                    </h4>
-                    <p>
-                        Sepertinya Tidak Ada Media Order untuk Hari Ini.
-                    </p>
-                </div>
-                @endif
-
+    <div class="card">
+        <div class="card-header border-0 pb-1">
+            <div class="card-header-title p-0 d-flex justify-content-between align-items-center">
+                <h4>Agenda Hari ini</h4>
+                <h4>
+                    @if(count($timelines) > 0)
+                    {{ count($timelines) }} Agenda
+                    @endif
+                </h4>
             </div>
         </div>
+        <div class="card-body">
+            @if(count($timelines) > 0)
+            <div class="table-responsive table-product">
+                <table class="table all-package theme-table" id="table_id">
+                    <thead>
+                        <tr>
+                            <th style="width:10px">Nama Acara</th>
+                            <th style="width:20%">Lokasi</th>
+                            <th style="width:20%">Waktu</th>
+                            <th style="width:20%">Leading Sector</th>
+                            <th style="width:20%">Media Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($timelines as $tl)
+                        <tr>
+                            <td style="white-space:normal;">{{ $tl['nama_acara'] }}</td>
+                            <td>{{ $tl['lokasi'] }}</td>
+                            <td>
+                                {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
+                                {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
+                            </td>
+                            <td>{{ $tl['leading_sector'] }}</td>
+                            <td class="text-center">
+                                <a href="#">{{ count($tl['orders']) }} Media Order</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @else
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Hhhmmm!</h4>
+                <p>Sepertinya Tidak Ada Media Order untuk Hari Ini.</p>
+            </div>
+            @endif
+        </div>
     </div>
+</div>
 
     <div class="col-12">
         <div class="card o-hidden card-hover">

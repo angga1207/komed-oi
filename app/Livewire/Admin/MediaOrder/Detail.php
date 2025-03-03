@@ -385,8 +385,8 @@ class Detail extends Component
     function confirmDeleteEvidence($id)
     {
         $this->deleteEviId = $id;
-        $this->confirm('Hapus Lampiran Evidence', [
-            'text' => 'Apakah Anda yakin ingin menghapus lampiran evidence ini?',
+        $this->confirm('Hapus Lampiran Bukti', [
+            'text' => 'Apakah Anda yakin ingin menghapus lampiran bukti ini?',
             'toast' => false,
             'position' => 'center',
             'timer' => null,
@@ -417,7 +417,7 @@ class Detail extends Component
                 'position' =>  'center',
                 'timer' => null,
                 'toast' => false,
-                'text' => 'Lampiran Evidence berhasil dihapus.',
+                'text' => 'Lampiran Bukti berhasil dihapus.',
                 'showCancelButton' => false,
                 'showConfirmButton' => true,
                 'confirmButtonText' => 'Tutup',

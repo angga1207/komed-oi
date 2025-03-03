@@ -176,7 +176,7 @@ class MediaOrderController extends Controller
         $validated = Validator::make($request->all(), [
             'type' => 'required|string',
         ], [], [
-            'type' => 'Jenis Evidence',
+            'type' => 'Jenis Bukti',
         ]);
 
         if ($validated->fails()) {
@@ -188,7 +188,7 @@ class MediaOrderController extends Controller
             $validated2 = Validator::make($request->all(), [
                 'url' => 'required|url',
             ], [], [
-                'url' => 'Link Evidence',
+                'url' => 'Link Bukti',
             ]);
 
             if ($validated2->fails()) {
@@ -223,7 +223,7 @@ class MediaOrderController extends Controller
                 // make log end
 
                 DB::commit();
-                return $this->successResponse(null, 'Evidence berhasil diupload');
+                return $this->successResponse(null, 'Bukti berhasil diupload');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->errorResponse($e->getMessage());
@@ -235,9 +235,9 @@ class MediaOrderController extends Controller
                 'evidences.*.file' => 'required|image|mimes:png,jpeg,jpg|max:10000',
                 'evidences.*.description' => 'nullable|string|max:5000',
             ], [], [
-                'evidences' => 'File Evidence',
-                'evidences.*.file' => 'File Evidence',
-                'evidences.*.description' => 'Deskripsi Evidence',
+                'evidences' => 'File Bukti',
+                'evidences.*.file' => 'File Bukti',
+                'evidences.*.description' => 'Deskripsi Bukti',
             ]);
 
             if ($validated2->fails()) {
@@ -283,7 +283,7 @@ class MediaOrderController extends Controller
                 // make log end
 
                 DB::commit();
-                return $this->successResponse(null, 'Evidence berhasil diupload');
+                return $this->successResponse(null, 'Bukti berhasil diupload');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $this->errorResponse($e->getMessage());
@@ -302,7 +302,7 @@ class MediaOrderController extends Controller
             ->where('id', $id)
             ->first();
         if (!$data) {
-            return $this->notFoundResponse('Evidence tidak dapat kami temukan');
+            return $this->notFoundResponse('Bukti tidak dapat kami temukan');
         }
 
         $mediaOrder = DB::table('orders')
@@ -330,7 +330,7 @@ class MediaOrderController extends Controller
             // make log end
 
             DB::commit();
-            return $this->successResponse(null, 'Evidence berhasil dihapus');
+            return $this->successResponse(null, 'Bukti berhasil dihapus');
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse($e->getMessage());

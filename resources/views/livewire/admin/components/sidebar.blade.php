@@ -57,6 +57,13 @@
                         </li>
 
                         <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order') }}">
+                                <i class="ri-file-chart-line"></i>
+                                <span>Laporan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-list">
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 <i class="ri-government-line"></i>
                                 <span>

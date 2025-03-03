@@ -241,7 +241,7 @@ use Carbon\Carbon;
                                                     <tr>
                                                         <td colspan="100">
                                                             <h6 class="text-center">
-                                                                Belum ada Evidence
+                                                                Belum ada Bukti
                                                             </h6>
                                                         </td>
                                                     </tr>

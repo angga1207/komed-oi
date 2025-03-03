@@ -24,7 +24,7 @@ class Report extends Component
     {
         $datas = Order::search($this->search)
             ->where('media_id', auth()->user()->getMedia->id)
-            ->whereNotIn('status', ['unsent', 'sent'])
+            ->whereNotIn('status', ['unsent'])
             ->when($this->filterStatus, function ($q) {
                 $q->where('status', $this->filterStatus);
             })
@@ -41,12 +41,12 @@ class Report extends Component
 
         if ($this->getPage() == 1 && !$this->search && !$this->filterDate && !$this->filterStatus && $datas->count() == 0) {
             $latestDate = DB::table('orders')
-                ->whereNotIn('status', ['unsent', 'sent'])
+                ->whereNotIn('status', ['unsent'])
                 ->where('media_id', auth()->user()->getMedia->id)
                 ->max('tanggal_pelaksanaan');
             $this->filterDate = Carbon::parse($latestDate)->isoFormat('Y-MM-DD');
             $datas = Order::where('media_id', auth()->user()->getMedia->id)
-                ->whereNotIn('status', ['unsent', 'sent'])
+                ->whereNotIn('status', ['unsent'])
                 ->whereDate('tanggal_pelaksanaan', $latestDate)
                 ->latest('tanggal_pelaksanaan')
                 ->latest('waktu_pelaksanaan')

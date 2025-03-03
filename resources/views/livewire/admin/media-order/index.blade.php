@@ -11,7 +11,7 @@ use Carbon\Carbon;
                 <div class="card-body">
                     <div class="title-header option-title flex-wrap align-items-center justify-content-between gap-2">
                         <h5>
-                            Daftar Media Order <br>
+                            Laporan <br>
                             {{ Carbon::parse($filterDate)->isoFormat('dddd, DD MMMM Y') }}
                         </h5>
 
