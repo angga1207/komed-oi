@@ -27,6 +27,8 @@ class CreateManual extends Component
     public $agendas = [], $isLoading = true;
     public $selectedAgendaID = null, $selectedAgenda = null;
     public $selectedMediaPers = [];
+    public $selectedJenisMedia = "";
+    public $jenisMediaList = [];
 
     function getListeners()
     {
@@ -41,6 +43,12 @@ class CreateManual extends Component
         if (!$this->filterDate) {
             $this->filterDate = date('Y-m-d');
         }
+
+        $this->jenisMediaList = DB::table('pers_profile')
+            ->select('jenis_media')
+            ->distinct()
+            ->pluck('jenis_media')
+            ->toArray();
 
         $this->inputType = 'create';
     }
@@ -462,6 +470,7 @@ class CreateManual extends Component
     public function render()
     {
         $arrMediaPers = MediaPers::search($this->searchMedia)
+            ->where('jenis_media', $this->selectedJenisMedia)
             ->where('verified_status', 'verified')
             ->orderBy('tier')
             ->get();

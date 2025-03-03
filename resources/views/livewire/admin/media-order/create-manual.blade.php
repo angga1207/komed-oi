@@ -329,7 +329,7 @@ use Carbon\Carbon;
 
     <div wire:ignore.self class="modal fade theme-modal remove-coupon" id="modalAddOrder" aria-hidden="true"
         tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-xl  modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
@@ -343,7 +343,7 @@ use Carbon\Carbon;
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <form class="d-flex align-items-center" wire:submit='goSearch'>
                             <input type="search" class="form-control rounded-0 rounded-start"
                                 placeholder="Pencarian Media Pers..." wire:model.live="searchMedia">
@@ -353,7 +353,18 @@ use Carbon\Carbon;
                             </button>
                         </form>
                     </div>
-                    <div class="mb-1">
+                    <!-- Filter Jenis Media -->
+                    <div class="mb-3">
+                        <label class="form-label">Filter Jenis Media</label>
+                        <select class="form-select" wire:model.live="selectedJenisMedia">
+                            <option value="">Semua Jenis Media</option>
+                            @foreach($jenisMediaList as $jenisMedia)
+                                <option value="{{ $jenisMedia }}">{{ $jenisMedia }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-2">
                         Pilih Media Pers untuk ditambahkan ke Media Order
                     </div>
                     <div class="row">
@@ -397,7 +408,9 @@ use Carbon\Carbon;
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div class="">
-
+                        @if(count($arrMediaPers) == 0)
+                            <span class="text-danger">Tidak ada media yang sesuai dengan filter</span>
+                        @endif
                     </div>
                     <div class="d-flex justify-content-end align-items-center gap-2">
                         @if(count($this->selectedMediaPers) > 0)
