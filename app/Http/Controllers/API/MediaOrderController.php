@@ -47,7 +47,7 @@ class MediaOrderController extends Controller
         } elseif ($request->date) {
             $datas = DB::table('orders')
                 ->where('media_id', $mediaPers->id)
-                ->where('status', '!=', 'unsent')
+                ->whereNotIn('status', ['unsent', 'sent'])
                 ->whereDate('tanggal_pelaksanaan', $request->date)
                 ->orderBy('tanggal_pelaksanaan')
                 ->get();
