@@ -31,7 +31,7 @@
 
                         @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                         <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order.indexx') }}">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order.agenda') }}">
                                 <i class="ri-newspaper-line"></i>
                                 <span>Media Order</span>
                             </a>
