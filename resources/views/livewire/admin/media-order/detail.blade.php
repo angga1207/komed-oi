@@ -298,7 +298,7 @@ use Carbon\Carbon;
                                     Pilih Status
                                 </option>
                                 <option value="rejected">
-                                    Kembalikan
+                                    Tolak
                                 </option>
                                 <option value="verified">
                                     Verifikasi
