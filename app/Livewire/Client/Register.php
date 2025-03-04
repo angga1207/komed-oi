@@ -12,6 +12,7 @@ class Register extends Component
 {
     use LivewireAlert;
     public $fullname, $username, $email, $whatsapp, $password, $password_confirmation;
+    public $captcha;
 
     public function render()
     {
@@ -29,8 +30,12 @@ class Register extends Component
             'email' => 'required|string|email|max:255|unique:users,email',
             'whatsapp' => 'required|string|numeric|digits_between:11,13|unique:users,whatsapp',
             'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|same:password'
-        ], [], [
+            'password_confirmation' => 'required|same:password',
+            'captcha' => 'required|captcha'
+        ],  [
+            'captcha.required' => 'Captcha tidak boleh kosong',
+            'captcha.captcha' => 'Captcha tidak cocok'
+        ], [
             'fullname' => 'Nama Lengkap',
             'username' => 'N.I.K',
             'email' => 'Email',
@@ -133,5 +138,10 @@ class Register extends Component
         } else {
             return true;
         }
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

@@ -60,9 +60,14 @@ use Carbon\Carbon;
                                         </span>
                                     </div>
                                     @endif
-                                    <h5>
-                                        {{ $data['nama_acara'] }}
-                                    </h5>
+                                    <div class="content d-flex align-items-center gap-2">
+                                        <h5>
+                                            {{ $data['nama_acara'] ?? '' }}
+                                        </h5>
+                                        <span class="badge badge-warning">
+                                            {{ str()->upper($data['type']) }}
+                                        </span>
+                                    </div>
                                     <div class="content d-flex align-items-center gap-2">
                                         <i class="ri-map-pin-line"></i>
                                         <span>
