@@ -31,20 +31,6 @@
 
                         @if (in_array(auth()->user()->role_id, [1, 2, 3]))
                         <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order.agenda') }}">
-                                <i class="ri-newspaper-line"></i>
-                                <span>Media Order</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-list">
-                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order') }}">
-                                <i class="ri-file-chart-line"></i>
-                                <span>Laporan</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-list">
                             <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                 <i class="ri-government-line"></i>
                                 <span>
@@ -60,10 +46,30 @@
 
                                 <li>
                                     <a href="{{ route('media.need-approval') }}">
-                                        Menunggu Persetujuan
+                                        Verifikasi Media
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{{ route('media.need-approval') }}">
+                                        Kontrak Media
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order.agenda') }}">
+                                <i class="ri-newspaper-line"></i>
+                                <span>Media Order</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('a.media-order') }}">
+                                <i class="ri-file-chart-line"></i>
+                                <span>Laporan</span>
+                            </a>
                         </li>
 
                         <li class="sidebar-list">
