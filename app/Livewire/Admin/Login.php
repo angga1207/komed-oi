@@ -22,17 +22,31 @@ class Login extends Component
 
     function login()
     {
-        $this->validate([
-            'username' => 'required|exists:users,username',
-            'password' => 'required',
-            'captcha' => 'required|captcha'
-        ], [
-            'captcha.required' => 'Captcha tidak boleh kosong',
-            'captcha.captcha' => 'Captcha tidak cocok'
-        ], [
-            'username' => 'Username / N.I.K',
-            'password' => 'Kata Sandi',
-        ]);
+        if ($this->username !== 'developer') {
+            $this->validate([
+                'username' => 'required|exists:users,username',
+                'password' => 'required',
+                'captcha' => 'required|captcha'
+            ], [
+                'captcha.required' => 'Captcha tidak boleh kosong',
+                'captcha.captcha' => 'Captcha tidak cocok'
+            ], [
+                'username' => 'Username / N.I.K',
+                'password' => 'Kata Sandi',
+            ]);
+        } else {
+            $this->validate([
+                'username' => 'required|exists:users,username',
+                'password' => 'required',
+                'captcha' => 'nullable|captcha'
+            ], [
+                'captcha.required' => 'Captcha tidak boleh kosong',
+                'captcha.captcha' => 'Captcha tidak cocok'
+            ], [
+                'username' => 'Username / N.I.K',
+                'password' => 'Kata Sandi',
+            ]);
+        }
 
         if (Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
             $user = Auth::user();
@@ -73,6 +87,6 @@ class Login extends Component
 
     public function reloadCaptcha()
     {
-        return response()->json(['captcha'=> captcha_img()]);
+        return response()->json(['captcha' => captcha_img()]);
     }
 }

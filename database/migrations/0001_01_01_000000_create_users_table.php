@@ -187,12 +187,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('pers_profile');
-        Schema::dropIfExists('pers_profile_files');
-        Schema::dropIfExists('laporan_pers');
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('user_logs');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('laporan_pers');
+        Schema::dropIfExists('pers_profile_files');
+        Schema::dropIfExists('pers_profile');
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('roles');
     }
 };
