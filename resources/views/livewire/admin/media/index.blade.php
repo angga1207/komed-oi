@@ -135,6 +135,15 @@ use Carbon\Carbon;
                                     </tr>
                                     @endforelse
                                 </tbody>
+                                @if($datas->hasPages())
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="100">
+                                                {{ $datas->links() }}
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                @endif
                             </table>
                         </div>
                     </div>
