@@ -1026,6 +1026,12 @@ class FirstUpdateMedia extends Component
             $jenisMedia = '02';
         } elseif ($jenisMedia == 'Media Siber') {
             $jenisMedia = '03';
+        } elseif ($jenisMedia == 'Media Sosial') {
+            $jenisMedia = '04';
+        } elseif ($jenisMedia == 'Multimedia') {
+            $jenisMedia = '05';
+        } else {
+            $jenisMedia = '00';
         }
 
         $temp = explode('.', $oldUniqueID);

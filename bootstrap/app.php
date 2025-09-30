@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'Captcha' => Mews\Captcha\Facades\Captcha::class,
             'Firebase' => Kreait\Laravel\Firebase\Facades\Firebase::class,
+            'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

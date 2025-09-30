@@ -26,6 +26,48 @@ class MediaPers extends Model
         'User.fullname',
     ];
 
+    // boot method to create a unique ID when creating a new record
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->unique_id = $model->generateUniqueID();
+        });
+    }
+
+    function generateUniqueID()
+    {
+        if ($this->jenis_media == 'Media Cetak') {
+            $jenisMedia = '01';
+        } elseif ($this->jenis_media == 'Media Elektronik') {
+            $jenisMedia = '02';
+        } elseif ($this->jenis_media == 'Media Siber') {
+            $jenisMedia = '03';
+        } elseif ($this->jenis_media == 'Media Sosial') {
+            $jenisMedia = '04';
+        } elseif ($this->jenis_media == 'Multimedia') {
+            $jenisMedia = '05';
+        } else {
+            $jenisMedia = '00';
+        }
+
+        $unique_id = $jenisMedia . '.' . 'PERS.' . date('my') . '.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+        if ($this->checkUniqueIDExists($unique_id) == false) {
+            $this->generateUniqueID();
+        }
+        return $unique_id;
+    }
+
+    function checkUniqueIDExists($unique_id)
+    {
+        $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
+        if ($pers) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     function User()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

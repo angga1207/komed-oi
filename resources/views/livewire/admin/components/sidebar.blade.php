@@ -122,6 +122,18 @@
                             </a>
                         </li>
                         @endif
+
+                        @if (in_array(auth()->user()->role_id, [1]))
+
+                        <li class="sidebar-list">
+                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('dev.index') }}">
+                                <i class="ri-code-box-line"></i>
+                                <span>
+                                    Dev
+                                </span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
 

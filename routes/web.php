@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('announcements', App\Livewire\Admin\Announcements\Index::class)->name('announcements');
 
+        // Dev
+        Route::get('dev', App\Livewire\Admin\Dev\Index::class)->name('dev.index');
+        Route::get('dev/import-media', App\Livewire\Admin\Dev\ImportMedia::class)->name('dev.import-media');
+
         // Users
         Route::get('users/user', App\Livewire\Admin\Users\User::class)->name('users.user');
         Route::get('users/admin', App\Livewire\Admin\Users\Admin::class)->name('users.admin');

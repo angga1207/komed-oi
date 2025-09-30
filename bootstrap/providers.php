@@ -5,4 +5,5 @@ return [
     Lab404\Impersonate\ImpersonateServiceProvider::class,
     Mews\Captcha\CaptchaServiceProvider::class,
     Kreait\Laravel\Firebase\ServiceProvider::class,
+    Maatwebsite\Excel\ExcelServiceProvider::class,
 ];

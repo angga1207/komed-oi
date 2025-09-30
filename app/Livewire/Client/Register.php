@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Client;
 
+use App\Models\MediaPers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -74,17 +75,25 @@ class Register extends Component
 
                 $unique_id = $this->generateUniqueID();
 
-                $pers = DB::table('pers_profile')
-                    ->insert([
-                        'user_id' => $user->id,
-                        'unique_id' => $unique_id,
-                        'nik' => $this->username,
-                        'whatsapp' => $this->whatsapp,
-                        'verified_status' => null,
-                        'verification_deadline' => null,
-                        'created_at' => $now,
-                        'updated_at' => $now
-                    ]);
+                // $pers = DB::table('pers_profile')
+                //     ->insert([
+                //         'user_id' => $user->id,
+                //         'unique_id' => $unique_id,
+                //         'nik' => $this->username,
+                //         'whatsapp' => $this->whatsapp,
+                //         'verified_status' => null,
+                //         'verification_deadline' => null,
+                //         'created_at' => $now,
+                //         'updated_at' => $now
+                //     ]);
+                $pers = new MediaPers();
+                $pers->user_id = $user->id;
+                // $pers->unique_id = $unique_id;
+                $pers->nik = $this->username;
+                $pers->whatsapp = $this->whatsapp;
+                $pers->verified_status = null;
+                $pers->verification_deadline = null;
+                $pers->save();
 
                 // make log start
                 $log = [
