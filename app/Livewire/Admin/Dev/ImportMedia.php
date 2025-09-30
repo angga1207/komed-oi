@@ -155,7 +155,8 @@ class ImportMedia extends Component
                     $randomEmail = rand(1000, 9999) . rand(10, 99) . '@example.com';
                 }
                 // check if username exists
-                $user = User::where('fullname', $row[1])->first();
+                $user = User::where('username', $row[count($row) - 2])->first();
+                // $user = User::where('fullname', $row[1])->first();
                 if (!$user) {
                     $user = User::create([
                         'fullname' => $row[1],
