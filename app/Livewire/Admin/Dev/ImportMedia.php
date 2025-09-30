@@ -207,7 +207,6 @@ class ImportMedia extends Component
                 } elseif ($this->type === 2) {
                     // Media Sosial
                     $media->jenis_media = 'Media Sosial';
-                    $media->account_name = $row[1];
                     $media->nama_perusahaan = $row[2];
                     $media->nama_media = $row[1];
                     $media->alamat_media = $row[3];
