@@ -130,11 +130,24 @@ use Carbon\Carbon;
                         </div>
                         <ul class="profile-dropdown onhover-show-div">
                             <li>
-                                <a href="#">
+                                <a href="{{ route('me') }}">
                                     <i data-feather="users"></i>
                                     <span>Profile</span>
                                 </a>
                             </li>
+
+                            @php
+                            $manager = app('impersonate');
+                            @endphp
+
+                            @if($manager->isImpersonating())
+                            <li>
+                                <a href="javascript:void(0)" wire:click="stopImpersonate">
+                                    <i data-feather="log-out"></i>
+                                    <span>Stop Impersonate</span>
+                                </a>
+                            </li>
+                            @else
                             <li>
                                 <a href="javascript:void(0)" wire:click="logout">
                                     <i data-feather="log-out"></i>
@@ -143,6 +156,8 @@ use Carbon\Carbon;
                                     </span>
                                 </a>
                             </li>
+                            @endif
+
                         </ul>
                     </li>
                 </ul>

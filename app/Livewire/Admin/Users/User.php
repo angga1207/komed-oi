@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User as ModelsUser;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class User extends Component
@@ -16,6 +17,7 @@ class User extends Component
     public $search;
     public $detail = [];
     public $randomPassword, $resetId, $bannedId, $activeId;
+    public $impersonateId;
 
     function getListeners()
     {
@@ -219,5 +221,32 @@ class User extends Component
         ];
         DB::table('user_logs')->insert($log);
         // make log end
+    }
+
+    function confirmImpersonate($id)
+    {
+        $this->confirm('Apakah Anda yakin ingin masuk sebagai user ini?', [
+            'text' => 'Anda akan keluar dari akun admin dan masuk sebagai user ini',
+            'toast' => false,
+            'position' => 'center',
+            'timer' => null,
+            'showCancelButton' => true,
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Batal',
+            'confirmButtonText' => 'Ya, Lanjutkan',
+            'onConfirmed' => 'goImpersonate'
+        ]);
+        $this->impersonateId = $id;
+    }
+
+    function goImpersonate($id)
+    {
+        $user = ModelsUser::find($id);
+        if ($user) {
+            Auth::user()->impersonate($user);
+            return redirect()->route('client-dashboard');
+        }
+
+        $this->impersonateId = null;
     }
 }

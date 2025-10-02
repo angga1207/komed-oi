@@ -58,4 +58,13 @@ class Navbar extends Component
             DB::rollBack();
         }
     }
+
+    function stopImpersonate()
+    {
+        $manager = app('impersonate');
+        if ($manager->isImpersonating()) {
+            $manager->leave();
+        }
+        return redirect()->route('users.user');
+    }
 }

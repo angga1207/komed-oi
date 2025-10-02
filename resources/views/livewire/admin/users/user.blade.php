@@ -93,6 +93,17 @@
 
                                     <td>
                                         <ul>
+                                            @if(auth()->user()->role_id == 1)
+                                            {{-- impersonate button --}}
+                                            <li>
+                                                <a href="#"
+                                                    {{-- wire:click="confirmImpersonate({{ $data->id }})"> --}}
+                                                    wire:click="goImpersonate({{ $data->id }})">
+                                                    <i class="ri-user-shared-line"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+
                                             <li>
                                                 <a href="javascript:void(0)" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModalToggle"

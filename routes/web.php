@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('c/profile', App\Livewire\Client\Profile\Index::class)->name('client.profile');
     });
 
+    Route::get('/me', App\Livewire\Admin\Me::class)->name('me');
+
     // Impersonate
     Route::impersonate();
     Route::post('/updateFcmToken', [AuthController::class, 'updateFcmToken'])->name('updateFcmToken');

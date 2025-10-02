@@ -11,16 +11,18 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Lab404\Impersonate\Models\Impersonate;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, Searchable, Impersonate;
     protected $fillable = [
         'fullname',
         'first_name',
         'last_name',
         'username',
         'email',
+        'whatsapp',
         'photo',
         'google_id',
         'status',
@@ -86,5 +88,15 @@ class User extends Authenticatable
     function announcements()
     {
         return $this->hasMany(Announcement::class, 'created_by', 'id');
+    }
+
+    public function canImpersonate()
+    {
+        return $this->role_id == 1;
+    }
+
+    public function canBeImpersonated()
+    {
+        return $this->role_id != 1;
     }
 }
