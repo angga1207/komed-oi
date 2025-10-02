@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('media/need-approval', App\Livewire\Admin\Media\NeedVerification::class)->name('media.need-approval');
         Route::get('media', App\Livewire\Admin\Media\Index::class)->name('media');
         Route::get('media/{unique_id}', App\Livewire\Admin\Media\Detail::class)->name('media.detail');
+        Route::get('media/{unique_id}/edit', App\Livewire\Admin\Media\Edit::class)->name('media.edit');
 
         Route::get('a/media-orderr', App\Livewire\Admin\MediaOrder\Indexx::class)->name('a.media-order.indexx');
 

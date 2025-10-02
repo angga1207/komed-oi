@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-floating theme-form-floating log-in-form">
+                <div class="form-floating">
                     <input type="text" class="form-control" id="captcha" placeholder="Captcha" wire:model='captcha'>
                     <label for="captcha">Captcha</label>
                     @error('captcha')

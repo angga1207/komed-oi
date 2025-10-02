@@ -42,6 +42,8 @@ use Carbon\Carbon;
                                                 <option value="Media Cetak">Media Cetak</option>
                                                 <option value="Media Elektronik">Media Elektronik</option>
                                                 <option value="Media Siber">Media Siber</option>
+                                                <option value="Media Sosial">Media Sosial</option>
+                                                <option value="Multimedia">Multimedia</option>
                                             </select>
                                         </th>
                                         <th>
@@ -122,6 +124,14 @@ use Carbon\Carbon;
                                                         class="badge badge-primary d-flex align-items-center gap-1">
                                                         <i class="ri-eye-line text-white"></i>
                                                         Detail
+                                                    </a>
+                                                </li>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.edit', $data->unique_id) }}"
+                                                        class="badge badge-info d-flex align-items-center gap-1">
+                                                        <i class="ri-edit-2-line text-white"></i>
+                                                        Edit
                                                     </a>
                                                 </li>
                                             </ul>
@@ -334,7 +344,7 @@ use Carbon\Carbon;
                                 @if($detail['file_status_wartawan'])
                                 <a href="{{ asset($detail['file_status_wartawan']) }}" target="_blank"
                                     class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
+                                    Lihat Berkas Status Wartawan
                                 </a>
                                 @else
                                 <span class="badge badge-danger mt-1">
@@ -354,7 +364,7 @@ use Carbon\Carbon;
                                 @if($detail['file_kompetensi_wartawan'])
                                 <a href="{{ asset($detail['file_kompetensi_wartawan']) }}" target="_blank"
                                     class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
+                                    Lihat Berkas Kompetensi Wartawan
                                 </a>
                                 @else
                                 <span class="badge badge-danger mt-1">
@@ -374,7 +384,7 @@ use Carbon\Carbon;
                                 @if($detail['file_status_dewan_pers'])
                                 <a href="{{ asset($detail['file_status_dewan_pers']) }}" target="_blank"
                                     class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
+                                    Lihat Berkas Status Dewan Pers
                                 </a>
                                 @else
                                 <span class="badge badge-danger mt-1">
@@ -411,7 +421,7 @@ use Carbon\Carbon;
                                 @if($detail['file_terbitan_3_edisi_terakhir'])
                                 <a href="{{ asset($detail['file_terbitan_3_edisi_terakhir']) }}" target="_blank"
                                     class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
+                                    Lihat Berkas Terbitan 3 Edisi Terakhir
                                 </a>
                                 @else
                                 <span class="badge badge-danger mt-1">
@@ -437,7 +447,7 @@ use Carbon\Carbon;
                         </div>
                         @endforeach
 
-                        <div class="col-12 col-md-6">
+                        {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="tier" class="form-label">
                                     Tier
@@ -453,7 +463,7 @@ use Carbon\Carbon;
                                 <input type="text" class="form-control" id="tier_point" wire:model="detail.tier_point"
                                     readonly>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     @endif
                 </div>
