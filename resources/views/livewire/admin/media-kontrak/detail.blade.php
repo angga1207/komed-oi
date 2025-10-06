@@ -8,6 +8,12 @@
                 <h5>
                     Detail Kontrak Media
                 </h5>
+                <div class="">
+                    <a href="{{ route('a.media-kontrak.detail.chart', $pers->unique_id) }}" class="btn btn-primary">
+                        <i class="fas fa-chart-pie"></i>
+                        Riwayat Kontrak
+                    </a>
+                </div>
             </div>
 
             <div class="row g-3 mb-3">

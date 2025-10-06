@@ -196,6 +196,13 @@ use Carbon\Carbon;
                     <h4>
                         Nilai Kontrak Media
                     </h4>
+                    <div class="">
+                        <select class="form-select" wire:model.live='year'>
+                            @for ($i = date('Y') + 1; $i >= 2024; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="card-body">

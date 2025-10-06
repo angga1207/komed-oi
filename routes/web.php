@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('a/kontrak-media', App\Livewire\Admin\MediaKontrak\Index::class)->name('a.media-kontrak');
         Route::get('a/kontrak-media/{unique_id}', App\Livewire\Admin\MediaKontrak\Detail::class)->name('a.media-kontrak.detail');
+        Route::get('a/kontrak-media/{unique_id}/chart', App\Livewire\Admin\MediaKontrak\Chart::class)->name('a.media-kontrak.detail.chart');
 
         Route::get('announcements', App\Livewire\Admin\Announcements\Index::class)->name('announcements');
 

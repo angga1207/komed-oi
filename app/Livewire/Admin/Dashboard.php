@@ -12,6 +12,13 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Dashboard extends Component
 {
+    public $year;
+
+    function mount()
+    {
+        $this->year = date('Y');
+    }
+
     public function render()
     {
         $mediaPers = DB::table('pers_profile')
@@ -75,9 +82,9 @@ class Dashboard extends Component
             $totalNilaiKontrakInduk = 0;
             $totalNilaiKontrakAPBDP = 0;
             foreach ($medias as $md) {
-                $kontrak1 = $md->KontrakInduk(date('Y'))->first() ? $md->KontrakInduk(date('Y'))->first()->nilai_kontrak : 0;
+                $kontrak1 = $md->KontrakInduk($this->year)->first() ? $md->KontrakInduk($this->year)->first()->nilai_kontrak : 0;
                 $totalNilaiKontrakInduk += $kontrak1;
-                $kontrak2 = $md->KontrakAPBDP(date('Y'))->first() ? $md->KontrakAPBDP(date('Y'))->first()->nilai_kontrak : 0;
+                $kontrak2 = $md->KontrakAPBDP($this->year)->first() ? $md->KontrakAPBDP($this->year)->first()->nilai_kontrak : 0;
                 $totalNilaiKontrakAPBDP += $kontrak2;
             }
             $kontrakMedia[$jm]['induk'] = $totalNilaiKontrakInduk;
