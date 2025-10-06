@@ -51,7 +51,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="{{ route('media.need-approval') }}">
+                                    <a href="{{ route('a.media-kontrak') }}">
                                         Kontrak Media
                                     </a>
                                 </li>

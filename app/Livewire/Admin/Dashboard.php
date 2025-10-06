@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\MediaPers;
 use Asantibanez\LivewireCharts\Facades\LivewireCharts;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -64,11 +65,33 @@ class Dashboard extends Component
         }
         // CHART END
 
+        // Kontrak Media
+        $jenisMedia = MediaPers::select('jenis_media')->distinct()
+            ->pluck('jenis_media')
+            ->toArray();
+        $kontrakMedia = [];
+        foreach ($jenisMedia as $jm) {
+            $medias = MediaPers::where('jenis_media', $jm)->get();
+            $totalNilaiKontrakInduk = 0;
+            $totalNilaiKontrakAPBDP = 0;
+            foreach ($medias as $md) {
+                $kontrak1 = $md->KontrakInduk(date('Y'))->first() ? $md->KontrakInduk(date('Y'))->first()->nilai_kontrak : 0;
+                $totalNilaiKontrakInduk += $kontrak1;
+                $kontrak2 = $md->KontrakAPBDP(date('Y'))->first() ? $md->KontrakAPBDP(date('Y'))->first()->nilai_kontrak : 0;
+                $totalNilaiKontrakAPBDP += $kontrak2;
+            }
+            $kontrakMedia[$jm]['induk'] = $totalNilaiKontrakInduk;
+            $kontrakMedia[$jm]['apbdp'] = $totalNilaiKontrakAPBDP;
+        }
+        $kontrakMedia['TOTAL']['induk'] = array_sum(array_column($kontrakMedia, 'induk'));
+        $kontrakMedia['TOTAL']['apbdp'] = array_sum(array_column($kontrakMedia, 'apbdp'));
+
         return view('livewire.admin.dashboard', [
             'mediaPers' => $mediaPers,
             'mediaOrders' => $mediaOrders,
             'timelines' => $timelines,
             'chartMediaOrder' => $chartMediaOrder,
+            'kontrakMedia' => $kontrakMedia,
         ])
             ->layout('layouts.app', ['title' => 'Dashboard']);
     }

@@ -126,7 +126,6 @@ use Carbon\Carbon;
                                                         Detail
                                                     </a>
                                                 </li>
-                                                </li>
                                                 <li>
                                                     <a href="{{ route('media.edit', $data->unique_id) }}"
                                                         class="badge badge-info d-flex align-items-center gap-1">

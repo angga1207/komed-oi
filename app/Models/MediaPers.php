@@ -224,4 +224,24 @@ class MediaPers extends Model
             return $this->hasMany(Order::class, 'media_id', 'id');
         }
     }
+
+    function KontrakInduk($tahun = null)
+    {
+        if (!$tahun) {
+            $tahun = Carbon::now()->year;
+        }
+        return $this->hasOne(MediaKontrak::class, 'pers_profile_id', 'id')
+            ->where('tahun', $tahun)
+            ->where('jenis_kontrak', 'induk');
+    }
+
+    function KontrakAPBDP($tahun = null)
+    {
+        if (!$tahun) {
+            $tahun = Carbon::now()->year;
+        }
+        return $this->hasOne(MediaKontrak::class, 'pers_profile_id', 'id')
+            ->where('tahun', $tahun)
+            ->where('jenis_kontrak', 'apbdp');
+    }
 }
