@@ -70,7 +70,8 @@ class Index extends Component
 
             $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
             if ($this->checkUniqueIDExists($unique_id) == false) {
-                $this->generateUniqueID();
+                // $this->generateUniqueID();
+                $unique_id = $format . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
             }
             DB::table('pers_profile')
                 ->where('id', $data->id)
