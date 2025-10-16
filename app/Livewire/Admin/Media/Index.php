@@ -59,7 +59,7 @@ class Index extends Component
 
             $format = $jenisMedia . '-' . date('my') . '-';
             $lastRecord = MediaPers::where('unique_id', 'like', $format . '%')
-                ->orderBy('id', 'desc')
+                ->orderBy('unique_id', 'desc')
                 ->first();
             if ($lastRecord) {
                 $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
