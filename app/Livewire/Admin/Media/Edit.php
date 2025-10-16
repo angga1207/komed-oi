@@ -25,7 +25,10 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.admin.media.edit');
+        return view('livewire.admin.media.edit')
+            ->layout('layouts.app', [
+                'title' => 'Edit Media: ' . $this->detail['nama_perusahaan'],
+            ]);
     }
 
     function save()

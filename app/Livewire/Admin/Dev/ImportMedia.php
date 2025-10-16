@@ -189,7 +189,7 @@ class ImportMedia extends Component
                     $jenisMedia = null;
                     if ($row[4] == 'CETAK') {
                         $jenisMedia = 'Media Cetak';
-                    } elseif ($row[4] == 'ELEKTRONIK') {
+                    } elseif ($row[4] == 'ELEKTRONIK' || $row[4] == 'TELEVISI' || $row[4] == 'RADIO') {
                         $jenisMedia = 'Media Elektronik';
                     } elseif ($row[4] == 'SIBER') {
                         $jenisMedia = 'Media Siber';

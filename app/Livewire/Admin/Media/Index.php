@@ -34,6 +34,61 @@ class Index extends Component
     function mount()
     {
         $this->filterAgendaDate = date('Y-m-d');
+        $this->generateUniqueId();
+    }
+
+    function generateUniqueId()
+    {
+        $datas = MediaPers::get();
+        foreach ($datas as $data) {
+            // $oldUniqueId = $data->unique_id;
+
+            if ($data->jenis_media == 'Media Cetak') {
+                $jenisMedia = '01';
+            } elseif ($data->jenis_media == 'Media Elektronik') {
+                $jenisMedia = '02';
+            } elseif ($data->jenis_media == 'Media Siber') {
+                $jenisMedia = '03';
+            } elseif ($data->jenis_media == 'Media Sosial') {
+                $jenisMedia = '04';
+            } elseif ($data->jenis_media == 'Multimedia') {
+                $jenisMedia = '05';
+            } else {
+                $jenisMedia = '00';
+            }
+
+            $format = $jenisMedia . '-' . date('my') . '-';
+            $lastRecord = DB::table('pers_profile')
+                ->where('unique_id', 'like', $format . '%')
+                ->orderBy('id', 'desc')
+                ->first();
+            if ($lastRecord) {
+                $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
+            } else {
+                $lastId = 1;
+            }
+
+            $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
+            if ($this->checkUniqueIDExists($unique_id) == false) {
+                $this->generateUniqueID();
+            }
+            DB::table('pers_profile')
+                ->where('id', $data->id)
+                ->update([
+                    'unique_id' => $unique_id
+                ]);
+        }
+        // dd($datas[0]);
+    }
+
+    public function checkUniqueIDExists($unique_id)
+    {
+        $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
+        if ($pers) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public function render()
@@ -43,7 +98,8 @@ class Index extends Component
                 return $query->where('jenis_media', $filterJenisMedia);
             })
             ->where('verified_status', 'verified')
-            ->latest()
+            // ->latest()
+            ->orderBy('unique_id', 'asc')
             ->paginate(10);
 
         return view('livewire.admin.media.index', [

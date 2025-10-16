@@ -149,7 +149,8 @@ class Detail extends Component
             DB::commit();
             $this->alert('success', 'Data kontrak berhasil disimpan.');
             $this->mount($this->pers->unique_id); // Refresh data
-            return;
+
+            redirect()->route('a.media-kontrak.detail', $this->pers->unique_id);
         } catch (\Exception $e) {
             DB::rollBack();
             $this->alert('error', 'Terjadi kesalahan saat menyimpan data kontrak. Silakan coba lagi.');

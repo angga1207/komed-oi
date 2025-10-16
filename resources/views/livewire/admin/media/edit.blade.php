@@ -22,7 +22,7 @@
                             Nama Perusahaan
                         </label>
                         <input type="text" class="form-control" id="nama_perusahaan"
-                            wire:model="detail.nama_perusahaan">
+                            placeholder="Masukkan Nama Perusahaan" wire:model="detail.nama_perusahaan">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -30,7 +30,8 @@
                         <label for="nama_media" class="form-label">
                             Nama Media
                         </label>
-                        <input type="text" class="form-control" id="nama_media" wire:model="detail.nama_media">
+                        <input type="text" class="form-control" id="nama_media" placeholder="Masukkan Nama Media"
+                            wire:model="detail.nama_media">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -38,7 +39,8 @@
                         <label for="alias" class="form-label">
                             Alias
                         </label>
-                        <input type="text" class="form-control" id="alias" wire:model="detail.alias">
+                        <input type="text" class="form-control" id="alias" placeholder="Masukkan Alias"
+                            wire:model="detail.alias">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -46,8 +48,8 @@
                         <label for="jenis_media" class="form-label">
                             Jenis Media
                         </label>
-                        <input type="text" class="form-control" id="jenis_media" wire:model="detail.jenis_media"
-                            disabled>
+                        <input type="text" class="form-control" id="jenis_media" placeholder="Masukkan Jenis Media"
+                            wire:model="detail.jenis_media" disabled>
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -55,7 +57,8 @@
                         <label for="whatsapp" class="form-label">
                             No. WhatsApp
                         </label>
-                        <input type="text" class="form-control" id="whatsapp" wire:model="detail.whatsapp">
+                        <input type="text" class="form-control" id="whatsapp" placeholder="Masukkan No. WhatsApp"
+                            wire:model="detail.whatsapp">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -63,7 +66,8 @@
                         <label for="email" class="form-label">
                             Email
                         </label>
-                        <input type="text" class="form-control" id="email" wire:model="detail.email">
+                        <input type="text" class="form-control" id="email" placeholder="Masukkan Email"
+                            wire:model="detail.email">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -71,7 +75,8 @@
                         <label for="no_npwp" class="form-label">
                             No. NPWP
                         </label>
-                        <input type="text" class="form-control" id="no_npwp" wire:model="detail.no_npwp">
+                        <input type="text" class="form-control" id="no_npwp" placeholder="Masukkan No. NPWP"
+                            wire:model="detail.no_npwp">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -79,7 +84,8 @@
                         <label for="no_ref_bank" class="form-label">
                             No. Referensi Bank
                         </label>
-                        <input type="text" class="form-control" id="no_ref_bank" wire:model="detail.no_ref_bank">
+                        <input type="text" class="form-control" id="no_ref_bank"
+                            placeholder="Masukkan No. Referensi Bank" wire:model="detail.no_ref_bank">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -88,7 +94,7 @@
                             No. Giro Perusahaan
                         </label>
                         <input type="text" class="form-control" id="no_giro_perusahaan"
-                            wire:model="detail.no_giro_perusahaan">
+                            placeholder="Masukkan No. Giro Perusahaan" wire:model="detail.no_giro_perusahaan">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -96,7 +102,8 @@
                         <label for="website" class="form-label">
                             Website
                         </label>
-                        <input type="text" class="form-control" id="website" wire:model="detail.website">
+                        <input type="text" class="form-control" id="website" placeholder="Masukkan Website"
+                            wire:model="detail.website">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -104,7 +111,8 @@
                         <label for="profil_perusahaan" class="form-label">
                             Profil Perusahaan
                         </label>
-                        <textarea style="min-height:100px; max-height:100px" class="form-control" id="profil_perusahaan"
+                        <textarea style="min-height:100px; max-height:100px" class="form-control"
+                            placeholder="Masukkan Profil Perusahaan" id="profil_perusahaan"
                             wire:model="detail.profil_perusahaan"></textarea>
                     </div>
                 </div>
@@ -113,7 +121,8 @@
                         <label for="alamat_media" class="form-label">
                             Alamat Media
                         </label>
-                        <textarea style="min-height:100px; max-height:100px" class="form-control" id="alamat_media"
+                        <textarea style="min-height:100px; max-height:100px" class="form-control"
+                            placeholder="Masukkan Alamat Media" id="alamat_media"
                             wire:model="detail.alamat_media"></textarea>
                     </div>
                 </div>
@@ -239,7 +248,8 @@
                         </div>
                         @enderror
 
-                        @if(in_array($detail['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
+                        @if(in_array($detail['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten
+                        Lain']))
                         <input type="file" class="mt-2 form-control" id="file_status_wartawan"
                             wire:model="detail.new_file_status_wartawan">
                         @error('detail.new_file_status_wartawan')

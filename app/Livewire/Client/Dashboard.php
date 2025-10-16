@@ -62,12 +62,18 @@ class Dashboard extends Component
         }
 
         $chartMediaOrder = LivewireCharts::multiLineChartModel()
-            ->setTitle('Media Order Bulan Ini')
+            ->setTitle('Realisasi Bulan Ini')
             ->setAnimated(true)
             ->setLegendVisibility(false)
             ->setDataLabelsEnabled(true)
             ->setSmoothCurve()
             ->withDataLabels()
+            ->setColors([
+                '#0da487',
+                '#747dc6',
+                '#ef3f3e',
+                '#9e65c2'
+            ])
             ->setXAxisVisible(true);
 
         $range = CarbonPeriod::create(Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth());
@@ -80,10 +86,11 @@ class Dashboard extends Component
                 ->whereDate('tanggal_pelaksanaan', $dateYMD)
                 ->get();
             $chartMediaOrder->addSeriesPoint('Media Order', $dateStr, count($order));
+            $chartMediaOrder->addSeriesPoint('Proses', $dateStr, count($order->whereIn('status', ['sent'])));
+            $chartMediaOrder->addSeriesPoint('Verifikasi', $dateStr, count($order->whereIn('status', ['review'])));
             $chartMediaOrder->addSeriesPoint('Selesai', $dateStr, count($order->whereIn('status', ['verified', 'done'])));
-            $chartMediaOrder->addSeriesPoint('Dikerjakan', $dateStr, count($order->whereIn('status', ['sent'])));
-            $chartMediaOrder->addSeriesPoint('Direview', $dateStr, count($order->whereIn('status', ['review'])));
         }
+        // change color
 
         return view('livewire.client.dashboard', [
             'mediaOrders' => $mediaOrders,

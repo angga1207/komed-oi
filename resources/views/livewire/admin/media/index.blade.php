@@ -64,6 +64,10 @@ use Carbon\Carbon;
                                     <tr>
                                         <td>
                                             <div class="d-flex flex-column">
+                                                <div class="d-flex align-items-center">
+                                                    <span>#</span>
+                                                    {{ $data->unique_id }}
+                                                </div>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <i class="ri-building-2-line"></i>
                                                     {{ $data->nama_perusahaan }}

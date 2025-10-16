@@ -29,7 +29,7 @@ use Carbon\Carbon;
                 <div class="media align-items-center static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Jumlah Media Order
+                            Media Order
                         </span>
                         <h4 class="mb-0 counter">
                             {{ count($mediaOrders) }}
@@ -49,7 +49,7 @@ use Carbon\Carbon;
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Belum Dikerjakan
+                            Proses
                         </span>
                         <h4 class="mb-0 counter">
                             {{ count($mediaOrders->where('status','sent')) }}
@@ -69,7 +69,7 @@ use Carbon\Carbon;
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Pelaksanaan yang Sedang Direview
+                            Verifikasi
                         </span>
                         <h4 class="mb-0 counter">
                             {{ count($mediaOrders->whereIn('status',['review'])) }}
@@ -90,7 +90,7 @@ use Carbon\Carbon;
                 <div class="media static-top-widget">
                     <div class="media-body p-0">
                         <span class="m-0">
-                            Liputan Selesai
+                            Selesai
                         </span>
                         <h4 class="mb-0 counter">
                             {{ count($mediaOrders->whereIn('status',['verified','done'])) }}

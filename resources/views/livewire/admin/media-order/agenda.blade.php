@@ -17,7 +17,8 @@ use Carbon\Carbon;
 
                         <div class="d-flex align-items-center gap-2">
                             <a class="align-items-center btn btn-outline d-flex" href="javascript:void(0)"
-                                data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click="addData()" wire:ignore>
+                                data-bs-toggle="modal" data-bs-target="#exampleModalToggle" wire:click="addData()"
+                                wire:ignore>
                                 Buat Agenda Manual
                             </a>
                             <div class="d-flex align-items-center gap-2">
@@ -43,7 +44,7 @@ use Carbon\Carbon;
                                     <div class="position-absolute d-flex align-items-center gap-1"
                                         style="bottom:0px; right:5px" data-bs-toggle="modal"
                                         data-bs-target="#modalAddOrder"
-                                    wire:click.prevent="openWizardAddManual({{ $data['id'] }})">
+                                        wire:click.prevent="openWizardAddManual({{ $data['id'] }})">
                                         <i class="ri-add-circle-line text-success" style="font-size: 20px"></i>
                                         <span class="text-success">
                                             Media Order
@@ -161,13 +162,15 @@ use Carbon\Carbon;
                                                     </td>
                                                     @if ($ord['status'] == 'unsent')
                                                     {{-- <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a href="javascript:void(0);" wire:click="sendOrder('{{ $ord['id'] }}')">
+                                                        <a href="javascript:void(0);"
+                                                            wire:click="sendOrder('{{ $ord['id'] }}')">
                                                             Kirim Media Order
                                                         </a>
                                                     </td> --}}
                                                     {{-- Delete --}}
                                                     <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a href="javascript:void(0);" wire:click="deleteOrder('{{ $ord['id'] }}')"
+                                                        <a href="javascript:void(0);"
+                                                            wire:click="deleteOrder('{{ $ord['id'] }}')"
                                                             class="text-danger">
                                                             Hapus
                                                         </a>
@@ -370,7 +373,7 @@ use Carbon\Carbon;
                         <select class="form-select" wire:model.live="selectedJenisMedia">
                             <option value="">Semua Jenis Media</option>
                             @foreach($jenisMediaList as $jenisMedia)
-                                <option value="{{ $jenisMedia }}">{{ $jenisMedia }}</option>
+                            <option value="{{ $jenisMedia }}">{{ $jenisMedia }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -389,66 +392,101 @@ use Carbon\Carbon;
                     <div class="mb-2">
                         Pilih Media Pers untuk ditambahkan ke Media Order
                     </div>
-                    <div class="row">
-                        @foreach($arrMediaPers as $pers)
-                        <div wire:key='{{ $pers->id }}' class="col-12 col-md-6">
-                            <div class="card border o-hidden card-hover @if(in_array($pers['id'], $selectedMediaPers)) border-success @endif"
-                                style="cursor: pointer" wire:click.prevent="addMedia({{ $pers->id }})">
-                                @if(in_array($pers['id'], $selectedMediaPers))
-                                <div class="position-absolute top-0 end-0 p-2" style="z-index: 1">
-                                    <i class="ri-check-line text-success" style="font-size: 25px"></i>
-                                </div>
-                                @endif
-                                <div class="card-header border-0">
-                                    <div class="card-header-title">
-                                        <h4>
-                                            {{ $pers->nama_media }} (#{{ $pers->unique_id }})
-                                        </h4>
-                                    </div>
-                                </div>
 
-                                <div class="card-body pt-0">
-                                    <div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ri-building-2-line"></i>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th style="font-size: 13px; width:200px" class="p-2">
+                                        Nama Media / Perusahaan
+                                    </th>
+                                    <th style="font-size: 13px; width:200px" class="p-2">
+                                        Jenis Media
+                                    </th>
+                                    <th style="font-size: 13px; width:150px" class="p-2">
+                                        Media Order Bulan Ini
+                                    </th>
+                                    <th style="font-size: 13px; width:50px" class="p-2 text-center">
+                                        Pilih
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($arrMediaPers as $pers)
+                                <tr wire:key='{{ $pers->id }}'
+                                    class="@if(in_array($pers->id, $selectedMediaPers)) table-success @endif"
+                                    style="cursor: pointer" wire:click.prevent="addMedia({{ $pers->id }})">
+                                    <td style="font-size: 14px" class="p-2">
+                                        <div class="fw-bold">
+                                            {{ $pers->nama_media }}
+                                        </div>
+                                        <div class="">
+                                            #{{ $pers->unique_id }}
+                                        </div>
+                                        <div class="">
                                             {{ $pers->nama_perusahaan }}
                                         </div>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <i class="ri-newspaper-line"></i>
-                                            {{ $pers->jenis_media }}
+                                    </td>
+                                    <td style="font-size: 13px" class="p-2">
+                                        {{ $pers->jenis_media }}
+                                    </td>
+                                    <td style="font-size: 13px" class="p-2">
+                                        @php
+                                        // Menghitung jumlah media order untuk bulan ini
+                                        $mediaOrders = $pers->OrdersFilter('')->whereDate('created_at', '>=',
+                                        Carbon::now()->subDays(30))->get();
+                                        $totalOrders = $mediaOrders->count();
+                                        $completedOrders = $mediaOrders->where('status', 'verified')->count();
+                                        $percentComplete = $totalOrders > 0 ? ($completedOrders / $totalOrders) * 100 :
+                                        0;
+                                        @endphp
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="badge badge-info">
+                                                {{ $totalOrders }} Media Order
+                                            </span>
+                                            <span class="badge badge-primary">
+                                                {{ $completedOrders }} Selesai
+                                            </span>
+                                            <span class="badge badge-warning">
+                                                {{ $percentComplete }}%
+                                            </span>
                                         </div>
-                                        {{-- <div class="d-flex align-items-center gap-2">
-                                            <i class="ri-award-line"></i>
-                                            Tier {{ $pers->tier }}
-                                        </div> --}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
+                                    </td>
+                                    <td style="font-size: 13px" class="p-2 text-center">
+                                        @if(in_array($pers->id, $selectedMediaPers))
+                                        <i class="ri-checkbox-circle-line text-success" style="font-size: 20px"></i>
+                                        @else
+                                        <i class="ri-checkbox-blank-circle-line" style="font-size: 20px"></i>
+                                        @endif
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div class="">
                         <!-- Indikator jika tidak ada media yang sesuai dengan filter -->
                         @if(count($arrMediaPers) == 0)
-                            <span class="text-danger">Tidak ada media yang sesuai dengan filter</span>
+                        <span class="text-danger">Tidak ada media yang sesuai dengan filter</span>
                         @endif
                     </div>
                     <div class="d-flex justify-content-end align-items-center gap-2">
                         @if(count($this->selectedMediaPers) > 0)
                         {{ count($this->selectedMediaPers) }} Media Pers dipilih
-                            @if ($selectedAgendaID)
-                            <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
-                                wire:click="confirmApplyOrderManual">
-                                Terapkan
-                            </button>
-                            @else
-                            <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
-                                wire:click="confirmApplyOrder">
-                                Terapkan
-                            </button>
-                            @endif
+                        @if ($selectedAgendaID)
+                        <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
+                            wire:click="confirmApplyOrderManual">
+                            Terapkan
+                        </button>
+                        @else
+                        <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
+                            wire:click="confirmApplyOrder">
+                            Terapkan
+                        </button>
+                        @endif
                         @endif
                         <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
                             data-bs-dismiss="modal" wire:click="closeModal">

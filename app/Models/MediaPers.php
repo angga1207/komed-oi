@@ -51,7 +51,18 @@ class MediaPers extends Model
             $jenisMedia = '00';
         }
 
-        $unique_id = $jenisMedia . '.' . 'PERS.' . date('my') . '.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
+        $format = $jenisMedia . '-' . date('my') . '-';
+        $lastRecord = DB::table('pers_profile')
+            ->where('unique_id', 'like', $format . '%')
+            ->orderBy('id', 'desc')
+            ->first();
+        if ($lastRecord) {
+            $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
+        } else {
+            $lastId = 1;
+        }
+
+        $unique_id = $str = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
         if ($this->checkUniqueIDExists($unique_id) == false) {
             $this->generateUniqueID();
         }
@@ -203,7 +214,7 @@ class MediaPers extends Model
         return $this->hasMany(Order::class, 'media_id', 'id');
     }
 
-    function OrdersFilter($type, $query = null)
+    function OrdersFilter($type = null, $query = null)
     {
         if ($type == 'bulan_ini') {
             return $this->hasMany(Order::class, 'media_id', 'id')
