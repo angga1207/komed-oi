@@ -68,7 +68,7 @@ class Index extends Component
             }
 
             $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
-            if ($this->checkUniqueIDExists($unique_id) == false) {
+            if ($this->checkUniqueIDExists($unique_id) == true) {
                 // $this->generateUniqueID();
                 $mediaPersCount = MediaPers::where('jenis_media', $data->jenis_media)
                     ->where('unique_id', 'like', $format . '%')
