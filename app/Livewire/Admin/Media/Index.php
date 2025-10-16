@@ -34,7 +34,7 @@ class Index extends Component
     function mount()
     {
         $this->filterAgendaDate = date('Y-m-d');
-        $this->generateUniqueId();
+        // $this->generateUniqueId();
     }
 
     function generateUniqueId()
