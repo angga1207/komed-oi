@@ -34,7 +34,7 @@ class Index extends Component
     function mount()
     {
         $this->filterAgendaDate = date('Y-m-d');
-        // $this->generateUniqueId();
+        $this->generateUniqueId();
     }
 
     function generateUniqueId()
@@ -58,8 +58,7 @@ class Index extends Component
             }
 
             $format = $jenisMedia . '-' . date('my') . '-';
-            $lastRecord = DB::table('pers_profile')
-                ->where('unique_id', 'like', $format . '%')
+            $lastRecord = MediaPers::where('unique_id', 'like', $format . '%')
                 ->orderBy('id', 'desc')
                 ->first();
             if ($lastRecord) {
@@ -71,12 +70,12 @@ class Index extends Component
             $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
             if ($this->checkUniqueIDExists($unique_id) == false) {
                 // $this->generateUniqueID();
-                $mediaPersCount = DB::table('pers_profile')
-                    ->where('jenis_media', $data->jenis_media)
+                $mediaPersCount = MediaPers::where('jenis_media', $data->jenis_media)
                     ->where('unique_id', 'like', $format . '%')
                     ->count();
                 $unique_id = $format . str_pad($mediaPersCount + 1, 3, '0', STR_PAD_LEFT);
             }
+
             DB::table('pers_profile')
                 ->where('id', $data->id)
                 ->update([
