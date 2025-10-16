@@ -71,7 +71,11 @@ class Index extends Component
             $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
             if ($this->checkUniqueIDExists($unique_id) == false) {
                 // $this->generateUniqueID();
-                $unique_id = $format . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
+                $mediaPersCount = DB::table('pers_profile')
+                    ->where('jenis_media', $data->jenis_media)
+                    ->where('unique_id', 'like', $format . '%')
+                    ->count();
+                $unique_id = $format . str_pad($mediaPersCount + 1, 3, '0', STR_PAD_LEFT);
             }
             DB::table('pers_profile')
                 ->where('id', $data->id)
