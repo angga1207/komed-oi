@@ -40,7 +40,7 @@ class Index extends Component
     function generateUniqueId()
     {
         $datas = MediaPers::get();
-        foreach ($datas as $data) {
+        foreach ($datas as $key => $data) {
             // $oldUniqueId = $data->unique_id;
 
             if ($data->jenis_media == 'Media Cetak') {
@@ -79,7 +79,8 @@ class Index extends Component
             DB::table('pers_profile')
                 ->where('id', $data->id)
                 ->update([
-                    'unique_id' => $unique_id
+                    // 'unique_id' => $unique_id
+                    'unique_id' => $key
                 ]);
         }
         // dd($datas[0]);
