@@ -79,8 +79,8 @@ class Index extends Component
             DB::table('pers_profile')
                 ->where('id', $data->id)
                 ->update([
-                    'unique_id' => $unique_id
-                    // 'unique_id' => $key
+                    // 'unique_id' => $unique_id
+                    'unique_id' => $key
                 ]);
         }
         // dd($datas[0]);
