@@ -1,6 +1,6 @@
 <div>
     <!-- Page Sidebar Start-->
-    <div class="sidebar-wrapper">
+    <div class="sidebar-wrapper {{ in_array(auth()->user()->role_id, [4]) ? 'user' : '' }}">
         <div id="sidebarEffect"></div>
         <div>
             <div class="logo-wrapper logo-wrapper-center">

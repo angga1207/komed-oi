@@ -52582,6 +52582,27 @@ body[class*="dark-"] .main-white {
     animation: gradient 15s ease infinite;
     overflow: hidden;
 }
+.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.user {
+    position: fixed;
+    top: 0;
+    z-index: 7;
+    line-height: inherit;
+    background: var(--theme-color);
+    width: 280px;
+    height: auto;
+    text-align: left;
+    -webkit-box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+    box-shadow: 0 0 21px 0 rgba(89, 102, 122, 0.1);
+    /* background: linear-gradient(-45deg, #0da487, #009289, #ffa53b); */
+    /* red background */
+    background: linear-gradient(-45deg, #2727b9, #e55324, #2727b9) !important;
+    background-size: 400% 400%;
+    -webkit-animation: gradient 15s ease infinite;
+    animation: gradient 15s ease infinite;
+    overflow: hidden;
+}
+
+
 .page-wrapper.compact-wrapper
     .page-body-wrapper
     div.sidebar-wrapper
