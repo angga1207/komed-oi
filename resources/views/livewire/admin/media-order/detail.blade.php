@@ -330,7 +330,7 @@ use Carbon\Carbon;
                                 <table class="table table-striped table-hover border">
                                     <tbody>
                                         <tr>
-                                            <td width="30%" class="fw-bold">Nama Media Cetak</td>
+                                            <td width="30%" class="fw-bold">Nama Media</td>
                                             <td width="5%">:</td>
                                             <td>{{ $media->nama_media }}</td>
                                         </tr>
