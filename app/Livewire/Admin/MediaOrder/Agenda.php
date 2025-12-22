@@ -338,16 +338,15 @@ class Agenda extends Component
 
     function _getAgendaJadwalinBae($date)
     {
-        // $this->isLoading = true;
-        // $uri = "https://jadwalinbae.oganilirkab.go.id/api/jadwalKomed?tanggal=" . $date;
+        $this->isLoading = true;
+        $uri = "https://jadwalinbae.oganilirkab.go.id/api/jadwalKomed?tanggal=" . $date;
 
-        // // Http with Header
-        // $data = Http::withHeaders([
-        //     'x-api-key' => 'jadwalin_new@2024'
-        // ])->get($uri);
-        // $data = $data->body();
-        // $data = json_decode($data, true);
-        $data = null;
+        // Http with Header
+        $data = Http::withHeaders([
+            'x-api-key' => 'jadwalin_new@2024'
+        ])->get($uri);
+        $data = $data->body();
+        $data = json_decode($data, true);
         if($data == null){
             return [];
         }
