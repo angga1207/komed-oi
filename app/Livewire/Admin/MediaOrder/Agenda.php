@@ -341,20 +341,31 @@ class Agenda extends Component
         $this->isLoading = true;
         $uri = "https://jadwalinbae.oganilirkab.go.id/api/jadwalKomed?tanggal=" . $date;
 
-        // Http with Header
-        $data = Http::withHeaders([
-            'x-api-key' => 'jadwalin_new@2024'
-        ])->get($uri);
-        $data = $data->body();
-        $data = json_decode($data, true);
-        if($data == null){
+        try {
+            // Http with Header
+            $response = Http::withHeaders([
+                'x-api-key' => 'jadwalin_new@2024'
+            ])->timeout(10)->get($uri);
+
+            if ($response->failed()) {
+                return [];
+            }
+
+            $data = $response->json();
+
+            if($data == null){
+                return [];
+            }
+            if (isset($data['error']) && $data['error'] != false) {
+                return [];
+            }
+            $data = $data['data'] ?? [];
+            return $data;
+        } catch (\Exception $e) {
+            // Log the error for debugging but don't break the application
+            \Log::error('Failed to fetch JadwalinBae data: ' . $e->getMessage());
             return [];
         }
-        if ($data['error'] != false) {
-            return [];
-        }
-        $data = $data['data'];
-        return $data;
     }
 
     function _getAgendaManual($date)
