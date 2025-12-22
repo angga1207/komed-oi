@@ -9,7 +9,7 @@
                         KOMED OI
                     </h2>
                 </a>
-                <div class="back-btn">
+                <div class="back-btn ms-5">
                     <i class="fa fa-angle-left"></i>
                 </div>
             </div>

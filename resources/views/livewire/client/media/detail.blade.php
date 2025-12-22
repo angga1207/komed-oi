@@ -53,6 +53,14 @@ use Carbon\Carbon;
                                                         {{ $mediaOrder->leading_sector }}
                                                     </span>
                                                 </p>
+                                                @if($mediaOrder->jumlah && $mediaOrder->satuan)
+                                                <p>
+                                                    Jumlah & Satuan yang Diorder :
+                                                    <span class="badge badge-info">
+                                                        {{ $mediaOrder->jumlah }} {{ $mediaOrder->satuan }}
+                                                    </span>
+                                                </p>
+                                                @endif
                                                 <p>
                                                     Status :
 
@@ -331,6 +339,11 @@ use Carbon\Carbon;
                                     <label for="files_{{ $index }}" class="form-label">File Gambar:</label>
                                     <input type="file" class="form-control" id="files_{{ $index }}"
                                         accept=".jpeg,.jpg,.png" wire:model="imageInputs.{{ $index }}.file">
+                                    <small class="text-muted">
+                                        <i class="ri-information-line"></i>
+                                        <strong>Jenis file yang diterima:</strong> JPEG, JPG, PNG |
+                                        <strong>Ukuran maksimal:</strong> 2MB
+                                    </small>
                                     @error("imageInputs.{$index}.file")
                                     <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                         {{ $message }}

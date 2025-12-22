@@ -35,7 +35,38 @@ class MediaPers extends Model
         });
     }
 
-    function generateUniqueID()
+    public static function generateUniqueIDStatic($jenis_media)
+    {
+        if ($jenis_media == 'Media Cetak') {
+            $jenisMedia = '01';
+        } elseif ($jenis_media == 'Media Elektronik') {
+            $jenisMedia = '02';
+        } elseif ($jenis_media == 'Media Siber') {
+            $jenisMedia = '03';
+        } elseif ($jenis_media == 'Media Sosial') {
+            $jenisMedia = '04';
+        } elseif ($jenis_media == 'Multimedia') {
+            $jenisMedia = '05';
+        } else {
+            $jenisMedia = '00';
+        }
+
+        $format = $jenisMedia . '-' . date('my') . '-';
+        $lastRecord = DB::table('pers_profile')
+            ->where('unique_id', 'like', $format . '%')
+            ->orderBy('id', 'desc')
+            ->first();
+        if ($lastRecord) {
+            $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
+        } else {
+            $lastId = 1;
+        }
+
+        $unique_id = $str = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
+        return $unique_id;
+    }
+
+    private function generateUniqueID()
     {
         if ($this->jenis_media == 'Media Cetak') {
             $jenisMedia = '01';
@@ -69,7 +100,7 @@ class MediaPers extends Model
         return $unique_id;
     }
 
-    function checkUniqueIDExists($unique_id)
+    private function checkUniqueIDExists($unique_id)
     {
         $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
         if ($pers) {

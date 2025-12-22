@@ -29,6 +29,7 @@ class Agenda extends Component
     public $selectedMediaPers = [];
     public $selectedJenisMedia = "";
     public $jenisMediaList = [];
+    public $orderDetails = []; // Store jumlah and satuan for each selected media
 
     function getListeners()
     {
@@ -297,6 +298,8 @@ class Agenda extends Component
                         'tanggal_pelaksanaan_akhir' => $ord->tanggal_pelaksanaan_akhir,
                         'waktu_pelaksanaan' => $ord->waktu_pelaksanaan,
                         'leading_sector' => $ord->leading_sector,
+                        'jumlah' => $ord->jumlah,
+                        'satuan' => $ord->satuan,
                         'status' => $ord->status,
                         'created_at' => $ord->created_at,
                         'deadline' => $ord->deadline,
@@ -335,15 +338,19 @@ class Agenda extends Component
 
     function _getAgendaJadwalinBae($date)
     {
-        $this->isLoading = true;
-        $uri = "https://jadwalinbae.oganilirkab.go.id/api/jadwalKomed?tanggal=" . $date;
+        // $this->isLoading = true;
+        // $uri = "https://jadwalinbae.oganilirkab.go.id/api/jadwalKomed?tanggal=" . $date;
 
-        // Http with Header
-        $data = Http::withHeaders([
-            'x-api-key' => 'jadwalin_new@2024'
-        ])->get($uri);
-        $data = $data->body();
-        $data = json_decode($data, true);
+        // // Http with Header
+        // $data = Http::withHeaders([
+        //     'x-api-key' => 'jadwalin_new@2024'
+        // ])->get($uri);
+        // $data = $data->body();
+        // $data = json_decode($data, true);
+        $data = null;
+        if($data == null){
+            return [];
+        }
         if ($data['error'] != false) {
             return [];
         }
@@ -383,6 +390,7 @@ class Agenda extends Component
         $this->selectedJadwalinBae = null;
         $this->selectedJadwalinBaeID = null;
         $this->searchMedia = null;
+        $this->orderDetails = [];
     }
 
     function addMedia($id)
@@ -390,9 +398,51 @@ class Agenda extends Component
         if (in_array($id, $this->selectedMediaPers)) {
             $key = array_search($id, $this->selectedMediaPers);
             unset($this->selectedMediaPers[$key]);
+            unset($this->orderDetails[$id]);
             return;
         }
         $this->selectedMediaPers[] = $id;
+
+        // Get media info and initialize order details with default satuan based on media type
+        $media = DB::table('pers_profile')->where('id', $id)->first();
+        $satuan = $this->getDefaultSatuan($media->jenis_media);
+        $this->orderDetails[$id] = [
+            'jumlah' => 1,
+            'satuan' => $satuan,
+            'jenis_media' => $media->jenis_media
+        ];
+    }
+
+    function getDefaultSatuan($jenisMedia)
+    {
+        switch ($jenisMedia) {
+            case 'Media Siber':
+                return 'Tayang';
+            case 'Media Cetak':
+                return 'Terbit';
+            case 'Media Elektronik':
+                return 'Paket';
+            case 'Media Sosial':
+                return 'Tayang';
+            default:
+                return 'Tayang';
+        }
+    }
+
+    function getSatuanOptions($jenisMedia)
+    {
+        switch ($jenisMedia) {
+            case 'Media Elektronik':
+                return ['Paket', 'Tayang'];
+            case 'Media Siber':
+                return ['Tayang'];
+            case 'Media Cetak':
+                return ['Terbit'];
+            case 'Media Sosial':
+                return ['Tayang'];
+            default:
+                return ['Tayang'];
+        }
     }
 
     function confirmApplyOrder()
@@ -449,6 +499,11 @@ class Agenda extends Component
                     ->first();
                 if (!$checkExists) {
                     $orderCode = $this->generateOrderCode();
+
+                    // Get jumlah and satuan from orderDetails
+                    $jumlah = $this->orderDetails[$mediaPers->id]['jumlah'] ?? 1;
+                    $satuan = $this->orderDetails[$mediaPers->id]['satuan'] ?? $this->getDefaultSatuan($mediaPers->jenis_media);
+
                     $orderID = DB::table('orders')
                         ->insertGetId([
                             'order_code' => $orderCode,
@@ -463,6 +518,8 @@ class Agenda extends Component
                             'leading_sector' => $agd->leading_sector,
                             'deadline' => Carbon::parse($now)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),
                             'status' => 'unsent',
+                            'jumlah' => $jumlah,
+                            'satuan' => $satuan,
                             'created_at' => $now,
                             'updated_at' => $now,
                         ]);
@@ -571,6 +628,11 @@ class Agenda extends Component
                     ->first();
                 if (!$checkExists) {
                     $orderCode = $this->generateOrderCode();
+
+                    // Get jumlah and satuan from orderDetails
+                    $jumlah = $this->orderDetails[$mediaPers->id]['jumlah'] ?? 1;
+                    $satuan = $this->orderDetails[$mediaPers->id]['satuan'] ?? $this->getDefaultSatuan($mediaPers->jenis_media);
+
                     $orderID = DB::table('orders')
                         ->insertGetId([
                             'order_code' => $orderCode,
@@ -585,6 +647,8 @@ class Agenda extends Component
                             'leading_sector' => $agd->leading_sector,
                             'deadline' => Carbon::parse($now)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),
                             'status' => 'unsent',
+                            'jumlah' => $jumlah,
+                            'satuan' => $satuan,
                             'created_at' => $now,
                             'updated_at' => $now,
                         ]);

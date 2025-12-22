@@ -73,19 +73,6 @@ class Register extends Component
 
                 $user = User::find($userID);
 
-                $unique_id = $this->generateUniqueID();
-
-                // $pers = DB::table('pers_profile')
-                //     ->insert([
-                //         'user_id' => $user->id,
-                //         'unique_id' => $unique_id,
-                //         'nik' => $this->username,
-                //         'whatsapp' => $this->whatsapp,
-                //         'verified_status' => null,
-                //         'verification_deadline' => null,
-                //         'created_at' => $now,
-                //         'updated_at' => $now
-                //     ]);
                 $pers = new MediaPers();
                 $pers->user_id = $user->id;
                 // $pers->unique_id = $unique_id;
@@ -127,25 +114,6 @@ class Register extends Component
             DB::rollBack();
             dd($e->getMessage() . ' - ' . $e->getLine());
             // return $this->errorResponse($e->getMessage() . ' - ' . $e->getLine());
-        }
-    }
-
-    function generateUniqueID()
-    {
-        $unique_id = 'PERS.' . date('my') . '.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
-        if ($this->checkUniqueIDExists($unique_id) == false) {
-            $this->generateUniqueID();
-        }
-        return $unique_id;
-    }
-
-    function checkUniqueIDExists($unique_id)
-    {
-        $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
-        if ($pers) {
-            return false;
-        } else {
-            return true;
         }
     }
 

@@ -130,11 +130,18 @@ use Carbon\Carbon;
                                                         Detail
                                                     </a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="{{ route('media.edit', $data->unique_id) }}"
                                                         class="badge badge-info d-flex align-items-center gap-1">
                                                         <i class="ri-edit-2-line text-white"></i>
                                                         Edit
+                                                    </a>
+                                                </li> --}}
+                                                <li>
+                                                    <a href="{{ route('a.media-kontrak.detail', $data->unique_id) }}"
+                                                        class="badge badge-info d-flex align-items-center gap-1">
+                                                        <i class="ri-file-text-line text-white"></i>
+                                                        Kontrak
                                                     </a>
                                                 </li>
                                             </ul>

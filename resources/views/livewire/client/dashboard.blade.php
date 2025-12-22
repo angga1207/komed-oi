@@ -131,6 +131,9 @@ use Carbon\Carbon;
                                 <th style="width:20%">Lokasi</th>
                                 <th style="width:20%">Waktu</th>
                                 <th style="width:20%">Leading Sector</th>
+                                <th style="width:20%">
+                                    Jumlah & Satuan
+                                </th>
                                 <th style="width:20%">Media Order</th>
                             </tr>
                         </thead>
@@ -144,6 +147,10 @@ use Carbon\Carbon;
                                     {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
                                 </td>
                                 <td>{{ $tl['leading_sector'] }}</td>
+                                <td>
+                                    {{ $tl['jumlah'] }} x
+                                    {{ $tl['satuan'] }}
+                                </td>
                                 <td class="text-center">
                                     <a href="{{ route('media-order.detail', $tl['order_code']) }}">
                                         Buka Media Order

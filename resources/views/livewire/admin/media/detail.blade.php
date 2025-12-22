@@ -151,11 +151,16 @@ use Carbon\Carbon;
                                 <div class="order-success"
                                     style="height:calc(100vh - 300px); overflow-x:hidden; overflow-y:auto">
                                     <div class="row g-4">
-                                        <div class="col-12 d-flex justify-content-end">
+                                        <div class="col-12 d-flex justify-content-end gap-2">
                                             <a href="{{ route('media.edit', $pers->unique_id) }}"
                                                 class="btn btn-info d-flex align-items-center gap-1">
                                                 <i class="ri-edit-2-line text-white"></i>
                                                 Edit Media
+                                            </a>
+                                            <a href="{{ route('media') }}"
+                                                class="btn btn-primary d-flex align-items-center gap-1">
+                                                <i class="ri-arrow-left-line text-white"></i>
+                                                Daftar Media
                                             </a>
                                         </div>
 

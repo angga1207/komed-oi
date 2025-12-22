@@ -112,6 +112,9 @@ use Carbon\Carbon;
                                                     <th style="font-size: 13px; width:150px" class="p-2 text-center">
                                                         Status
                                                     </th>
+                                                    <th style="font-size: 13px; width:150px" class="p-2 text-center">
+                                                        Jumlah & Satuan
+                                                    </th>
                                                     <th style="font-size: 13px; width:1px" class="p-2 text-center">
 
                                                     </th>
@@ -160,6 +163,9 @@ use Carbon\Carbon;
                                                         </span>
                                                         @endif
                                                     </td>
+                                                    <td style="font-size: 13px" class="p-2 text-center">
+                                                        {{ $ord['jumlah'] }} x {{ $ord['satuan'] }}
+                                                    </td>
                                                     @if ($ord['status'] == 'unsent')
                                                     {{-- <td style="font-size: 13px" class="p-2 text-center">
                                                         <a href="javascript:void(0);"
@@ -187,7 +193,7 @@ use Carbon\Carbon;
                                                 @endforeach
                                                 @if ($data['is_all_sent'] == false)
                                                 <tr>
-                                                    <td colspan="4" class="p-2 text-center">
+                                                    <td colspan="10" class="p-2 text-center">
                                                         @if($data['type'] == 'manual')
                                                         <a href="javascript:void(0);"
                                                             wire:click="sendAllOrderManual('{{ $data['agenda_id'] }}')"
@@ -403,6 +409,12 @@ use Carbon\Carbon;
                                     <th style="font-size: 13px; width:200px" class="p-2">
                                         Jenis Media
                                     </th>
+                                    <th style="font-size: 13px; width:100px" class="p-2 text-center">
+                                        Jumlah
+                                    </th>
+                                    <th style="font-size: 13px; width:150px" class="p-2 text-center">
+                                        Satuan
+                                    </th>
                                     <th style="font-size: 13px; width:150px" class="p-2">
                                         Media Order Bulan Ini
                                     </th>
@@ -414,9 +426,9 @@ use Carbon\Carbon;
                             <tbody>
                                 @foreach($arrMediaPers as $pers)
                                 <tr wire:key='{{ $pers->id }}'
-                                    class="@if(in_array($pers->id, $selectedMediaPers)) table-success @endif"
-                                    style="cursor: pointer" wire:click.prevent="addMedia({{ $pers->id }})">
-                                    <td style="font-size: 14px" class="p-2">
+                                    class="@if(in_array($pers->id, $selectedMediaPers)) table-success @endif">
+                                    <td style="font-size: 14px" class="p-2" style="cursor: pointer"
+                                        wire:click.prevent="addMedia({{ $pers->id }})">
                                         <div class="fw-bold">
                                             {{ $pers->nama_media }}
                                         </div>
@@ -427,10 +439,51 @@ use Carbon\Carbon;
                                             {{ $pers->nama_perusahaan }}
                                         </div>
                                     </td>
-                                    <td style="font-size: 13px" class="p-2">
+                                    <td style="font-size: 13px" class="p-2" style="cursor: pointer"
+                                        wire:click.prevent="addMedia({{ $pers->id }})">
                                         {{ $pers->jenis_media }}
                                     </td>
                                     <td style="font-size: 13px" class="p-2">
+                                        @if(in_array($pers->id, $selectedMediaPers))
+                                        <input type="number" class="form-control form-control-sm text-center"
+                                            wire:model="orderDetails.{{ $pers->id }}.jumlah"
+                                            min="1" style="width: 80px;">
+                                        @else
+                                        <div class="text-center">-</div>
+                                        @endif
+                                    </td>
+                                    <td style="font-size: 13px" class="p-2">
+                                        @if(in_array($pers->id, $selectedMediaPers))
+                                        @php
+                                            $satuanOptions = [];
+                                            if($pers->jenis_media == 'Media Elektronik') {
+                                                $satuanOptions = ['Paket', 'Tayang'];
+                                            } elseif($pers->jenis_media == 'Media Siber') {
+                                                $satuanOptions = ['Tayang'];
+                                            } elseif($pers->jenis_media == 'Media Cetak') {
+                                                $satuanOptions = ['Terbit'];
+                                            } elseif($pers->jenis_media == 'Media Sosial') {
+                                                $satuanOptions = ['Tayang'];
+                                            } else {
+                                                $satuanOptions = ['Tayang'];
+                                            }
+                                        @endphp
+                                        @if(count($satuanOptions) > 1)
+                                        <select class="form-select form-select-sm"
+                                            wire:model="orderDetails.{{ $pers->id }}.satuan">
+                                            @foreach($satuanOptions as $option)
+                                            <option value="{{ $option }}">{{ $option }}</option>
+                                            @endforeach
+                                        </select>
+                                        @else
+                                        <div class="text-center">{{ $satuanOptions[0] ?? '-' }}</div>
+                                        @endif
+                                        @else
+                                        <div class="text-center">-</div>
+                                        @endif
+                                    </td>
+                                    <td style="font-size: 13px" class="p-2" style="cursor: pointer"
+                                        wire:click.prevent="addMedia({{ $pers->id }})">
                                         @php
                                         // Menghitung jumlah media order untuk bulan ini
                                         $mediaOrders = $pers->OrdersFilter('')->whereDate('created_at', '>=',
@@ -452,7 +505,8 @@ use Carbon\Carbon;
                                             </span>
                                         </div>
                                     </td>
-                                    <td style="font-size: 13px" class="p-2 text-center">
+                                    <td style="font-size: 13px" class="p-2 text-center" style="cursor: pointer"
+                                        wire:click.prevent="addMedia({{ $pers->id }})">
                                         @if(in_array($pers->id, $selectedMediaPers))
                                         <i class="ri-checkbox-circle-line text-success" style="font-size: 20px"></i>
                                         @else

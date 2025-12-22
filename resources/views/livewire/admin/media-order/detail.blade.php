@@ -79,6 +79,15 @@ use Carbon\Carbon;
                                                             </span>
                                                             @endif
                                                         </p>
+                                                        <p>
+                                                            Jumlah & Satuan :
+                                                            <span>
+                                                                {{ $mediaOrder->jumlah }} x
+                                                            </span>
+                                                            <span>
+                                                                {{ $mediaOrder->satuan }}
+                                                            </span>
+                                                        </p>
                                                     </div>
                                                     @if($mediaOrder->status == 'sent')
                                                     <h5>

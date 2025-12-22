@@ -67,7 +67,7 @@
                 {{-- submit button --}}
                 <div class="mt-3 d-flex justify-content-end">
                     <a href="{{ route('a.media-kontrak') }}" class="btn btn-secondary me-2">
-                        Kembali
+                        Daftar Kontrak Media
                     </a>
                     <button class="btn btn-primary" wire:click='saveKontrak'>
                         Simpan

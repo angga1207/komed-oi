@@ -9,15 +9,20 @@ use Carbon\Carbon;
         <div class="header-wrapper m-0">
             <div class="header-logo-wrapper p-0">
                 <div class="logo-wrapper">
-                    <a href="index.html">
-                        <img class="img-fluid main-logo" src="assets/images/logo/1.png" alt="logo">
-                        <img class="img-fluid white-logo" src="assets/images/logo/1-white.png" alt="logo">
+                    <a href="{{ route('dashboard') }}">
+                        <img class="img-fluid main-logo" src="{{ asset('images/icon.png') }}" alt="logo"
+                            style="height:20px !important">
+                        <img class="img-fluid white-logo" src="{{ asset('images/logo.png') }}" alt="logo"
+                            style="height:20px !important">
                     </a>
                 </div>
                 <div class="toggle-sidebar">
                     <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
-                    <a href="index.html">
-                        <img src="assets/images/logo/1.png" class="img-fluid" alt="">
+                    <a href="{{ route('dashboard') }}" class="d-flex align-items-center">
+                        <img src="{{ asset('images/icon.png') }}" class="img-fluid" alt="" style="height:20px !important">
+                        <span class="ms-2 text-primary font-weight-bold">
+                            KOMED
+                        </span>
                     </a>
                 </div>
             </div>
@@ -48,10 +53,10 @@ use Carbon\Carbon;
                     <li class="onhover-dropdown">
                         <div class="notification-box">
                             <i class="ri-notification-line"></i>
-                            @if(count(collect($notifications)->where('read_at', null)) > 0)
-                            <span class="badge rounded-pill badge-theme">
-                                {{ count(collect($notifications)->where('read_at', null)) }}
-                            </span>
+                            @if (count(collect($notifications)->where('read_at', null)) > 0)
+                                <span class="badge rounded-pill badge-theme">
+                                    {{ count(collect($notifications)->where('read_at', null)) }}
+                                </span>
                             @endif
                         </div>
                         <ul class="notification-dropdown onhover-show-div">
@@ -62,45 +67,47 @@ use Carbon\Carbon;
                                 </h6>
                             </li>
                             @forelse($notifications as $notif)
-                            <li>
-                                @if($notif->type == 'App\Notifications\RegVerifNotification')
-                                <a href="#">
-                                    <p class="@if($notif->read_at == null) text-success @else text-primary @endif">
-                                        @if($notif->read_at == null)
-                                        <i class="fa fa-circle me-2 font-primary"></i>
-                                        @else
-                                        <i class="fa fa-circle me-2 font-secondary"></i>
-                                        @endif
-                                        {{ str()->headline($notif->data['title']) ?? '-' }}
-                                        <span class="pull-right">
-                                            {{ Carbon::parse($notif->created_at)->diffForHumans() }}
-                                        </span>
-                                    </p>
-                                </a>
-                                @elseif($notif->type == 'App\Notifications\OrderNotifications')
-                                <a href="{{ route('media-order') }}"
-                                    wire:click.prevent="markAsReadNotif('{{ $notif->id }}')">
-                                    <p class="@if($notif->read_at == null) text-success @else text-primary @endif">
-                                        @if($notif->read_at == null)
-                                        <i class="fa fa-circle me-2 font-primary"></i>
-                                        @else
-                                        <i class="fa fa-circle me-2 font-danger"></i>
-                                        @endif
-                                        {{ str()->headline($notif->data['title']) ?? '-' }}
-                                        <span class="pull-right">
-                                            {{ Carbon::parse($notif->created_at)->diffForHumans() }}
-                                        </span>
-                                    </p>
-                                </a>
-                                @endif
-                            </li>
+                                <li>
+                                    @if ($notif->type == 'App\Notifications\RegVerifNotification')
+                                        <a href="#">
+                                            <p
+                                                class="@if ($notif->read_at == null) text-success @else text-primary @endif">
+                                                @if ($notif->read_at == null)
+                                                    <i class="fa fa-circle me-2 font-primary"></i>
+                                                @else
+                                                    <i class="fa fa-circle me-2 font-secondary"></i>
+                                                @endif
+                                                {{ str()->headline($notif->data['title']) ?? '-' }}
+                                                <span class="pull-right">
+                                                    {{ Carbon::parse($notif->created_at)->diffForHumans() }}
+                                                </span>
+                                            </p>
+                                        </a>
+                                    @elseif($notif->type == 'App\Notifications\OrderNotifications')
+                                        <a href="{{ route('media-order') }}"
+                                            wire:click.prevent="markAsReadNotif('{{ $notif->id }}')">
+                                            <p
+                                                class="@if ($notif->read_at == null) text-success @else text-primary @endif">
+                                                @if ($notif->read_at == null)
+                                                    <i class="fa fa-circle me-2 font-primary"></i>
+                                                @else
+                                                    <i class="fa fa-circle me-2 font-danger"></i>
+                                                @endif
+                                                {{ str()->headline($notif->data['title']) ?? '-' }}
+                                                <span class="pull-right">
+                                                    {{ Carbon::parse($notif->created_at)->diffForHumans() }}
+                                                </span>
+                                            </p>
+                                        </a>
+                                    @endif
+                                </li>
                             @empty
-                            <li>
-                                <p>
-                                    <i class="fa fa-circle me-2 font-primary"></i>
-                                    Tidak ada notifikasi
-                                </p>
-                            </li>
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-primary"></i>
+                                        Tidak ada notifikasi
+                                    </p>
+                                </li>
                             @endforelse
                             <li>
                                 <a class="btn btn-primary" href="javascript:void(0)">
@@ -117,7 +124,8 @@ use Carbon\Carbon;
                     </li>
                     <li class="profile-nav onhover-dropdown pe-0 me-0">
                         <div class="media profile-media">
-                            <img class="user-profile rounded-circle" src="{{ asset(auth()->user()->photo) }}" alt="">
+                            <img class="user-profile rounded-circle" src="{{ asset(auth()->user()->photo) }}"
+                                alt="">
                             <div class="user-name-hide media-body">
                                 <span>
                                     Hi, {{ auth()->user()->first_name }}
@@ -137,25 +145,25 @@ use Carbon\Carbon;
                             </li>
 
                             @php
-                            $manager = app('impersonate');
+                                $manager = app('impersonate');
                             @endphp
 
-                            @if($manager->isImpersonating())
-                            <li>
-                                <a href="javascript:void(0)" wire:click="stopImpersonate">
-                                    <i data-feather="log-out"></i>
-                                    <span>Stop Impersonate</span>
-                                </a>
-                            </li>
+                            @if ($manager->isImpersonating())
+                                <li>
+                                    <a href="javascript:void(0)" wire:click="stopImpersonate">
+                                        <i data-feather="log-out"></i>
+                                        <span>Stop Impersonate</span>
+                                    </a>
+                                </li>
                             @else
-                            <li>
-                                <a href="javascript:void(0)" wire:click="logout">
-                                    <i data-feather="log-out"></i>
-                                    <span>
-                                        Keluar Aplikasi
-                                    </span>
-                                </a>
-                            </li>
+                                <li>
+                                    <a href="javascript:void(0)" wire:click="logout">
+                                        <i data-feather="log-out"></i>
+                                        <span>
+                                            Keluar Aplikasi
+                                        </span>
+                                    </a>
+                                </li>
                             @endif
 
                         </ul>
