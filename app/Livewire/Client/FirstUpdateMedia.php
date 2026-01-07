@@ -143,34 +143,36 @@ class FirstUpdateMedia extends Component
 
     function nextStep()
     {
-        // dd($this->input);
+        if ($this->input['jenis_media'] != 'Media Cetak') {
+            $this->input['file_jumlah_oplah'] = null;
+        }
         $this->validate(
             [
                 'input.jenis_media' => 'required|in:Media Cetak,Media Elektronik,Media Siber,Media Sosial,Multimedia',
                 'input.nama_media' => 'required',
                 'input.nama_perusahaan' => 'required|string|max:255',
                 'input.alamat_media' => 'required',
-                'input.whatsapp' => 'required|numeric',
+                'input.whatsapp' => 'nullable|numeric',
                 'input.email' => 'required|email|unique:pers_profile,email,' . $this->pers->id,
                 'input.no_npwp' => 'nullable|numeric',
                 'input.nama_bank' => 'nullable|string',
                 'input.no_ref_bank' => 'nullable|numeric',
                 'input.no_giro_perusahaan' => 'nullable|numeric',
                 'input.website' => 'nullable|string',
-                'input.jabatan' => 'required|string',
+                'input.jabatan' => 'nullable|string',
                 'input.profil_perusahaan' => 'nullable',
 
                 'input.cakupan_media' => 'required',
-                'input.jumlah_oplah' => 'required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
-                'input.sebaran_oplah' => 'required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.status_wartawan' => 'required',
                 'input.kompetensi_wartawan' => 'required',
                 'input.status_dewan_pers' => 'required',
                 'input.kantor' => 'required',
-                'input.frekuensi_terbitan' => 'required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
-                'input.terbitan_3_edisi_terakhir' => 'required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.frekuensi_terbitan' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.terbitan_3_edisi_terakhir' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
 
-                'input.file_jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak|file|mimes:png,jpeg,jpg,pdf|max:10000', // Media Cetak Saja
+                'input.file_jumlah_oplah' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000', // Media Cetak Saja
                 'input.file_status_wartawan' => 'nullable|required_if:input.status_wartawan,Ada Khusus|required_if:input.status_wartawan,Ada Merangkap Kabupaten Lain',
                 'input.file_kompetensi_wartawan' => 'nullable|required_if:input.kompetensi_wartawan,Memiliki Sertifikat Kompetensi',
                 'input.file_status_dewan_pers' => 'nullable|required_if:input.status_dewan_pers,Terdaftar',
@@ -408,7 +410,7 @@ class FirstUpdateMedia extends Component
                 'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
@@ -428,7 +430,7 @@ class FirstUpdateMedia extends Component
                 'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',

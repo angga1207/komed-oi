@@ -957,7 +957,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     TDP Penerbitan 63122
                                     <span class="text-danger">*</span>
@@ -971,7 +971,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -1085,7 +1085,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     TDP Penerbitan 63122
                                     <span class="text-danger">*</span>
@@ -1099,7 +1099,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -1213,7 +1213,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     TDP Penerbitan 63122
                                     <span class="text-danger">*</span>
@@ -1227,7 +1227,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
