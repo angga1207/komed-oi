@@ -176,8 +176,12 @@
                                 Logo Media
                             </label>
                             <div class="col-sm-9">
-                                <input type="file" accept="*" class="form-control"
+                                <input type="file" accept="image/png, image/jpeg, image/jpg" class="form-control"
                                     wire:model.live='input.logo_media' wire:loading.attr='disabled'>
+                                <!-- info format png,jpeg,jpg & max size 10MB -->
+                                <div class="form-text" style="font-size: 0.75rem;">
+                                    Format file: png, jpeg, jpg. Maksimal ukuran file: 10MB.
+                                </div>
                                 @error('input.logo_media')
                                     <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                         {{ $message }}
@@ -360,8 +364,13 @@
                                     @endif
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model.live='input.file_jumlah_oplah' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model.live='input.file_jumlah_oplah'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.file_jumlah_oplah')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -611,8 +620,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.akta_pendirian'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.akta_pendirian')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -627,8 +641,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_kemenkumham'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_kemenkumham')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -643,8 +662,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.siup')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -659,8 +682,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.tdp_penerbitan_58130' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.tdp_penerbitan_58130'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.tdp_penerbitan_58130')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -675,8 +703,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.spt_terakhir'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.spt_terakhir')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -691,8 +724,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sp_cakupan_wilayah'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sp_cakupan_wilayah')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -707,8 +745,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sp_pimpinan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sp_pimpinan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sp_pimpinan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -723,8 +766,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.surat_tugas_wartawan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.surat_tugas_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -739,8 +787,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.akta_pendirian'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.akta_pendirian')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -755,8 +808,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_kemenkumham'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_kemenkumham')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -771,8 +829,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.izin_ipp' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.izin_ipp'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.izin_ipp')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -787,8 +850,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.izin_isr' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.izin_isr'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.izin_isr')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -803,8 +871,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.siup')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -819,8 +891,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.tdp_penyiaran_60102' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.tdp_penyiaran_60102'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.tdp_penyiaran_60102')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -835,8 +912,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.spt_terakhir'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.spt_terakhir')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -851,8 +933,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sp_cakupan_wilayah' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sp_cakupan_wilayah'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sp_cakupan_wilayah')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -867,8 +954,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sp_pimpinan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sp_pimpinan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sp_pimpinan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -883,8 +975,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_biro_iklan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_biro_iklan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_biro_iklan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -899,8 +996,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.surat_tugas_wartawan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.surat_tugas_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -915,8 +1017,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.akta_pendirian'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.akta_pendirian')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -931,8 +1038,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_kemenkumham'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_kemenkumham')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -947,8 +1059,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.siup')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -963,8 +1079,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf" class="form-control"
                                         wire:model='input.tdp_penerbitan_63122' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.tdp_penerbitan_63122')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -979,8 +1099,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.spt_terakhir'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.spt_terakhir')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -995,8 +1120,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.situ')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1011,8 +1140,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_domisili' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_domisili'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_domisili')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1027,8 +1161,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.surat_tugas_wartawan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.surat_tugas_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1043,8 +1182,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.akta_pendirian'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.akta_pendirian')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1059,8 +1203,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_kemenkumham'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_kemenkumham')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1075,8 +1224,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.siup')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1091,8 +1244,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf" class="form-control"
                                         wire:model='input.tdp_penerbitan_63122' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.tdp_penerbitan_63122')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1107,8 +1264,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.spt_terakhir'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.spt_terakhir')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1123,8 +1285,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.situ')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1139,8 +1305,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_domisili' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_domisili'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_domisili')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1155,8 +1326,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.surat_tugas_wartawan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.surat_tugas_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1171,8 +1347,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.akta_pendirian' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.akta_pendirian'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.akta_pendirian')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1187,8 +1368,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_kemenkumham' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_kemenkumham'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_kemenkumham')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1203,8 +1389,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.siup' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.siup')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1219,8 +1409,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf" class="form-control"
                                         wire:model='input.tdp_penerbitan_63122' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.tdp_penerbitan_63122')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1235,8 +1429,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.spt_terakhir' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.spt_terakhir'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.spt_terakhir')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1251,8 +1450,12 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.situ' wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.situ')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1267,8 +1470,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.sk_domisili' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.sk_domisili'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.sk_domisili')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
@@ -1283,8 +1491,13 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model='input.surat_tugas_wartawan' wire:loading.attr='disabled'>
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
+                                        class="form-control" wire:model='input.surat_tugas_wartawan'
+                                        wire:loading.attr='disabled'>
+                                    <!-- info format png,jpeg,jpg,pdf & max size 10MB -->
+                                    <div class="form-text" style="font-size: 0.75rem;">
+                                        Format file: png, jpeg, jpg, pdf. Maksimal ukuran file: 10MB.
+                                    </div>
                                     @error('input.surat_tugas_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
