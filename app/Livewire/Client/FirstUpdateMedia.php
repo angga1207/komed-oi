@@ -162,6 +162,8 @@ class FirstUpdateMedia extends Component
                 'input.jabatan' => 'nullable|string',
                 'input.profil_perusahaan' => 'nullable',
 
+                // 'input.logo_media' => 'nullable|file|mimes:png,jpeg,jpg|max:10000',
+
                 'input.cakupan_media' => 'required',
                 'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
@@ -275,7 +277,7 @@ class FirstUpdateMedia extends Component
 
 
             // UPLOAD DATA BASIC START
-            if ($this->input['logo_media']) {
+            if ($this->input['logo_media'] && $this->input['logo_media'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'logo_media_' . $pers->unique_id . '.' . $this->input['logo_media']->extension();
                 $this->input['logo_media']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -287,7 +289,7 @@ class FirstUpdateMedia extends Component
                     ]);
                 $this->input['logo_media'] = null;
             }
-            if ($this->input['file_jumlah_oplah']) {
+            if ($this->input['file_jumlah_oplah'] && $this->input['file_jumlah_oplah'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'jumlah_oplah_' . $pers->unique_id . '.' . $this->input['file_jumlah_oplah']->extension();
                 $this->input['file_jumlah_oplah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -299,7 +301,7 @@ class FirstUpdateMedia extends Component
                     ]);
                 $this->input['file_jumlah_oplah'] = null;
             }
-            if ($this->input['file_status_wartawan']) {
+            if ($this->input['file_status_wartawan'] && $this->input['file_status_wartawan'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'status_wartawan_' . $pers->unique_id . '.' . $this->input['file_status_wartawan']->extension();
                 $this->input['file_status_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -311,7 +313,7 @@ class FirstUpdateMedia extends Component
                     ]);
                 $this->input['file_status_wartawan'] = null;
             }
-            if ($this->input['file_kompetensi_wartawan']) {
+            if ($this->input['file_kompetensi_wartawan'] && $this->input['file_kompetensi_wartawan'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'kompetensi_wartawan_' . $pers->unique_id . '.' . $this->input['file_kompetensi_wartawan']->extension();
                 $this->input['file_kompetensi_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -323,7 +325,7 @@ class FirstUpdateMedia extends Component
                     ]);
                 $this->input['file_kompetensi_wartawan'] = null;
             }
-            if ($this->input['file_status_dewan_pers']) {
+            if ($this->input['file_status_dewan_pers'] && $this->input['file_status_dewan_pers'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'status_dewan_pers_' . $pers->unique_id . '.' . $this->input['file_status_dewan_pers']->extension();
                 $this->input['file_status_dewan_pers']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -335,7 +337,7 @@ class FirstUpdateMedia extends Component
                     ]);
                 $this->input['file_status_dewan_pers'] = null;
             }
-            if ($this->input['file_terbitan_3_edisi_terakhir']) {
+            if ($this->input['file_terbitan_3_edisi_terakhir'] && $this->input['file_terbitan_3_edisi_terakhir'] instanceof \Illuminate\Http\UploadedFile) {
                 $fileName = 'terbitan_3_edisi_terakhir_' . $pers->unique_id . '.' . $this->input['file_terbitan_3_edisi_terakhir']->extension();
                 $this->input['file_terbitan_3_edisi_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                 $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -487,7 +489,7 @@ class FirstUpdateMedia extends Component
             $pers = DB::table('pers_profile')->where('id', $this->pers->id)->first();
 
             if ($this->jenisMedia == 'Media Cetak') {
-                if ($this->input['akta_pendirian']) {
+                if ($this->input['akta_pendirian'] && $this->input['akta_pendirian'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
                     $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -503,7 +505,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sk_kemenkumham']) {
+                if ($this->input['sk_kemenkumham'] && $this->input['sk_kemenkumham'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
                     $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -519,7 +521,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['siup']) {
+                if ($this->input['siup'] && $this->input['siup'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
                     $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -535,7 +537,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['tdp_penerbitan_58130']) {
+                if ($this->input['tdp_penerbitan_58130'] && $this->input['tdp_penerbitan_58130'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'tdp_penerbitan_58130_' . $pers->unique_id . '.' . $this->input['tdp_penerbitan_58130']->extension();
                     $upload = $this->input['tdp_penerbitan_58130']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -551,7 +553,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['spt_terakhir']) {
+                if ($this->input['spt_terakhir'] && $this->input['spt_terakhir'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
                     $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -567,7 +569,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sp_cakupan_wilayah']) {
+                if ($this->input['sp_cakupan_wilayah'] && $this->input['sp_cakupan_wilayah'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sp_cakupan_wilayah_' . $pers->unique_id . '.' . $this->input['sp_cakupan_wilayah']->extension();
                     $upload = $this->input['sp_cakupan_wilayah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -583,7 +585,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sp_pimpinan']) {
+                if ($this->input['sp_pimpinan'] && $this->input['sp_pimpinan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sp_pimpinan_' . $pers->unique_id . '.' . $this->input['sp_pimpinan']->extension();
                     $upload = $this->input['sp_pimpinan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -599,7 +601,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['surat_tugas_wartawan']) {
+                if ($this->input['surat_tugas_wartawan'] && $this->input['surat_tugas_wartawan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
                     $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -616,7 +618,7 @@ class FirstUpdateMedia extends Component
                         ]);
                 }
             } elseif ($this->jenisMedia == 'Media Elektronik') {
-                if ($this->input['akta_pendirian']) {
+                if ($this->input['akta_pendirian'] && $this->input['akta_pendirian'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
                     $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -632,7 +634,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sk_kemenkumham']) {
+                if ($this->input['sk_kemenkumham'] && $this->input['sk_kemenkumham'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
                     $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -648,7 +650,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['izin_ipp']) {
+                if ($this->input['izin_ipp'] && $this->input['izin_ipp'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'izin_ipp_' . $pers->unique_id . '.' . $this->input['izin_ipp']->extension();
                     $upload = $this->input['izin_ipp']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -664,7 +666,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['izin_isr']) {
+                if ($this->input['izin_isr'] && $this->input['izin_isr'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'izin_isr_' . $pers->unique_id . '.' . $this->input['izin_isr']->extension();
                     $upload = $this->input['izin_isr']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -680,7 +682,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['siup']) {
+                if ($this->input['siup'] && $this->input['siup'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
                     $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -696,7 +698,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['tdp_penyiaran_60102']) {
+                if ($this->input['tdp_penyiaran_60102'] && $this->input['tdp_penyiaran_60102'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'tdp_penyiaran_60102_' . $pers->unique_id . '.' . $this->input['tdp_penyiaran_60102']->extension();
                     $upload = $this->input['tdp_penyiaran_60102']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -712,7 +714,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['spt_terakhir']) {
+                if ($this->input['spt_terakhir'] && $this->input['spt_terakhir'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
                     $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -728,7 +730,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sp_cakupan_wilayah']) {
+                if ($this->input['sp_cakupan_wilayah'] && $this->input['sp_cakupan_wilayah'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sp_cakupan_wilayah_' . $pers->unique_id . '.' . $this->input['sp_cakupan_wilayah']->extension();
                     $upload = $this->input['sp_cakupan_wilayah']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -744,7 +746,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sp_pimpinan']) {
+                if ($this->input['sp_pimpinan'] && $this->input['sp_pimpinan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sp_pimpinan_' . $pers->unique_id . '.' . $this->input['sp_pimpinan']->extension();
                     $upload = $this->input['sp_pimpinan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -760,7 +762,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sk_biro_iklan']) {
+                if ($this->input['sk_biro_iklan'] && $this->input['sk_biro_iklan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sk_biro_iklan_' . $pers->unique_id . '.' . $this->input['sk_biro_iklan']->extension();
                     $upload = $this->input['sk_biro_iklan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -776,7 +778,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['surat_tugas_wartawan']) {
+                if ($this->input['surat_tugas_wartawan'] && $this->input['surat_tugas_wartawan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
                     $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -793,7 +795,7 @@ class FirstUpdateMedia extends Component
                         ]);
                 }
             } elseif ($this->jenisMedia == 'Media Elektronik') {
-                if ($this->input['akta_pendirian']) {
+                if ($this->input['akta_pendirian'] && $this->input['akta_pendirian'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
                     $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -809,7 +811,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sk_kemenkumham']) {
+                if ($this->input['sk_kemenkumham'] && $this->input['sk_kemenkumham'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sk_kemenkumham_' . $pers->unique_id . '.' . $this->input['sk_kemenkumham']->extension();
                     $upload = $this->input['sk_kemenkumham']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -825,7 +827,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['siup']) {
+                if ($this->input['siup'] && $this->input['siup'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'siup_' . $pers->unique_id . '.' . $this->input['siup']->extension();
                     $upload = $this->input['siup']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -841,7 +843,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['tdp_penerbitan_63122']) {
+                if ($this->input['tdp_penerbitan_63122'] && $this->input['tdp_penerbitan_63122'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'tdp_penerbitan_63122_' . $pers->unique_id . '.' . $this->input['tdp_penerbitan_63122']->extension();
                     $upload = $this->input['tdp_penerbitan_63122']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -857,7 +859,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['spt_terakhir']) {
+                if ($this->input['spt_terakhir'] && $this->input['spt_terakhir'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'spt_terakhir_' . $pers->unique_id . '.' . $this->input['spt_terakhir']->extension();
                     $upload = $this->input['spt_terakhir']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -873,7 +875,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['situ']) {
+                if ($this->input['situ'] && $this->input['situ'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'situ_' . $pers->unique_id . '.' . $this->input['situ']->extension();
                     $upload = $this->input['situ']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -889,7 +891,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['sk_domisili']) {
+                if ($this->input['sk_domisili'] && $this->input['sk_domisili'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'sk_domisili_' . $pers->unique_id . '.' . $this->input['sk_domisili']->extension();
                     $upload = $this->input['sk_domisili']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
@@ -905,7 +907,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-                if ($this->input['surat_tugas_wartawan']) {
+                if ($this->input['surat_tugas_wartawan'] && $this->input['surat_tugas_wartawan'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'surat_tugas_wartawan_' . $pers->unique_id . '.' . $this->input['surat_tugas_wartawan']->extension();
                     $upload = $this->input['surat_tugas_wartawan']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');
                     $path = 'storage/public/pers-files/' . $pers->id . '/' . $fileName;
