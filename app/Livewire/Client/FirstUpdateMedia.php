@@ -31,6 +31,14 @@ class FirstUpdateMedia extends Component
             ->first();
         $this->pers = $pers;
         $this->input = collect($pers)->toArray();
+
+        // Initialize social_media array if it's a JSON string
+        if (isset($this->input['social_media']) && is_string($this->input['social_media'])) {
+            $this->input['social_media'] = json_decode($this->input['social_media'], true) ?? [];
+        } elseif (!isset($this->input['social_media'])) {
+            $this->input['social_media'] = [];
+        }
+
         if (!$this->pers) {
             $this->flash('info', 'Menunggu Verifikasi', [
                 'position' =>  'center',
@@ -45,6 +53,28 @@ class FirstUpdateMedia extends Component
             return;
         }
         $this->step = 1;
+    }
+
+    function addSocialMedia()
+    {
+        if (!isset($this->input['social_media'])) {
+            $this->input['social_media'] = [];
+        }
+
+        if (count($this->input['social_media']) < 10) {
+            $this->input['social_media'][] = [
+                'platform' => '',
+                'url' => ''
+            ];
+        }
+    }
+
+    function removeSocialMedia($index)
+    {
+        if (isset($this->input['social_media'][$index])) {
+            unset($this->input['social_media'][$index]);
+            $this->input['social_media'] = array_values($this->input['social_media']);
+        }
     }
 
     public function render()
@@ -101,6 +131,9 @@ class FirstUpdateMedia extends Component
             $this->input['situ'] = null;
             $this->input['sk_domisili'] = null;
             $this->input['surat_tugas_wartawan'] = null;
+            // $this->input['follower_required'] = null;
+            // $this->input['latest_viewer'] = null;
+            // $this->input['social_media'] = [];
         }
         $this->step = 2;
         $this->resetErrorBag();
@@ -167,23 +200,28 @@ class FirstUpdateMedia extends Component
                 'input.cakupan_media' => 'required',
                 'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
-                'input.status_wartawan' => 'required',
-                'input.kompetensi_wartawan' => 'required',
-                'input.status_dewan_pers' => 'required',
+                // 'input.status_wartawan' => 'required',
+                // 'input.kompetensi_wartawan' => 'required',
+                // 'input.status_dewan_pers' => 'required',
                 'input.kantor' => 'required',
                 'input.frekuensi_terbitan' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.terbitan_3_edisi_terakhir' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
 
                 'input.file_jumlah_oplah' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000', // Media Cetak Saja
-                'input.file_status_wartawan' => 'nullable|required_if:input.status_wartawan,Ada Khusus|required_if:input.status_wartawan,Ada Merangkap Kabupaten Lain',
-                'input.file_kompetensi_wartawan' => 'nullable|required_if:input.kompetensi_wartawan,Memiliki Sertifikat Kompetensi',
-                'input.file_status_dewan_pers' => 'nullable|required_if:input.status_dewan_pers,Terdaftar',
+                // 'input.file_status_wartawan' => 'nullable|required_if:input.status_wartawan,Ada Khusus|required_if:input.status_wartawan,Ada Merangkap Kabupaten Lain',
+                // 'input.file_kompetensi_wartawan' => 'nullable|required_if:input.kompetensi_wartawan,Memiliki Sertifikat Kompetensi',
+                // 'input.file_status_dewan_pers' => 'nullable|required_if:input.status_dewan_pers,Terdaftar',
                 'input.file_terbitan_3_edisi_terakhir' => 'nullable|required_if:input.terbitan_3_edisi_terakhir,Ada',
 
                 // 'file_status_wartawan' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_kompetensi_wartawan' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_status_dewan_pers' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_terbitan_3_edisi_terakhir' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'input.follower_required' => 'nullable|required_if:input.jenis_media,Media Sosial|boolean',
+                'input.latest_viewer' => 'nullable|required_if:input.jenis_media,Media Sosial|integer',
+                'input.social_media' => 'nullable|array',
+                'input.social_media.*.platform' => 'required|string',
+                'input.social_media.*.url' => 'required|url',
             ],
             [
                 'input.jenis_media.in' => 'Jenis media tidak valid.',
@@ -232,6 +270,12 @@ class FirstUpdateMedia extends Component
                 'input.file_kompetensi_wartawan' => 'Berkas Kompetensi Wartawan',
                 'input.file_status_dewan_pers' => 'Berkas Status Dewan Pers',
                 'input.file_terbitan_3_edisi_terakhir' => 'Berkas Terbitan 3 Edisi Terakhir',
+
+                'input.follower_required' => 'Follower Media Sosial',
+                'input.latest_viewer' => 'Rata-rata Viewer Terakhir',
+                'input.social_media' => 'Akun Media Sosial',
+                'input.social_media.*.platform' => 'Platform Media Sosial',
+                'input.social_media.*.url' => 'URL Media Sosial',
             ]
         );
 
@@ -269,6 +313,9 @@ class FirstUpdateMedia extends Component
                     'kantor' => $this->input['kantor'],
                     'frekuensi_terbitan' => $this->input['frekuensi_terbitan'],
                     'terbitan_3_edisi_terakhir' => $this->input['terbitan_3_edisi_terakhir'],
+                    'follower_required' => $this->input['follower_required'] ?? null,
+                    'latest_viewer' => $this->input['latest_viewer'] ?? null,
+                    'social_media' => isset($this->input['social_media']) ? json_encode($this->input['social_media']) : null,
                     // 'updated_at' => $now,
                     // 'verified_status' => 'pending',
                     // 'verification_deadline' => now()->addDays(7),
@@ -355,7 +402,9 @@ class FirstUpdateMedia extends Component
             $this->step = 3;
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage() . ' - ' . $e->getLine());
+            // dd($e->getMessage() . ' - ' . $e->getLine());
+            $this->alert('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
+            return;
         }
     }
 
@@ -366,11 +415,11 @@ class FirstUpdateMedia extends Component
                 'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_58130' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.tdp_penerbitan_58130' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
             ], [], [
                 'input.akta_pendirian' => 'Akta Pendirian',
                 'input.sk_kemenkumham' => 'SK Kemenkum',
@@ -388,12 +437,12 @@ class FirstUpdateMedia extends Component
                 'input.izin_ipp' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.izin_isr' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penyiaran_60102' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.tdp_penyiaran_60102' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.sp_cakupan_wilayah' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.sp_pimpinan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_biro_iklan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
             ], [], [
                 'input.akta_pendirian' => 'Akta Pendirian',
                 'input.sk_kemenkumham' => 'SK Kemenkum',
@@ -412,11 +461,11 @@ class FirstUpdateMedia extends Component
                 'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
             ], [], [
                 'input.akta_pendirian' => 'Akta Pendirian',
                 'input.sk_kemenkumham' => 'SK Kemenkum',
@@ -424,27 +473,27 @@ class FirstUpdateMedia extends Component
                 'input.tdp_penerbitan_63122' => 'TDP Penerbitan 63122',
                 'input.spt_terakhir' => 'SPT Terakhir',
                 'input.situ' => 'SITU',
-                'input.sk_domisili' => 'SK Domisili',
+                'input.sk_domisili' => 'Domisili',
                 'input.surat_tugas_wartawan' => 'Surat Tugas Wartawan',
             ]);
         } else if ($this->jenisMedia == 'Media Sosial') {
             $this->validate([
-                'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'input.akta_pendirian' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                'input.sk_kemenkumham' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.tdp_penerbitan_63122' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
             ], [], [
                 'input.akta_pendirian' => 'Akta Pendirian',
                 'input.sk_kemenkumham' => 'SK Kemenkum',
-                'input.siup' => 'SIUP',
+                'input.siup' => 'SIUP / NIB',
                 'input.tdp_penerbitan_63122' => 'TDP Penerbitan 63122',
                 'input.spt_terakhir' => 'SPT Terakhir',
                 'input.situ' => 'SITU',
-                'input.sk_domisili' => 'SK Domisili',
+                'input.sk_domisili' => 'Domisili',
                 'input.surat_tugas_wartawan' => 'Surat Tugas Wartawan',
             ]);
         } else if ($this->jenisMedia == 'Multimedia') {
@@ -452,11 +501,11 @@ class FirstUpdateMedia extends Component
                 'input.akta_pendirian' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_kemenkumham' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.siup' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.tdp_penerbitan_63122' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.spt_terakhir' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.situ' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 'input.sk_domisili' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
+                // 'input.surat_tugas_wartawan' => 'required|file|mimes:png,jpeg,jpg,pdf|max:10000',
             ], [], [
                 'input.akta_pendirian' => 'Akta Pendirian',
                 'input.sk_kemenkumham' => 'SK Kemenkum',
@@ -464,7 +513,7 @@ class FirstUpdateMedia extends Component
                 'input.tdp_penerbitan_63122' => 'TDP Penerbitan 63122',
                 'input.spt_terakhir' => 'SPT Terakhir',
                 'input.situ' => 'SITU',
-                'input.sk_domisili' => 'SK Domisili',
+                'input.sk_domisili' => 'Domisili',
                 'input.surat_tugas_wartawan' => 'Surat Tugas Wartawan',
             ]);
         }
@@ -899,7 +948,7 @@ class FirstUpdateMedia extends Component
                     DB::table('pers_profile_files')
                         ->insertGetId([
                             'pers_profile_id' => $pers->id,
-                            'title' => 'SK Domisili' . $pers->nama_perusahaan,
+                            'title' => 'Domisili' . $pers->nama_perusahaan,
                             'file_name' => $fileName,
                             'file_path' => $path,
                             'file_type' => 'sk_domisili',

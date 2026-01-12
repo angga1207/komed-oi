@@ -380,7 +380,7 @@
                             </div>
                         @endif
 
-                        <div class="mb-4 row align-items-center">
+                        {{-- <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Status Wartawan
                                 <span class="text-danger">*</span>
@@ -405,9 +405,9 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
-                        @if (in_array($input['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
+                        {{-- @if (in_array($input['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Lampiran Status Wartawan
@@ -423,9 +423,9 @@
                                     @enderror
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
 
-                        <div class="mb-4 row align-items-center">
+                        {{-- <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Kompetensi Wartawan
                                 <span class="text-danger">*</span>
@@ -447,9 +447,9 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
-                        @if ($input['kompetensi_wartawan'] == 'Memiliki Sertifikat Kompetensi')
+                        {{-- @if ($input['kompetensi_wartawan'] == 'Memiliki Sertifikat Kompetensi')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Lampiran Kompetensi Wartawan
@@ -465,9 +465,9 @@
                                     @enderror
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
 
-                        <div class="mb-4 row align-items-center">
+                        {{-- <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Status Dewan Pers
                                 <span class="text-danger">*</span>
@@ -489,9 +489,9 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
-                        @if ($input['status_dewan_pers'] == 'Terdaftar')
+                        {{-- @if ($input['status_dewan_pers'] == 'Terdaftar')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Lampiran Status Dewan Pers
@@ -507,7 +507,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        @endif
+                        @endif --}}
 
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
@@ -610,6 +610,133 @@
                             @endif
                         @endif
 
+                        @if ($input['jenis_media'] == 'Media Sosial')
+                            <div class="mb-4 row align-items-center">
+                                <label class="form-label-title col-sm-3 mb-0">
+                                    Memiliki Follower Minimal 10.000?
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" wire:model='input.follower_required'
+                                        wire:loading.attr='disabled'>
+                                        <option value="" hidden>Pilih Jawaban</option>
+                                        <option value="1">
+                                            Ya
+                                        </option>
+                                        <option value="0">
+                                            Tidak
+                                        </option>
+                                    </select>
+                                    @error('input.follower_required')
+                                        <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Latest Follower Count -->
+                            <div class="mb-4 row align-items-center">
+                                <label class="form-label-title col-sm-3 mb-0">
+                                    Rata-rata Jumlah Viewer
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="number" placeholder="Rata-rata Jumlah Viewer"
+                                        wire:model='input.latest_viewer' wire:loading.attr='disabled'>
+                                    @error('input.latest_viewer')
+                                        <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Multiple Link Media Sosial -->
+                            <div class="mb-4 row align-items-start">
+                                <label class="form-label-title col-sm-3 mb-0">
+                                    Link Media Sosial
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-sm-9">
+                                    @if (isset($input['social_media']) && count($input['social_media']) > 0)
+                                        @foreach ($input['social_media'] as $index => $social)
+                                            <div class="mb-3 border rounded p-3" wire:key="social-{{ $index }}">
+                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                    <h6 class="mb-0">Media Sosial {{ $index + 1 }}</h6>
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        wire:click="removeSocialMedia({{ $index }})"
+                                                        wire:loading.attr='disabled'>
+                                                        <i class="fa fa-trash me-2"></i> Hapus
+                                                    </button>
+                                                </div>
+
+                                                <div class="mb-2">
+                                                    <label class="form-label" style="font-size: 0.85rem;">Platform</label>
+                                                    <select class="form-control"
+                                                        wire:model='input.social_media.{{ $index }}.platform'
+                                                        wire:loading.attr='disabled'>
+                                                        <option value="" hidden>Pilih Platform</option>
+                                                        <option value="Facebook">Facebook</option>
+                                                        <option value="Instagram">Instagram</option>
+                                                        <option value="Twitter/X">Twitter/X</option>
+                                                        <option value="YouTube">YouTube</option>
+                                                        <option value="TikTok">TikTok</option>
+                                                        <option value="LinkedIn">LinkedIn</option>
+                                                        <option value="Telegram">Telegram</option>
+                                                        <option value="WhatsApp">WhatsApp</option>
+                                                        <option value="Line">Line</option>
+                                                        <option value="Lainnya">Lainnya</option>
+                                                    </select>
+                                                    @error('input.social_media.' . $index . '.platform')
+                                                        <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div>
+                                                    <label class="form-label" style="font-size: 0.85rem;">URL/Link</label>
+                                                    <input type="url" class="form-control"
+                                                        placeholder="https://..."
+                                                        wire:model='input.social_media.{{ $index }}.url'
+                                                        wire:loading.attr='disabled'>
+                                                    @error('input.social_media.' . $index . '.url')
+                                                        <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p class="text-muted mb-3" style="font-size: 0.9rem;">
+                                            Belum ada link media sosial yang ditambahkan.
+                                        </p>
+                                    @endif
+
+                                    @if (!isset($input['social_media']) || count($input['social_media']) < 10)
+                                        <button type="button" class="btn btn-sm btn-primary"
+                                            wire:click="addSocialMedia" wire:loading.attr='disabled'>
+                                            <i class="fa fa-plus me-2"></i> Tambah Media Sosial
+                                        </button>
+                                    @endif
+
+                                    @if (isset($input['social_media']) && count($input['social_media']) >= 10)
+                                        <div class="alert alert-info mb-0" style="font-size: 0.85rem;">
+                                            Maksimal 10 media sosial yang dapat ditambahkan.
+                                        </div>
+                                    @endif
+
+                                    @error('input.social_media')
+                                        <div class="text-danger mt-2" style="font-size: 0.8rem;">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+
                     </div>
                 @elseif($this->step == 3)
                     <div class="">
@@ -676,7 +803,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     TDP Penerbitan 58130
                                     <span class="text-danger">*</span>
@@ -695,7 +822,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -718,7 +845,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     SP Cakupan Wilayah
                                     <span class="text-danger">*</span>
@@ -737,9 +864,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     SP Pimpinan
                                     <span class="text-danger">*</span>
@@ -758,9 +885,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Surat Tugas Wartawan
                                     <span class="text-danger">*</span>
@@ -779,7 +906,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($jenisMedia == 'Media Elektronik')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -885,7 +1012,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     TDP Penyiaran 60102
                                     <span class="text-danger">*</span>
@@ -904,7 +1031,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -927,7 +1054,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     SP Cakupan Wilayah
                                     <span class="text-danger">*</span>
@@ -946,9 +1073,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     SP Pimpinan
                                     <span class="text-danger">*</span>
@@ -967,7 +1094,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -990,7 +1117,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Surat Tugas Wartawan
                                     <span class="text-danger">*</span>
@@ -1009,7 +1136,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($jenisMedia == 'Media Siber')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -1136,7 +1263,7 @@
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    SK Domisili
+                                    Domisili
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
@@ -1155,7 +1282,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Surat Tugas Wartawan
                                     <span class="text-danger">*</span>
@@ -1174,12 +1301,11 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($jenisMedia == 'Media Sosial')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Akta Pendirian
-                                    <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
                                     <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
@@ -1220,7 +1346,7 @@
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    SIUP
+                                    SIUP / NIB
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
@@ -1301,7 +1427,7 @@
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    SK Domisili
+                                    Domisili
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
@@ -1320,7 +1446,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Surat Tugas Wartawan
                                     <span class="text-danger">*</span>
@@ -1339,7 +1465,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         @elseif($jenisMedia == 'Multimedia')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
@@ -1365,7 +1491,6 @@
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     SK Kemenkumham
-                                    <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
                                     <input type="file" accept="image/png, image/jpeg, image/jpg, application/pdf"
@@ -1466,7 +1591,7 @@
 
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    SK Domisili
+                                    Domisili
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
@@ -1485,7 +1610,7 @@
                                 </div>
                             </div>
 
-                            <div class="mb-4 row align-items-center">
+                            {{-- <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
                                     Surat Tugas Wartawan
                                     <span class="text-danger">*</span>
@@ -1504,7 +1629,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         @endif
                     </div>
                 @endif
