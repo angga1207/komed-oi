@@ -22,6 +22,7 @@ class Dashboard extends Component
     public function render()
     {
         $mediaPers = DB::table('pers_profile')
+            ->whereNotNull('verified_status')
             ->get();
         $mediaOrders = DB::table('orders')
             ->whereMonth('tanggal_pelaksanaan', Carbon::now())
