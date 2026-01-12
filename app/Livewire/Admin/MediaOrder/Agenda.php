@@ -46,6 +46,7 @@ class Agenda extends Component
         }
 
         $this->jenisMediaList = DB::table('pers_profile')
+            ->whereNotNull('jenis_media')
             ->select('jenis_media')
             ->distinct()
             ->pluck('jenis_media')
