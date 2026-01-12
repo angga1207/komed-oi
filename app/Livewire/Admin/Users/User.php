@@ -43,6 +43,7 @@ class User extends Component
     {
         $datas = ModelsUser::search($this->search)
             ->where('role_id', 4)
+            ->latest()
             ->paginate(10);
 
         return view('livewire.admin.users.user', [
