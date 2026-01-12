@@ -57,6 +57,7 @@ class Dashboard extends Component
                 'lokasi' => $dataAgenda['tempat_pelaksanaan_array'][0] ?? $agenda->lokasi,
                 'jumlah' => $tl->jumlah,
                 'satuan' => $tl->satuan,
+                'jenis_publikasi' => $tl->jenis_publikasi,
                 'status' => $tl->status,
                 'created_at' => $tl->created_at,
                 'deadline' => Carbon::parse($tl->created_at)->addDays(7)->isoFormat('Y-MM-DD HH:mm:ss'),

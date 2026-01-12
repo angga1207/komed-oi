@@ -33,205 +33,222 @@ use Carbon\Carbon;
 
                 <div class="row">
                     <div class="col-12">
-                        @if($isLoading == false)
-                        @if(count($datas) > 0)
-                        <ol class="progtrckr ps-0" style="flex-wrap: wrap">
-                            @foreach($datas as $data)
-                            <li class="@if($data['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif border-bottom pt-2 pb-3 ms-2"
-                                style="cursor: pointer">
-                                <div class=" position-relative">
-                                    @if($data['type'] == 'manual')
-                                    <div class="position-absolute d-flex align-items-center gap-1"
-                                        style="bottom:0px; right:5px" data-bs-toggle="modal"
-                                        data-bs-target="#modalAddOrder"
-                                        wire:click.prevent="openWizardAddManual({{ $data['id'] }})">
-                                        <i class="ri-add-circle-line text-success" style="font-size: 20px"></i>
-                                        <span class="text-success">
-                                            Media Order
-                                        </span>
-                                    </div>
-                                    @else
-                                    <div class="position-absolute d-flex align-items-center gap-1"
-                                        style="bottom:0px; right:5px" data-bs-toggle="modal"
-                                        data-bs-target="#modalAddOrder"
-                                        wire:click.prevent="openWizardAdd({{ $data['jadwalin_bae_id'] }})">
-                                        <i class="ri-add-circle-line text-success" style="font-size: 20px"></i>
-                                        <span class="text-success">
-                                            Media Order
-                                        </span>
-                                    </div>
-                                    @endif
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <h5>
-                                            {{ $data['nama_acara'] ?? '' }}
-                                        </h5>
-                                        <span class="badge badge-warning">
-                                            {{ str()->upper($data['type']) }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-map-pin-line"></i>
-                                        <span>
-                                            {{ $data['lokasi'] ?? '' }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-calendar-todo-fill"></i>
-                                        <span>
-                                            {{ Carbon::parse($data['tanggal_pelaksanaan'])->isoFormat('DD MMMM Y') }} |
-                                            {{ Carbon::parse($data['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <i class="ri-government-line"></i>
-                                        <span>
-                                            {{ $data['leading_sector'] ?? '' }}
-                                        </span>
-                                    </div>
-                                    <div class="content d-flex align-items-center gap-2">
-                                        <span>
-                                            Media Order :
-                                        </span>
-                                        <span>
-                                            {{ $data['order_count'] ?? '' }}
-                                        </span>
-                                    </div>
-                                </div>
-                                @if(count($data['orders']) > 0)
-                                <div class="content">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="bg-primary">
-                                                <tr>
-                                                    <th style="font-size: 13px; width:200px" class="p-2 text-center">
-                                                        Nama Media
-                                                    </th>
-                                                    <th style="font-size: 13px; width:200px" class="p-2 text-center">
-                                                        Kode Order
-                                                    </th>
-                                                    <th style="font-size: 13px; width:150px" class="p-2 text-center">
-                                                        Status
-                                                    </th>
-                                                    <th style="font-size: 13px; width:150px" class="p-2 text-center">
-                                                        Jumlah & Satuan
-                                                    </th>
-                                                    <th style="font-size: 13px; width:1px" class="p-2 text-center">
-
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($data['orders'] as $ord)
-                                                <tr>
-                                                    <td style="font-size: 13px" class="p-2">
-                                                        {{ $ord['nama_media'] }}
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        {{ $ord['order_code'] }}
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        @if($ord['status'] == 'unsent')
-                                                        <span class="badge badge-danger">
-                                                            Belum Dikirim
+                        @if ($isLoading == false)
+                            @if (count($datas) > 0)
+                                <ol class="progtrckr ps-0" style="flex-wrap: wrap">
+                                    @foreach ($datas as $data)
+                                        <li class="@if ($data['waktu_pelaksanaan'] < Carbon::now()->isoFormat('HH:mm:ss')) progtrckr-done @else progtrckr-todo @endif border-bottom pt-2 pb-3 ms-2"
+                                            style="cursor: pointer">
+                                            <div class=" position-relative">
+                                                @if ($data['type'] == 'manual')
+                                                    <div class="position-absolute d-flex align-items-center gap-1"
+                                                        style="bottom:0px; right:5px" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddOrder"
+                                                        wire:click.prevent="openWizardAddManual({{ $data['id'] }})">
+                                                        <i class="ri-add-circle-line text-success"
+                                                            style="font-size: 20px"></i>
+                                                        <span class="text-success">
+                                                            Media Order
                                                         </span>
-                                                        @elseif($ord['status'] == 'sent')
-                                                        <span class="badge badge-success">
-                                                            Dikirim
+                                                    </div>
+                                                @else
+                                                    <div class="position-absolute d-flex align-items-center gap-1"
+                                                        style="bottom:0px; right:5px" data-bs-toggle="modal"
+                                                        data-bs-target="#modalAddOrder"
+                                                        wire:click.prevent="openWizardAdd({{ $data['jadwalin_bae_id'] }})">
+                                                        <i class="ri-add-circle-line text-success"
+                                                            style="font-size: 20px"></i>
+                                                        <span class="text-success">
+                                                            Media Order
                                                         </span>
-                                                        <div>
-                                                            @if($ord['deadline'])
-                                                            {{ Carbon::parse($ord['deadline'])->isoFormat('DD MMMM Y,
-                                                            HH:mm
-                                                            [WIB]') }}
-                                                            @else
-                                                            <span class="text-danger" style="font-size: 11px">
-                                                                Sudah Lewat Batas
-                                                            </span>
-                                                            @endif
-                                                        </div>
-                                                        @elseif($ord['status'] == 'review')
-                                                        <span class="badge badge-warning">
-                                                            Menunggu Review
-                                                        </span>
-                                                        @elseif($ord['status'] == 'verified')
-                                                        <span class="badge badge-primary">
-                                                            Terverifikasi
-                                                        </span>
-                                                        @elseif($ord['status'] == 'done')
-                                                        <span class="badge badge-primary">
-                                                            Selesai
-                                                        </span>
-                                                        @endif
-                                                    </td>
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        {{ $ord['jumlah'] ?? 0 }} x {{ $ord['satuan'] ?? 0 }}
-                                                    </td>
-                                                    @if ($ord['status'] == 'unsent')
-                                                    {{-- <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a href="javascript:void(0);"
-                                                            wire:click="sendOrder('{{ $ord['id'] }}')">
-                                                            Kirim Media Order
-                                                        </a>
-                                                    </td> --}}
-                                                    {{-- Delete --}}
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a href="javascript:void(0);"
-                                                            wire:click="deleteOrder('{{ $ord['id'] }}')"
-                                                            class="text-danger">
-                                                            Hapus
-                                                        </a>
-                                                    </td>
-                                                    @else
-                                                    <td style="font-size: 13px" class="p-2 text-center">
-                                                        <a
-                                                            href="{{ route('a.media-order.detail', $ord['order_code']) }}">
-                                                            Lihat Media Order
-                                                        </a>
-                                                    </td>
-                                                    @endif
-                                                </tr>
-                                                @endforeach
-                                                @if ($data['is_all_sent'] == false)
-                                                <tr>
-                                                    <td colspan="10" class="p-2 text-center">
-                                                        @if($data['type'] == 'manual')
-                                                        <a href="javascript:void(0);"
-                                                            wire:click="sendAllOrderManual('{{ $data['agenda_id'] }}')"
-                                                            class="btn btn-primary">
-                                                            Kirim Semua Media Order
-                                                        </a>
-                                                        @else
-                                                        <a href="javascript:void(0);"
-                                                            wire:click="sendAllOrder('{{ $data['jadwalin_bae_id'] }}')"
-                                                            class="btn btn-primary">
-                                                            Kirim Semua Media Order
-                                                        </a>
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                    </div>
                                                 @endif
-                                            </tbody>
-                                        </table>
+                                                <div class="content d-flex align-items-center gap-2">
+                                                    <h5>
+                                                        {{ $data['nama_acara'] ?? '' }}
+                                                    </h5>
+                                                    <span class="badge badge-warning">
+                                                        {{ str()->upper($data['type']) }}
+                                                    </span>
+                                                </div>
+                                                <div class="content d-flex align-items-center gap-2">
+                                                    <i class="ri-map-pin-line"></i>
+                                                    <span>
+                                                        {{ $data['lokasi'] ?? '' }}
+                                                    </span>
+                                                </div>
+                                                <div class="content d-flex align-items-center gap-2">
+                                                    <i class="ri-calendar-todo-fill"></i>
+                                                    <span>
+                                                        {{ Carbon::parse($data['tanggal_pelaksanaan'])->isoFormat('DD MMMM Y') }}
+                                                        |
+                                                        {{ Carbon::parse($data['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
+                                                    </span>
+                                                </div>
+                                                <div class="content d-flex align-items-center gap-2">
+                                                    <i class="ri-government-line"></i>
+                                                    <span>
+                                                        {{ $data['leading_sector'] ?? '' }}
+                                                    </span>
+                                                </div>
+                                                <div class="content d-flex align-items-center gap-2">
+                                                    <span>
+                                                        Media Order :
+                                                    </span>
+                                                    <span>
+                                                        {{ $data['order_count'] ?? '' }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            @if (count($data['orders']) > 0)
+                                                <div class="content">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead class="bg-primary">
+                                                                <tr>
+                                                                    <th style="font-size: 13px; width:200px"
+                                                                        class="p-2 text-center">
+                                                                        Nama Media
+                                                                    </th>
+                                                                    <th style="font-size: 13px; width:200px"
+                                                                        class="p-2 text-center">
+                                                                        Kode Order
+                                                                    </th>
+                                                                    <th style="font-size: 13px; width:150px"
+                                                                        class="p-2 text-center">
+                                                                        Status
+                                                                    </th>
+                                                                    <th style="font-size: 13px; width:150px"
+                                                                        class="p-2 text-center">
+                                                                        Jumlah & Satuan
+                                                                    </th>
+                                                                    <th style="font-size: 13px; width:150px"
+                                                                        class="p-2 text-center">
+                                                                        Jenis Publikasi
+                                                                    </th>
+                                                                    <th style="font-size: 13px; width:1px"
+                                                                        class="p-2 text-center">
+
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach ($data['orders'] as $ord)
+                                                                    <tr>
+                                                                        <td style="font-size: 13px" class="p-2">
+                                                                            {{ $ord['nama_media'] }}
+                                                                        </td>
+                                                                        <td style="font-size: 13px"
+                                                                            class="p-2 text-center">
+                                                                            {{ $ord['order_code'] }}
+                                                                        </td>
+                                                                        <td style="font-size: 13px"
+                                                                            class="p-2 text-center">
+                                                                            @if ($ord['status'] == 'unsent')
+                                                                                <span class="badge badge-danger">
+                                                                                    Belum Dikirim
+                                                                                </span>
+                                                                            @elseif($ord['status'] == 'sent')
+                                                                                <span class="badge badge-success">
+                                                                                    Dikirim
+                                                                                </span>
+                                                                                <div>
+                                                                                    @if ($ord['deadline'])
+                                                                                        {{ Carbon::parse($ord['deadline'])->isoFormat('DD MMMM Y,
+                                                                                                                                                                                                                                                                                                                                                                                                                            HH:mm
+                                                                                                                                                                                                                                                                                                                                                                                                                            [WIB]') }}
+                                                                                    @else
+                                                                                        <span class="text-danger"
+                                                                                            style="font-size: 11px">
+                                                                                            Sudah Lewat Batas
+                                                                                        </span>
+                                                                                    @endif
+                                                                                </div>
+                                                                            @elseif($ord['status'] == 'review')
+                                                                                <span class="badge badge-warning">
+                                                                                    Menunggu Review
+                                                                                </span>
+                                                                            @elseif($ord['status'] == 'verified')
+                                                                                <span class="badge badge-primary">
+                                                                                    Terverifikasi
+                                                                                </span>
+                                                                            @elseif($ord['status'] == 'done')
+                                                                                <span class="badge badge-primary">
+                                                                                    Selesai
+                                                                                </span>
+                                                                            @endif
+                                                                        </td>
+                                                                        <td style="font-size: 13px"
+                                                                            class="p-2 text-center">
+                                                                            {{ $ord['jumlah'] ?? 0 }} x
+                                                                            {{ $ord['satuan'] ?? 0 }}
+                                                                        </td>
+                                                                        <td style="font-size: 13px"
+                                                                            class="p-2 text-center">
+                                                                            {{ $ord['jenis_publikasi'] ?? '-' }}
+                                                                        </td>
+                                                                        @if ($ord['status'] == 'unsent')
+                                                                            {{-- Delete --}}
+                                                                            <td style="font-size: 13px"
+                                                                                class="p-2 text-center">
+                                                                                <a href="javascript:void(0);"
+                                                                                    wire:click="deleteOrder('{{ $ord['id'] }}')"
+                                                                                    class="text-danger">
+                                                                                    Hapus
+                                                                                </a>
+                                                                            </td>
+                                                                        @else
+                                                                            <td style="font-size: 13px"
+                                                                                class="p-2 text-center">
+                                                                                <a
+                                                                                    href="{{ route('a.media-order.detail', $ord['order_code']) }}">
+                                                                                    Lihat Media Order
+                                                                                </a>
+                                                                            </td>
+                                                                        @endif
+                                                                    </tr>
+                                                                @endforeach
+                                                                @if ($data['is_all_sent'] == false)
+                                                                    <tr>
+                                                                        <td colspan="10" class="p-2 text-center">
+                                                                            @if ($data['type'] == 'manual')
+                                                                                <a href="javascript:void(0);"
+                                                                                    wire:click="sendAllOrderManual('{{ $data['agenda_id'] }}')"
+                                                                                    class="btn btn-primary">
+                                                                                    Kirim Semua Media Order
+                                                                                </a>
+                                                                            @else
+                                                                                <a href="javascript:void(0);"
+                                                                                    wire:click="sendAllOrder('{{ $data['jadwalin_bae_id'] }}')"
+                                                                                    class="btn btn-primary">
+                                                                                    Kirim Semua Media Order
+                                                                                </a>
+                                                                            @endif
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                </ol>
+                            @else
+                                <div class="">
+                                    <div class="alert alert-success" role="alert">
+                                        <h4 class="alert-heading">Hmmm!</h4>
+                                        <p>
+                                            Tidak ada jadwal untuk hari ini.
+                                        </p>
                                     </div>
                                 </div>
-                                @endif
-                            </li>
-                            @endforeach
-                        </ol>
+                            @endif
                         @else
-                        <div class="">
-                            <div class="alert alert-success" role="alert">
-                                <h4 class="alert-heading">Hmmm!</h4>
-                                <p>
-                                    Tidak ada jadwal untuk hari ini.
-                                </p>
+                            <div class="">
+                                Loading...
                             </div>
-                        </div>
-                        @endif
-                        @else
-                        <div class="">
-                            Loading...
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -246,10 +263,10 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        @if($inputType == 'create')
-                        Tambah Agenda Manual
+                        @if ($inputType == 'create')
+                            Tambah Agenda Manual
                         @elseif($inputType == 'update')
-                        Edit Agenda Manual
+                            Edit Agenda Manual
                         @endif
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
@@ -258,95 +275,96 @@ use Carbon\Carbon;
                     </button>
                 </div>
                 <div class="modal-body">
-                    @if($detail)
-                    <form class="row" wire:submit.prevent="saveData">
-                        <div class="col-12 col-xl-12">
-                            <label for="recipient-name" class="col-form-label">
-                                Nama Acara
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="recipient-name" autocomplete="off"
-                                placeholder="Nama Acara" wire:model="detail.nama_acara">
+                    @if ($detail)
+                        <form class="row" wire:submit.prevent="saveData">
+                            <div class="col-12 col-xl-12">
+                                <label for="recipient-name" class="col-form-label">
+                                    Nama Acara
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="recipient-name" autocomplete="off"
+                                    placeholder="Nama Acara" wire:model="detail.nama_acara">
 
-                            @error('detail.nama_acara')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                                @error('detail.nama_acara')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @enderror
-                        </div>
-                        <div class="col-12 col-xl-12">
-                            <label for="recipient-name" class="col-form-label">
-                                Lokasi
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="recipient-name" autocomplete="off"
-                                placeholder="Lokasi" wire:model="detail.lokasi">
+                            <div class="col-12 col-xl-12">
+                                <label for="recipient-name" class="col-form-label">
+                                    Lokasi
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="recipient-name" autocomplete="off"
+                                    placeholder="Lokasi" wire:model="detail.lokasi">
 
-                            @error('detail.lokasi')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                                @error('detail.lokasi')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @enderror
-                        </div>
 
-                        <div class="col-12 col-xl-6">
-                            <label for="recipient-name" class="col-form-label">
-                                Tanggal Pelaksanaan Awal
-                            </label>
-                            <input type="date" class="form-control" wire:model="detail.tanggal_pelaksanaan">
+                            <div class="col-12 col-xl-6">
+                                <label for="recipient-name" class="col-form-label">
+                                    Tanggal Pelaksanaan Awal
+                                </label>
+                                <input type="date" class="form-control" wire:model="detail.tanggal_pelaksanaan">
 
-                            @error('detail.tanggal_pelaksanaan')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                                @error('detail.tanggal_pelaksanaan')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @enderror
-                        </div>
 
-                        <div class="col-12 col-xl-6">
-                            <label for="recipient-name" class="col-form-label">
-                                Tanggal Pelaksanaan Akhir
-                            </label>
-                            <input type="date" class="form-control" wire:model="detail.tanggal_pelaksanaan_akhir">
+                            <div class="col-12 col-xl-6">
+                                <label for="recipient-name" class="col-form-label">
+                                    Tanggal Pelaksanaan Akhir
+                                </label>
+                                <input type="date" class="form-control"
+                                    wire:model="detail.tanggal_pelaksanaan_akhir">
 
-                            @error('detail.tanggal_pelaksanaan_akhir')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                                @error('detail.tanggal_pelaksanaan_akhir')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @enderror
-                        </div>
 
-                        <div class="col-12 col-xl-12">
-                            <label for="recipient-name" class="col-form-label">
-                                Waktu Pelaksanaan
-                            </label>
-                            <input type="time" class="form-control" wire:model="detail.waktu_pelaksanaan">
+                            <div class="col-12 col-xl-12">
+                                <label for="recipient-name" class="col-form-label">
+                                    Waktu Pelaksanaan
+                                </label>
+                                <input type="time" class="form-control" wire:model="detail.waktu_pelaksanaan">
 
-                            @error('detail.waktu_pelaksanaan')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
+                                @error('detail.waktu_pelaksanaan')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
-                            @enderror
-                        </div>
 
-                        <div class="col-12 col-xl-12">
-                            <label for="recipient-name" class="col-form-label">
-                                Leading Sector
-                                <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" class="form-control" id="recipient-name" autocomplete="off"
-                                placeholder="Leading Sector" wire:model="detail.leading_sector">
+                            <div class="col-12 col-xl-12">
+                                <label for="recipient-name" class="col-form-label">
+                                    Leading Sector
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="recipient-name" autocomplete="off"
+                                    placeholder="Leading Sector" wire:model="detail.leading_sector">
 
-                            @error('detail.leading_sector')
-                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                    </form>
+                                @error('detail.leading_sector')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                        </form>
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success btn-animation btn-md fw-bold" data-bs-dismiss="modal"
-                        wire:click="closeModal">
+                    <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
+                        data-bs-dismiss="modal" wire:click="closeModal">
                         Tutup
                     </button>
                     <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="saveData">
@@ -363,8 +381,8 @@ use Carbon\Carbon;
             <div class="modal-content">
                 <div class="modal-header d-block text-start">
                     <h5 class="modal-title w-100" id="exampleModalLabel22">
-                        @if($selectedJadwalinBae)
-                        Tambah Media Order
+                        @if ($selectedJadwalinBae)
+                            Tambah Media Order
                         @endif
                     </h5>
                     <button type="button" class="btn-close" style="top:10px; right:10px;" data-bs-dismiss="modal"
@@ -378,8 +396,8 @@ use Carbon\Carbon;
                         <label class="form-label">Filter Jenis Media</label>
                         <select class="form-select" wire:model.live="selectedJenisMedia">
                             <option value="">Semua Jenis Media</option>
-                            @foreach($jenisMediaList as $jenisMedia)
-                            <option value="{{ $jenisMedia }}">{{ $jenisMedia }}</option>
+                            @foreach ($jenisMediaList as $jenisMedia)
+                                <option value="{{ $jenisMedia }}">{{ $jenisMedia }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -415,6 +433,11 @@ use Carbon\Carbon;
                                     <th style="font-size: 13px; width:150px" class="p-2 text-center">
                                         Satuan
                                     </th>
+                                    @if ($selectedJenisMedia == 'Media Cetak')
+                                        <th style="font-size: 13px; width:150px" class="p-2 text-center">
+                                            Jenis Publikasi
+                                        </th>
+                                    @endif
                                     <th style="font-size: 13px; width:150px" class="p-2">
                                         Media Order Bulan Ini
                                     </th>
@@ -424,96 +447,114 @@ use Carbon\Carbon;
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($arrMediaPers as $pers)
-                                <tr wire:key='{{ $pers->id }}'
-                                    class="@if(in_array($pers->id, $selectedMediaPers)) table-success @endif">
-                                    <td style="font-size: 14px" class="p-2" style="cursor: pointer"
-                                        wire:click.prevent="addMedia({{ $pers->id }})">
-                                        <div class="fw-bold">
-                                            {{ $pers->nama_media }}
-                                        </div>
-                                        <div class="">
-                                            #{{ $pers->unique_id }}
-                                        </div>
-                                        <div class="">
-                                            {{ $pers->nama_perusahaan }}
-                                        </div>
-                                    </td>
-                                    <td style="font-size: 13px" class="p-2" style="cursor: pointer"
-                                        wire:click.prevent="addMedia({{ $pers->id }})">
-                                        {{ $pers->jenis_media }}
-                                    </td>
-                                    <td style="font-size: 13px" class="p-2">
-                                        @if(in_array($pers->id, $selectedMediaPers))
-                                        <input type="number" class="form-control form-control-sm text-center"
-                                            wire:model="orderDetails.{{ $pers->id }}.jumlah"
-                                            min="1" style="width: 80px;">
-                                        @else
-                                        <div class="text-center">-</div>
+                                @foreach ($arrMediaPers as $pers)
+                                    <tr wire:key='{{ $pers->id }}'
+                                        class="@if (in_array($pers->id, $selectedMediaPers)) table-success @endif">
+                                        <td style="font-size: 14px" class="p-2" style="cursor: pointer"
+                                            wire:click.prevent="addMedia({{ $pers->id }})">
+                                            <div class="fw-bold">
+                                                {{ $pers->nama_media }}
+                                            </div>
+                                            <div class="">
+                                                #{{ $pers->unique_id }}
+                                            </div>
+                                            <div class="">
+                                                {{ $pers->nama_perusahaan }}
+                                            </div>
+                                        </td>
+                                        <td style="font-size: 13px" class="p-2" style="cursor: pointer"
+                                            wire:click.prevent="addMedia({{ $pers->id }})">
+                                            {{ $pers->jenis_media }}
+                                        </td>
+                                        <td style="font-size: 13px" class="p-2">
+                                            @if (in_array($pers->id, $selectedMediaPers))
+                                                <input type="number" class="form-control form-control-sm text-center"
+                                                    wire:model="orderDetails.{{ $pers->id }}.jumlah"
+                                                    min="1" style="width: 80px;">
+                                            @else
+                                                <div class="text-center">-</div>
+                                            @endif
+                                        </td>
+                                        <td style="font-size: 13px" class="p-2">
+                                            @if (in_array($pers->id, $selectedMediaPers))
+                                                @php
+                                                    $satuanOptions = [];
+                                                    if ($pers->jenis_media == 'Media Elektronik') {
+                                                        $satuanOptions = ['Paket', 'Tayang'];
+                                                    } elseif ($pers->jenis_media == 'Media Siber') {
+                                                        $satuanOptions = ['Tayang'];
+                                                    } elseif ($pers->jenis_media == 'Media Cetak') {
+                                                        $satuanOptions = ['Terbit'];
+                                                    } elseif ($pers->jenis_media == 'Media Sosial') {
+                                                        $satuanOptions = ['Tayang'];
+                                                    } else {
+                                                        $satuanOptions = ['Tayang'];
+                                                    }
+                                                @endphp
+                                                @if (count($satuanOptions) > 1)
+                                                    <select class="form-select form-select-sm"
+                                                        wire:model="orderDetails.{{ $pers->id }}.satuan">
+                                                        @foreach ($satuanOptions as $option)
+                                                            <option value="{{ $option }}">{{ $option }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @else
+                                                    <div class="text-center">{{ $satuanOptions[0] ?? '-' }}</div>
+                                                @endif
+                                            @else
+                                                <div class="text-center">-</div>
+                                            @endif
+                                        </td>
+                                        @if ($selectedJenisMedia == 'Media Cetak')
+                                            <td style="font-size: 13px" class="p-2">
+                                                @if (in_array($pers->id, $selectedMediaPers))
+                                                    <select class="form-select form-select-sm"
+                                                        wire:model="orderDetails.{{ $pers->id }}.jenis_publikasi">
+                                                        <option value="1/4 Halaman">1/4 Halaman</option>
+                                                        <option value="1/2 Halaman">1/2 Halaman</option>
+                                                        <option value="1 Halaman">1 Halaman</option>
+                                                    </select>
+                                                @else
+                                                    <div class="text-center">-</div>
+                                                @endif
+                                            </td>
                                         @endif
-                                    </td>
-                                    <td style="font-size: 13px" class="p-2">
-                                        @if(in_array($pers->id, $selectedMediaPers))
-                                        @php
-                                            $satuanOptions = [];
-                                            if($pers->jenis_media == 'Media Elektronik') {
-                                                $satuanOptions = ['Paket', 'Tayang'];
-                                            } elseif($pers->jenis_media == 'Media Siber') {
-                                                $satuanOptions = ['Tayang'];
-                                            } elseif($pers->jenis_media == 'Media Cetak') {
-                                                $satuanOptions = ['Terbit'];
-                                            } elseif($pers->jenis_media == 'Media Sosial') {
-                                                $satuanOptions = ['Tayang'];
-                                            } else {
-                                                $satuanOptions = ['Tayang'];
-                                            }
-                                        @endphp
-                                        @if(count($satuanOptions) > 1)
-                                        <select class="form-select form-select-sm"
-                                            wire:model="orderDetails.{{ $pers->id }}.satuan">
-                                            @foreach($satuanOptions as $option)
-                                            <option value="{{ $option }}">{{ $option }}</option>
-                                            @endforeach
-                                        </select>
-                                        @else
-                                        <div class="text-center">{{ $satuanOptions[0] ?? '-' }}</div>
-                                        @endif
-                                        @else
-                                        <div class="text-center">-</div>
-                                        @endif
-                                    </td>
-                                    <td style="font-size: 13px" class="p-2" style="cursor: pointer"
-                                        wire:click.prevent="addMedia({{ $pers->id }})">
-                                        @php
-                                        // Menghitung jumlah media order untuk bulan ini
-                                        $mediaOrders = $pers->OrdersFilter('')->whereDate('created_at', '>=',
-                                        Carbon::now()->subDays(30))->get();
-                                        $totalOrders = $mediaOrders->count();
-                                        $completedOrders = $mediaOrders->where('status', 'verified')->count();
-                                        $percentComplete = $totalOrders > 0 ? ($completedOrders / $totalOrders) * 100 :
-                                        0;
-                                        @endphp
-                                        <div class="d-flex align-items-center gap-1">
-                                            <span class="badge badge-info">
-                                                {{ $totalOrders }} Media Order
-                                            </span>
-                                            <span class="badge badge-primary">
-                                                {{ $completedOrders }} Selesai
-                                            </span>
-                                            <span class="badge badge-warning">
-                                                {{ $percentComplete }}%
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td style="font-size: 13px" class="p-2 text-center" style="cursor: pointer"
-                                        wire:click.prevent="addMedia({{ $pers->id }})">
-                                        @if(in_array($pers->id, $selectedMediaPers))
-                                        <i class="ri-checkbox-circle-line text-success" style="font-size: 20px"></i>
-                                        @else
-                                        <i class="ri-checkbox-blank-circle-line" style="font-size: 20px"></i>
-                                        @endif
-                                    </td>
-                                </tr>
+                                        <td style="font-size: 13px" class="p-2" style="cursor: pointer"
+                                            wire:click.prevent="addMedia({{ $pers->id }})">
+                                            @php
+                                                // Menghitung jumlah media order untuk bulan ini
+                                                $mediaOrders = $pers
+                                                    ->OrdersFilter('')
+                                                    ->whereDate('created_at', '>=', Carbon::now()->subDays(30))
+                                                    ->get();
+                                                $totalOrders = $mediaOrders->count();
+                                                $completedOrders = $mediaOrders->where('status', 'verified')->count();
+                                                $percentComplete =
+                                                    $totalOrders > 0 ? ($completedOrders / $totalOrders) * 100 : 0;
+                                            @endphp
+                                            <div class="d-flex align-items-center gap-1">
+                                                <span class="badge badge-info">
+                                                    {{ $totalOrders }} Media Order
+                                                </span>
+                                                <span class="badge badge-primary">
+                                                    {{ $completedOrders }} Selesai
+                                                </span>
+                                                <span class="badge badge-warning">
+                                                    {{ $percentComplete }}%
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td style="font-size: 13px" class="p-2 text-center" style="cursor: pointer"
+                                            wire:click.prevent="addMedia({{ $pers->id }})">
+                                            @if (in_array($pers->id, $selectedMediaPers))
+                                                <i class="ri-checkbox-circle-line text-success"
+                                                    style="font-size: 20px"></i>
+                                            @else
+                                                <i class="ri-checkbox-blank-circle-line" style="font-size: 20px"></i>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -523,24 +564,24 @@ use Carbon\Carbon;
                 <div class="modal-footer justify-content-between">
                     <div class="">
                         <!-- Indikator jika tidak ada media yang sesuai dengan filter -->
-                        @if(count($arrMediaPers) == 0)
-                        <span class="text-danger">Tidak ada media yang sesuai dengan filter</span>
+                        @if (count($arrMediaPers) == 0)
+                            <span class="text-danger">Tidak ada media yang sesuai dengan filter</span>
                         @endif
                     </div>
                     <div class="d-flex justify-content-end align-items-center gap-2">
-                        @if(count($this->selectedMediaPers) > 0)
-                        {{ count($this->selectedMediaPers) }} Media Pers dipilih
-                        @if ($selectedAgendaID)
-                        <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
-                            wire:click="confirmApplyOrderManual">
-                            Terapkan
-                        </button>
-                        @else
-                        <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
-                            wire:click="confirmApplyOrder">
-                            Terapkan
-                        </button>
-                        @endif
+                        @if (count($this->selectedMediaPers) > 0)
+                            {{ count($this->selectedMediaPers) }} Media Pers dipilih
+                            @if ($selectedAgendaID)
+                                <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
+                                    wire:click="confirmApplyOrderManual">
+                                    Terapkan
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-primary btn-animation btn-md fw-bold"
+                                    wire:click="confirmApplyOrder">
+                                    Terapkan
+                                </button>
+                            @endif
                         @endif
                         <button type="button" class="btn btn-success btn-animation btn-md fw-bold"
                             data-bs-dismiss="modal" wire:click="closeModal">

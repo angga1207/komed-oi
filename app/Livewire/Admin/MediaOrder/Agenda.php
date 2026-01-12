@@ -248,6 +248,7 @@ class Agenda extends Component
                         'status' => $ord->status,
                         'jumlah' => $ord->jumlah,
                         'satuan' => $ord->satuan,
+                        'jenis_publikasi' => $ord->jenis_publikasi,
                         'created_at' => $ord->created_at,
                         'deadline' => $ord->deadline,
                     ];
@@ -302,6 +303,7 @@ class Agenda extends Component
                         'leading_sector' => $ord->leading_sector,
                         'jumlah' => $ord->jumlah,
                         'satuan' => $ord->satuan,
+                        'jenis_publikasi' => $ord->jenis_publikasi,
                         'status' => $ord->status,
                         'created_at' => $ord->created_at,
                         'deadline' => $ord->deadline,
@@ -355,7 +357,7 @@ class Agenda extends Component
 
             $data = $response->json();
 
-            if($data == null){
+            if ($data == null) {
                 return [];
             }
             if (isset($data['error']) && $data['error'] != false) {
@@ -418,9 +420,11 @@ class Agenda extends Component
         // Get media info and initialize order details with default satuan based on media type
         $media = DB::table('pers_profile')->where('id', $id)->first();
         $satuan = $this->getDefaultSatuan($media->jenis_media);
+        $jenisPublikasi = $media->jenis_media == 'Media Cetak' ? '1/4 Halaman' : '';
         $this->orderDetails[$id] = [
             'jumlah' => 1,
             'satuan' => $satuan,
+            'jenis_publikasi' => $jenisPublikasi ?? null,
             'jenis_media' => $media->jenis_media
         ];
     }
@@ -515,6 +519,7 @@ class Agenda extends Component
                     // Get jumlah and satuan from orderDetails
                     $jumlah = $this->orderDetails[$mediaPers->id]['jumlah'] ?? 1;
                     $satuan = $this->orderDetails[$mediaPers->id]['satuan'] ?? $this->getDefaultSatuan($mediaPers->jenis_media);
+                    $jenisPublikasi = $this->orderDetails[$mediaPers->id]['jenis_publikasi'] ?? '';
 
                     $orderID = DB::table('orders')
                         ->insertGetId([
@@ -532,6 +537,7 @@ class Agenda extends Component
                             'status' => 'unsent',
                             'jumlah' => $jumlah,
                             'satuan' => $satuan,
+                            'jenis_publikasi' => $jenisPublikasi,
                             'created_at' => $now,
                             'updated_at' => $now,
                         ]);
@@ -644,6 +650,7 @@ class Agenda extends Component
                     // Get jumlah and satuan from orderDetails
                     $jumlah = $this->orderDetails[$mediaPers->id]['jumlah'] ?? 1;
                     $satuan = $this->orderDetails[$mediaPers->id]['satuan'] ?? $this->getDefaultSatuan($mediaPers->jenis_media);
+                    $jenisPublikasi = $this->orderDetails[$mediaPers->id]['jenis_publikasi'] ?? '';
 
                     $orderID = DB::table('orders')
                         ->insertGetId([
@@ -661,6 +668,7 @@ class Agenda extends Component
                             'status' => 'unsent',
                             'jumlah' => $jumlah,
                             'satuan' => $satuan,
+                            'jenis_publikasi' => $jenisPublikasi ?? null,
                             'created_at' => $now,
                             'updated_at' => $now,
                         ]);

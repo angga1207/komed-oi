@@ -88,6 +88,14 @@ use Carbon\Carbon;
                                                                 {{ $mediaOrder->satuan }}
                                                             </span>
                                                         </p>
+                                                        @if($media->jenis_media == 'Media Cetak')
+                                                        <p>
+                                                            Jenis Publikasi :
+                                                            <span>
+                                                                {{ $mediaOrder->jenis_publikasi ?? '' }}
+                                                            </span>
+                                                        </p>
+                                                        @endif
                                                     </div>
                                                     @if($mediaOrder->status == 'sent')
                                                     <h5>
