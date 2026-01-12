@@ -75,6 +75,8 @@ class Dashboard extends Component
 
         // Kontrak Media
         $jenisMedia = MediaPers::select('jenis_media')->distinct()
+            ->whereNotNull('jenis_media')
+            // ->whereNotIn('jenis_media', ['', null])
             ->pluck('jenis_media')
             ->toArray();
         $kontrakMedia = [];
