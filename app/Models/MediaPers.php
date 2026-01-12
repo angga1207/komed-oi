@@ -63,6 +63,9 @@ class MediaPers extends Model
         }
 
         $unique_id = $str = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
+        if (MediaPers::checkUniqueIDExistsStatic($unique_id) == false) {
+            return MediaPers::generateUniqueIDStatic($jenis_media);
+        }
         return $unique_id;
     }
 

@@ -164,7 +164,7 @@ use Carbon\Carbon;
                                                         @endif
                                                     </td>
                                                     <td style="font-size: 13px" class="p-2 text-center">
-                                                        {{ $ord['jumlah'] }} x {{ $ord['satuan'] }}
+                                                        {{ $ord['jumlah'] ?? 0 }} x {{ $ord['satuan'] ?? 0 }}
                                                     </td>
                                                     @if ($ord['status'] == 'unsent')
                                                     {{-- <td style="font-size: 13px" class="p-2 text-center">

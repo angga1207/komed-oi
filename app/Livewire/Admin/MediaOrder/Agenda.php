@@ -246,6 +246,8 @@ class Agenda extends Component
                         'waktu_pelaksanaan' => $ord->waktu_pelaksanaan,
                         'leading_sector' => $ord->leading_sector,
                         'status' => $ord->status,
+                        'jumlah' => $ord->jumlah,
+                        'satuan' => $ord->satuan,
                         'created_at' => $ord->created_at,
                         'deadline' => $ord->deadline,
                     ];
