@@ -42,7 +42,8 @@ use Carbon\Carbon;
                             Media Menunggu Verifikasi
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaPers->where('verified_status','!=', 'verified')) ?? 0 }}
+                            {{-- {{ count($mediaPers->where('verified_status','!=', 'verified')) ?? 0 }} --}}
+                            {{ count($mediaPers->where('verified_status', 'pending')) ?? 0 }}
                         </h4>
                     </div>
                     <div class="align-self-center text-center">
