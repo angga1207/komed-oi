@@ -402,7 +402,7 @@ class FirstUpdateMedia extends Component
             $this->step = 3;
         } catch (\Exception $e) {
             DB::rollBack();
-            // dd($e->getMessage() . ' - ' . $e->getLine());
+            dd($e->getMessage() . ' - ' . $e->getLine());
             $this->alert('error', 'Terjadi kesalahan saat menyimpan data. Silahkan coba lagi.');
             return;
         }
