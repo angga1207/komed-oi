@@ -53,7 +53,7 @@ class MediaPers extends Model
 
         $format = $jenisMedia . '-' . date('my') . '-';
         $lastRecord = DB::table('pers_profile')
-            ->where('unique_id', 'like', $format . '%')
+            ->where('unique_id', 'ilike', $format . '%')
             ->orderBy('id', 'desc')
             ->first();
         if ($lastRecord) {
