@@ -63,10 +63,20 @@ class MediaPers extends Model
         }
 
         $unique_id = $format . str_pad($lastId, 3, '0', STR_PAD_LEFT);
-        if (MediaPers::checkUniqueIDExistsStatic($unique_id) == false) {
-            return MediaPers::generateUniqueIDStatic($jenis_media);
+        if (!self::checkUniqueIDExistsStatic($unique_id)) {
+            return self::generateUniqueIDStatic($jenis_media);
         }
         return $unique_id;
+    }
+
+    public static function checkUniqueIDExistsStatic($unique_id)
+    {
+        $pers = DB::table('pers_profile')->where('unique_id', $unique_id)->first();
+        if ($pers) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private function generateUniqueID()
