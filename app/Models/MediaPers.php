@@ -53,8 +53,9 @@ class MediaPers extends Model
 
         $format = $jenisMedia . '-' . date('my') . '-';
         $lastRecord = DB::table('pers_profile')
-            ->where('unique_id', 'ilike', $format . '%')
-            ->orderBy('id', 'desc')
+            ->where('unique_id', 'ILIKE', $format . '%')
+            // ->orderBy('id', 'desc')
+            ->latest('unique_id')
             ->first();
         if ($lastRecord) {
             $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
@@ -97,8 +98,9 @@ class MediaPers extends Model
 
         $format = $jenisMedia . '-' . date('my') . '-';
         $lastRecord = DB::table('pers_profile')
-            ->where('unique_id', 'like', $format . '%')
-            ->orderBy('id', 'desc')
+            ->where('unique_id', 'ILIKE', $format . '%')
+            // ->orderBy('id', 'desc')
+            ->latest('unique_id')
             ->first();
         if ($lastRecord) {
             $lastId = (int)substr($lastRecord->unique_id, -3) + 1;
