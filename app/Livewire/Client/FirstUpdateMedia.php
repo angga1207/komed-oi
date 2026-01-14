@@ -287,11 +287,14 @@ class FirstUpdateMedia extends Component
             $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
             // check newUniqueID exists
             $exists = DB::table('pers_profile')->where('unique_id', $newUniqueID)->exists();
-            // regenerate until unique
-            while ($exists) {
+            if ($exists) {
                 $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
-                $exists = DB::table('pers_profile')->where('unique_id', $newUniqueID)->exists();
             }
+            // regenerate until unique
+            // while ($exists) {
+            //     $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
+            //     $exists = DB::table('pers_profile')->where('unique_id', $newUniqueID)->exists();
+            // }
 
             // update pers profile
             DB::table('pers_profile')
