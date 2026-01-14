@@ -198,8 +198,8 @@ class FirstUpdateMedia extends Component
                 // 'input.logo_media' => 'nullable|file|mimes:png,jpeg,jpg|max:10000',
 
                 'input.cakupan_media' => 'required',
-                // 'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
-                // 'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
+                'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 // 'input.status_wartawan' => 'required',
                 // 'input.kompetensi_wartawan' => 'required',
                 // 'input.status_dewan_pers' => 'required',
@@ -211,17 +211,17 @@ class FirstUpdateMedia extends Component
                 // 'input.file_status_wartawan' => 'nullable|required_if:input.status_wartawan,Ada Khusus|required_if:input.status_wartawan,Ada Merangkap Kabupaten Lain',
                 // 'input.file_kompetensi_wartawan' => 'nullable|required_if:input.kompetensi_wartawan,Memiliki Sertifikat Kompetensi',
                 // 'input.file_status_dewan_pers' => 'nullable|required_if:input.status_dewan_pers,Terdaftar',
-                // 'input.file_terbitan_3_edisi_terakhir' => 'nullable|required_if:input.terbitan_3_edisi_terakhir,Ada',
+                'input.file_terbitan_3_edisi_terakhir' => 'nullable|required_if:input.terbitan_3_edisi_terakhir,Ada',
 
                 // 'file_status_wartawan' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_kompetensi_wartawan' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_status_dewan_pers' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
                 // 'file_terbitan_3_edisi_terakhir' => 'nullable|file|mimes:png,jpeg,jpg,pdf|max:10000',
-                // 'input.follower_required' => 'nullable|required_if:input.jenis_media,Media Sosial|boolean',
-                // 'input.latest_viewer' => 'nullable|required_if:input.jenis_media,Media Sosial|integer',
+                'input.follower_required' => 'nullable|required_if:input.jenis_media,Media Sosial|boolean',
+                'input.latest_viewer' => 'nullable|required_if:input.jenis_media,Media Sosial|integer',
                 'input.social_media' => 'nullable|array',
-                // 'input.social_media.*.platform' => 'required|string',
-                // 'input.social_media.*.url' => 'required|url',
+                'input.social_media.*.platform' => 'required|string',
+                'input.social_media.*.url' => 'required|url',
             ],
             [
                 'input.jenis_media.in' => 'Jenis media tidak valid.',
@@ -285,16 +285,6 @@ class FirstUpdateMedia extends Component
             $pers = DB::table('pers_profile')->where('id', $this->pers->id)->first();
             // $newUniqueID = $this->changeUniqueID($pers->unique_id, $this->input['jenis_media']);
             $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
-            // check newUniqueID exists
-            $exists = DB::table('pers_profile')->where('unique_id', $newUniqueID)->exists();
-            if ($exists) {
-                $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
-            }
-            // regenerate until unique
-            // while ($exists) {
-            //     $newUniqueID = MediaPers::generateUniqueIDStatic($this->input['jenis_media']);
-            //     $exists = DB::table('pers_profile')->where('unique_id', $newUniqueID)->exists();
-            // }
 
             // update pers profile
             DB::table('pers_profile')
