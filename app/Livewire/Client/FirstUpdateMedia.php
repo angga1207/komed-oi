@@ -843,7 +843,7 @@ class FirstUpdateMedia extends Component
                             'updated_at' => $now
                         ]);
                 }
-            } elseif ($this->jenisMedia == 'Media Elektronik') {
+            } else {
                 if ($this->input['akta_pendirian'] && $this->input['akta_pendirian'] instanceof \Illuminate\Http\UploadedFile) {
                     $fileName = 'akta_pendirian_' . $pers->unique_id . '.' . $this->input['akta_pendirian']->extension();
                     $upload = $this->input['akta_pendirian']->storeAs('public/pers-files/' . $pers->id, $fileName, 'public');

@@ -28,6 +28,7 @@ class NeedVerification extends Component
         return [
             'banned' => 'banned',
             'verificate' => 'verificate',
+            'resetMedia' => 'resetMedia',
         ];
     }
 
