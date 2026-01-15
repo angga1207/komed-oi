@@ -173,6 +173,9 @@ class NeedVerification extends Component
             $data->file_terbitan_3_edisi_terakhir = null;
             $data->extend_verification_message = null;
 
+            // delete pers_profile_files
+            DB::table('pers_profile_files')->where('pers_profile_id', $data->id)->delete();
+
             $data->save();
 
             $this->alert('success', 'Media Pers ini berhasil direset', [
