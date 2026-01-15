@@ -86,8 +86,28 @@ class NeedVerification extends Component
         $data = MediaPers::find($this->bannedId);
 
         if ($data) {
-            $data->verified_status = 'banned';
+            $data->verified_status = null;
             $data->verification_deadline = null;
+
+            // reset all data to null
+            $data->jenis_media = null;
+            $data->tier_point = 0;
+            $data->cakupan_media = null;
+            $data->jumlah_oplah = null;
+            $data->sebaran_oplah = null;
+            $data->status_wartawan = null;
+            $data->kompetensi_wartawan = null;
+            $data->status_dewan_pers = null;
+            $data->kantor = null;
+            $data->frekuensi_terbitan = null;
+            $data->terbitan_3_edisi_terakhir = null;
+            $data->file_jumlah_oplah = null;
+            $data->file_status_wartawan = null;
+            $data->file_kompetensi_wartawan = null;
+            $data->file_status_dewan_pers = null;
+            $data->file_terbitan_3_edisi_terakhir = null;
+            $data->extend_verification_message = null;
+
             $data->save();
 
             $this->alert('success', 'Media Pers ini berhasil ditolak', [
