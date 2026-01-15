@@ -71,59 +71,59 @@ use Carbon\Carbon;
 
                                 <tbody>
                                     @forelse($datas as $data)
-                                    <tr>
-                                        <td>
-                                            <div class="check-box-contain">
-                                                {{-- <span class="form-check user-checkbox">
+                                        <tr>
+                                            <td>
+                                                <div class="check-box-contain">
+                                                    {{-- <span class="form-check user-checkbox">
                                                     <input class="checkbox_animated check-it" type="checkbox" value="">
                                                 </span> --}}
-                                                <div>
                                                     <div>
-                                                        {{ $data->unique_id }}
+                                                        <div>
+                                                            {{ $data->unique_id }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex flex-column">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="ri-building-2-line"></i>
-                                                    {{ $data->nama_perusahaan }}
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <i class="ri-building-2-line"></i>
+                                                        {{ $data->nama_perusahaan }}
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <i class="ri-newspaper-line"></i>
+                                                        {{ $data->nama_media }}
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <i class="ri-newspaper-line"></i>
-                                                    {{ $data->nama_media }}
+                                            </td>
+
+                                            <td>
+                                                {{ $data->jenis_media }}
+                                            </td>
+
+                                            <td>
+                                                <div class="text-muted">
+                                                    {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
+                                                                                                    HH:mm [WIB]') }}
                                                 </div>
-                                            </div>
-                                        </td>
+                                            </td>
 
-                                        <td>
-                                            {{ $data->jenis_media }}
-                                        </td>
-
-                                        <td>
-                                            <div class="text-muted">
-                                                {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
-                                                HH:mm [WIB]') }}
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div style="cursor: pointer"
-                                                class="d-flex align-items-center justify-content-center flex-column gap-1">
-                                                <span class="badge badge-warning text-capitalize">
-                                                    {{ $data->verified_status }}
-                                                </span>
-                                                {{-- <div class="" style="font-size: 10px">
+                                            <td>
+                                                <div style="cursor: pointer"
+                                                    class="d-flex align-items-center justify-content-center flex-column gap-1">
+                                                    <span class="badge badge-warning text-capitalize">
+                                                        {{ $data->verified_status }}
+                                                    </span>
+                                                    {{-- <div class="" style="font-size: 10px">
                                                     {{ Carbon::parse($data->verification_deadline)->isoFormat('D MMM Y,
                                                     HH:mm [WIB]') }}
                                                     <br>
                                                     ({{ Carbon::parse($data->verification_deadline)->diffForHumans() }})
                                                 </div> --}}
-                                            </div>
-                                        </td>
+                                                </div>
+                                            </td>
 
-                                        {{-- <td>
+                                            {{-- <td>
                                             <div class="d-flex align-items-center flex-column gap-2">
                                                 <div>
                                                     <span
@@ -142,49 +142,55 @@ use Carbon\Carbon;
                                             </div>
                                         </td> --}}
 
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                        data-bs-target="#modalDetailMedia"
-                                                        wire:click="showDetail({{ $data->id }})">
-                                                        <i class="ri-eye-line"></i>
-                                                    </a>
-                                                </li>
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                            data-bs-target="#modalDetailMedia"
+                                                            wire:click="showDetail({{ $data->id }})">
+                                                            <i class="ri-eye-line"></i>
+                                                        </a>
+                                                    </li>
 
-                                                <li>
-                                                    <a href="javascript:void(0)"
-                                                        wire:click="confirmVerification({{ $data->id }})">
-                                                        <i class="ri-checkbox-circle-line text-success"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)"
-                                                        wire:click="confirmBanned({{ $data->id }})">
-                                                        <i class="ri-close-circle-line text-danger"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                            wire:click="confirmVerification({{ $data->id }})">
+                                                            <i class="ri-checkbox-circle-line text-success"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                            wire:click="confirmReset({{ $data->id }})">
+                                                            <i class="ri-refresh-line text-warning"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)"
+                                                            wire:click="confirmBanned({{ $data->id }})">
+                                                            <i class="ri-close-circle-line text-danger"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="100" class="text-center">
-                                            Tidak ada data
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="100" class="text-center">
+                                                Tidak ada data
+                                            </td>
+                                        </tr>
                                     @endforelse
 
 
                                 </tbody>
-                                @if($datas->hasPages())
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="100">
-                                            {{ $datas->links() }}
-                                        </td>
-                                    </tr>
-                                </tfoot>
+                                @if ($datas->hasPages())
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="100">
+                                                {{ $datas->links() }}
+                                            </td>
+                                        </tr>
+                                    </tfoot>
                                 @endif
                             </table>
                         </div>
@@ -210,298 +216,301 @@ use Carbon\Carbon;
                     </button>
                 </div>
                 <div class="modal-body">
-                    @if($detail)
-                    <div class="row">
-                        <div class="col-12 col-md-12">
-                            <div class="mb-3">
-                                <label for="unique_id" class="form-label">
-                                    Nomor Registrasi
-                                </label>
-                                <input type="text" class="form-control" id="unique_id" wire:model="detail.unique_id"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="nama_perusahaan" class="form-label">
-                                    Nama Perusahaan
-                                </label>
-                                <input type="text" class="form-control" id="nama_perusahaan"
-                                    wire:model="detail.nama_perusahaan" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="nama_media" class="form-label">
-                                    Nama Media
-                                </label>
-                                <input type="text" class="form-control" id="nama_media" wire:model="detail.nama_media"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="alias" class="form-label">
-                                    Alias
-                                </label>
-                                <input type="text" class="form-control" id="alias" wire:model="detail.alias" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="jenis_media" class="form-label">
-                                    Jenis Media
-                                </label>
-                                <input type="text" class="form-control" id="jenis_media" wire:model="detail.jenis_media"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="logo_media" class="form-label">
-                                    Logo Media
-                                </label>
-                                <div class="form-control" readonly>
-                                    <a href="{{ asset($detail['logo_media']) }}" target="_blank"
-                                        class="badge badge-primary">
-                                        Lihat Logo Media
-                                    </a>
+                    @if ($detail)
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="mb-3">
+                                    <label for="unique_id" class="form-label">
+                                        Nomor Registrasi
+                                    </label>
+                                    <input type="text" class="form-control" id="unique_id"
+                                        wire:model="detail.unique_id" readonly>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="whatsapp" class="form-label">
-                                    No. WhatsApp
-                                </label>
-                                <input type="text" class="form-control" id="whatsapp" wire:model="detail.whatsapp"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">
-                                    Email
-                                </label>
-                                <input type="text" class="form-control" id="email" wire:model="detail.email" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="no_npwp" class="form-label">
-                                    No. NPWP
-                                </label>
-                                <input type="text" class="form-control" id="no_npwp" wire:model="detail.no_npwp"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="nama_bank" class="form-label">
-                                    Nama Bank
-                                </label>
-                                <input type="text" class="form-control" id="nama_bank" wire:model="detail.nama_bank"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="no_ref_bank" class="form-label">
-                                    No. Referensi Bank
-                                </label>
-                                <input type="text" class="form-control" id="no_ref_bank" wire:model="detail.no_ref_bank"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="no_giro_perusahaan" class="form-label">
-                                    No. Giro Perusahaan
-                                </label>
-                                <input type="text" class="form-control" id="no_giro_perusahaan"
-                                    wire:model="detail.no_giro_perusahaan" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="website" class="form-label">
-                                    Website
-                                </label>
-                                <input type="text" class="form-control" id="website" wire:model="detail.website"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="profil_perusahaan" class="form-label">
-                                    Profil Perusahaan
-                                </label>
-                                <textarea style="min-height:100px; max-height:100px" class="form-control"
-                                    id="profil_perusahaan" wire:model="detail.profil_perusahaan" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="alamat_media" class="form-label">
-                                    Alamat Media
-                                </label>
-                                <textarea style="min-height:100px; max-height:100px" class="form-control"
-                                    id="alamat_media" wire:model="detail.alamat_media" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="cakupan_media" class="form-label">
-                                    Cakupan Media
-                                </label>
-                                <input type="text" class="form-control" id="cakupan_media"
-                                    wire:model="detail.cakupan_media" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="jumlah_oplah" class="form-label">
-                                    Jumlah Oplah
-                                </label>
-                                <input type="text" class="form-control" id="jumlah_oplah"
-                                    wire:model="detail.jumlah_oplah" readonly>
-
-                                @if($detail['file_jumlah_oplah'])
-                                <a href="{{ asset($detail['file_jumlah_oplah']) }}" target="_blank"
-                                    class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
-                                </a>
-                                @else
-                                <span class="badge badge-danger mt-1">
-                                    Berkas tidak diunggah
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="sebaran_oplah" class="form-label">
-                                    Sebaran Oplah
-                                </label>
-                                <input type="text" class="form-control" id="sebaran_oplah"
-                                    wire:model="detail.sebaran_oplah" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="status_wartawan" class="form-label">
-                                    Status Wartawan
-                                </label>
-                                <input type="text" class="form-control" id="status_wartawan"
-                                    wire:model="detail.status_wartawan" readonly>
-
-                                @if($detail['file_status_wartawan'])
-                                <a href="{{ asset($detail['file_status_wartawan']) }}" target="_blank"
-                                    class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
-                                </a>
-                                @else
-                                <span class="badge badge-danger mt-1">
-                                    Berkas tidak diunggah
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="kompetensi_wartawan" class="form-label">
-                                    Kompetensi Wartawan
-                                </label>
-                                <input type="text" class="form-control" id="kompetensi_wartawan"
-                                    wire:model="detail.kompetensi_wartawan" readonly>
-
-                                @if($detail['file_kompetensi_wartawan'])
-                                <a href="{{ asset($detail['file_kompetensi_wartawan']) }}" target="_blank"
-                                    class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
-                                </a>
-                                @else
-                                <span class="badge badge-danger mt-1">
-                                    Berkas tidak diunggah
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="status_dewan_pers" class="form-label">
-                                    Status Dewan Pers
-                                </label>
-                                <input type="text" class="form-control" id="status_dewan_pers"
-                                    wire:model="detail.status_dewan_pers" readonly>
-
-                                @if($detail['file_status_dewan_pers'])
-                                <a href="{{ asset($detail['file_status_dewan_pers']) }}" target="_blank"
-                                    class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
-                                </a>
-                                @else
-                                <span class="badge badge-danger mt-1">
-                                    Berkas tidak diunggah
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="kantor" class="form-label">
-                                    Kantor
-                                </label>
-                                <input type="text" class="form-control" id="kantor" wire:model="detail.kantor" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="frekuensi_terbitan" class="form-label">
-                                    Frekuensi Terbitan
-                                </label>
-                                <input type="text" class="form-control" id="frekuensi_terbitan"
-                                    wire:model="detail.frekuensi_terbitan" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="terbitan_3_edisi_terakhir" class="form-label">
-                                    Terbitan 3 Edisi Terakhir
-                                </label>
-                                <input type="text" class="form-control" id="terbitan_3_edisi_terakhir"
-                                    wire:model="detail.terbitan_3_edisi_terakhir" readonly>
-
-                                @if($detail['file_terbitan_3_edisi_terakhir'])
-                                <a href="{{ asset($detail['file_terbitan_3_edisi_terakhir']) }}" target="_blank"
-                                    class="badge badge-primary mt-1">
-                                    Lihat Berkas Jumlah Oplah
-                                </a>
-                                @else
-                                <span class="badge badge-danger mt-1">
-                                    Berkas tidak diunggah
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        @foreach($detail['register_files'] as $file)
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">
-                                    {{ $file['title'] }}
-                                </label>
-                                <div class="form-control" readonly>
-                                    <a href="{{ asset($file['file_path']) }}" target="_blank"
-                                        class="badge badge-primary">
-                                        {{ $file['file_name'] }}
-                                    </a>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_perusahaan" class="form-label">
+                                        Nama Perusahaan
+                                    </label>
+                                    <input type="text" class="form-control" id="nama_perusahaan"
+                                        wire:model="detail.nama_perusahaan" readonly>
                                 </div>
                             </div>
-                        </div>
-                        @endforeach
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_media" class="form-label">
+                                        Nama Media
+                                    </label>
+                                    <input type="text" class="form-control" id="nama_media"
+                                        wire:model="detail.nama_media" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="alias" class="form-label">
+                                        Alias
+                                    </label>
+                                    <input type="text" class="form-control" id="alias" wire:model="detail.alias"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="jenis_media" class="form-label">
+                                        Jenis Media
+                                    </label>
+                                    <input type="text" class="form-control" id="jenis_media"
+                                        wire:model="detail.jenis_media" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="logo_media" class="form-label">
+                                        Logo Media
+                                    </label>
+                                    <div class="form-control" readonly>
+                                        <a href="{{ asset($detail['logo_media']) }}" target="_blank"
+                                            class="badge badge-primary">
+                                            Lihat Logo Media
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="whatsapp" class="form-label">
+                                        No. WhatsApp
+                                    </label>
+                                    <input type="text" class="form-control" id="whatsapp"
+                                        wire:model="detail.whatsapp" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        Email
+                                    </label>
+                                    <input type="text" class="form-control" id="email"
+                                        wire:model="detail.email" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="no_npwp" class="form-label">
+                                        No. NPWP
+                                    </label>
+                                    <input type="text" class="form-control" id="no_npwp"
+                                        wire:model="detail.no_npwp" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_bank" class="form-label">
+                                        Nama Bank
+                                    </label>
+                                    <input type="text" class="form-control" id="nama_bank"
+                                        wire:model="detail.nama_bank" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="no_ref_bank" class="form-label">
+                                        No. Referensi Bank
+                                    </label>
+                                    <input type="text" class="form-control" id="no_ref_bank"
+                                        wire:model="detail.no_ref_bank" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="no_giro_perusahaan" class="form-label">
+                                        No. Giro Perusahaan
+                                    </label>
+                                    <input type="text" class="form-control" id="no_giro_perusahaan"
+                                        wire:model="detail.no_giro_perusahaan" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="website" class="form-label">
+                                        Website
+                                    </label>
+                                    <input type="text" class="form-control" id="website"
+                                        wire:model="detail.website" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="profil_perusahaan" class="form-label">
+                                        Profil Perusahaan
+                                    </label>
+                                    <textarea style="min-height:100px; max-height:100px" class="form-control" id="profil_perusahaan"
+                                        wire:model="detail.profil_perusahaan" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="alamat_media" class="form-label">
+                                        Alamat Media
+                                    </label>
+                                    <textarea style="min-height:100px; max-height:100px" class="form-control" id="alamat_media"
+                                        wire:model="detail.alamat_media" readonly></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="cakupan_media" class="form-label">
+                                        Cakupan Media
+                                    </label>
+                                    <input type="text" class="form-control" id="cakupan_media"
+                                        wire:model="detail.cakupan_media" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="jumlah_oplah" class="form-label">
+                                        Jumlah Oplah
+                                    </label>
+                                    <input type="text" class="form-control" id="jumlah_oplah"
+                                        wire:model="detail.jumlah_oplah" readonly>
 
-                        {{-- <div class="col-12 col-md-6">
+                                    @if ($detail['file_jumlah_oplah'])
+                                        <a href="{{ asset($detail['file_jumlah_oplah']) }}" target="_blank"
+                                            class="badge badge-primary mt-1">
+                                            Lihat Berkas Jumlah Oplah
+                                        </a>
+                                    @else
+                                        <span class="badge badge-danger mt-1">
+                                            Berkas tidak diunggah
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="sebaran_oplah" class="form-label">
+                                        Sebaran Oplah
+                                    </label>
+                                    <input type="text" class="form-control" id="sebaran_oplah"
+                                        wire:model="detail.sebaran_oplah" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="status_wartawan" class="form-label">
+                                        Status Wartawan
+                                    </label>
+                                    <input type="text" class="form-control" id="status_wartawan"
+                                        wire:model="detail.status_wartawan" readonly>
+
+                                    @if ($detail['file_status_wartawan'])
+                                        <a href="{{ asset($detail['file_status_wartawan']) }}" target="_blank"
+                                            class="badge badge-primary mt-1">
+                                            Lihat Berkas Jumlah Oplah
+                                        </a>
+                                    @else
+                                        <span class="badge badge-danger mt-1">
+                                            Berkas tidak diunggah
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="kompetensi_wartawan" class="form-label">
+                                        Kompetensi Wartawan
+                                    </label>
+                                    <input type="text" class="form-control" id="kompetensi_wartawan"
+                                        wire:model="detail.kompetensi_wartawan" readonly>
+
+                                    @if ($detail['file_kompetensi_wartawan'])
+                                        <a href="{{ asset($detail['file_kompetensi_wartawan']) }}" target="_blank"
+                                            class="badge badge-primary mt-1">
+                                            Lihat Berkas Jumlah Oplah
+                                        </a>
+                                    @else
+                                        <span class="badge badge-danger mt-1">
+                                            Berkas tidak diunggah
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="status_dewan_pers" class="form-label">
+                                        Status Dewan Pers
+                                    </label>
+                                    <input type="text" class="form-control" id="status_dewan_pers"
+                                        wire:model="detail.status_dewan_pers" readonly>
+
+                                    @if ($detail['file_status_dewan_pers'])
+                                        <a href="{{ asset($detail['file_status_dewan_pers']) }}" target="_blank"
+                                            class="badge badge-primary mt-1">
+                                            Lihat Berkas Jumlah Oplah
+                                        </a>
+                                    @else
+                                        <span class="badge badge-danger mt-1">
+                                            Berkas tidak diunggah
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="kantor" class="form-label">
+                                        Kantor
+                                    </label>
+                                    <input type="text" class="form-control" id="kantor"
+                                        wire:model="detail.kantor" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="frekuensi_terbitan" class="form-label">
+                                        Frekuensi Terbitan
+                                    </label>
+                                    <input type="text" class="form-control" id="frekuensi_terbitan"
+                                        wire:model="detail.frekuensi_terbitan" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="terbitan_3_edisi_terakhir" class="form-label">
+                                        Terbitan 3 Edisi Terakhir
+                                    </label>
+                                    <input type="text" class="form-control" id="terbitan_3_edisi_terakhir"
+                                        wire:model="detail.terbitan_3_edisi_terakhir" readonly>
+
+                                    @if ($detail['file_terbitan_3_edisi_terakhir'])
+                                        <a href="{{ asset($detail['file_terbitan_3_edisi_terakhir']) }}"
+                                            target="_blank" class="badge badge-primary mt-1">
+                                            Lihat Berkas Jumlah Oplah
+                                        </a>
+                                    @else
+                                        <span class="badge badge-danger mt-1">
+                                            Berkas tidak diunggah
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            @foreach ($detail['register_files'] as $file)
+                                <div class="col-12 col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            {{ $file['title'] }}
+                                        </label>
+                                        <div class="form-control" readonly>
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary">
+                                                {{ $file['file_name'] }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="tier" class="form-label">
                                     Tier
@@ -519,7 +528,7 @@ use Carbon\Carbon;
                             </div>
                         </div> --}}
 
-                        {{-- <div class="col-12 col-md-6">
+                            {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="verification_deadline" class="form-label">
                                     Dapat Diverifikasi Sebelum
@@ -529,16 +538,17 @@ use Carbon\Carbon;
                                     readonly>
                             </div>
                         </div> --}}
-                    </div>
+                        </div>
                     @endif
                 </div>
                 <div class="modal-footer justify-content-between">
                     <div class="">
-                        @if($detail)
-                        Status Verifikasi:
-                        <button type="button" class="btn btn-danger btn-animation btn-md fw-bold text-capitalize">
-                            {{ $detail['verified_status'] }}
-                        </button>
+                        @if ($detail)
+                            Status Verifikasi:
+                            <button type="button"
+                                class="btn btn-danger btn-animation btn-md fw-bold text-capitalize">
+                                {{ $detail['verified_status'] }}
+                            </button>
                         @endif
                     </div>
                     <div class="d-flex justify-content-end gap-2">
@@ -546,7 +556,8 @@ use Carbon\Carbon;
                             wire:click="confirmBanned">
                             Tolak
                         </button>
-                        <button type="button" class="btn btn-animation btn-md fw-bold" wire:click="confirmVerification">
+                        <button type="button" class="btn btn-animation btn-md fw-bold"
+                            wire:click="confirmVerification">
                             Verifikasi
                         </button>
                         <button type="button" class="btn btn-success btn-animation btn-md fw-bold"

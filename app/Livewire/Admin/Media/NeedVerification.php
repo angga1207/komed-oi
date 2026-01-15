@@ -21,7 +21,7 @@ class NeedVerification extends Component
     #[Url(null, true, false)]
     public $search;
     public $detail = null;
-    public $bannedId, $activeId;
+    public $bannedId, $resetId, $activeId;
 
     function getListeners()
     {
@@ -86,28 +86,8 @@ class NeedVerification extends Component
         $data = MediaPers::find($this->bannedId);
 
         if ($data) {
-            $data->verified_status = null;
+            $data->verified_status = 'banned';
             $data->verification_deadline = null;
-
-            // reset all data to null
-            $data->jenis_media = null;
-            $data->tier_point = 0;
-            $data->cakupan_media = null;
-            $data->jumlah_oplah = null;
-            $data->sebaran_oplah = null;
-            $data->status_wartawan = null;
-            $data->kompetensi_wartawan = null;
-            $data->status_dewan_pers = null;
-            $data->kantor = null;
-            $data->frekuensi_terbitan = null;
-            $data->terbitan_3_edisi_terakhir = null;
-            $data->file_jumlah_oplah = null;
-            $data->file_status_wartawan = null;
-            $data->file_kompetensi_wartawan = null;
-            $data->file_status_dewan_pers = null;
-            $data->file_terbitan_3_edisi_terakhir = null;
-            $data->extend_verification_message = null;
-
             $data->save();
 
             $this->alert('success', 'Media Pers ini berhasil ditolak', [
@@ -133,6 +113,91 @@ class NeedVerification extends Component
             'endpoint' => 'media/need-approval',
             'payload' => json_encode(request()->all()),
             'message' => 'Media Pers dengan Kode Registrasi ' .  $data->unique_id . ' ditolak',
+            'created_at' => now()
+        ];
+        DB::table('user_logs')->insert($log);
+        // make log end
+
+        // send notification start
+        $user = User::find($data->user_id);
+        $token = $user->routeNotificationForFcm();
+        $user->notify(new RegBannedNotification($data, $token, auth()->id()));
+        // send notification end
+    }
+
+    function confirmReset($id = null)
+    {
+        $this->confirm('Apakah Anda yakin ingin reset Media Pers ini?', [
+            'toast' => false,
+            'position' => 'center',
+            'timer' => null,
+            'showCancelButton' => true,
+            'showConfirmButton' => true,
+            'cancelButtonText' => 'Batal',
+            'confirmButtonText' => 'Reset',
+            'onConfirmed' => 'resetMedia'
+        ]);
+
+        if ($this->detail && !$id) {
+            $id = $this->detail['id'];
+            $this->resetId = $id;
+        } else {
+            $this->resetId = $id;
+        }
+    }
+
+    function resetMedia()
+    {
+        $data = MediaPers::find($this->resetId);
+
+        if ($data) {
+            $data->verified_status = null;
+            $data->verification_deadline = null;
+
+            // reset all data to null
+            $data->jenis_media = null;
+            $data->tier_point = 0;
+            $data->cakupan_media = null;
+            $data->jumlah_oplah = null;
+            $data->sebaran_oplah = null;
+            $data->status_wartawan = null;
+            $data->kompetensi_wartawan = null;
+            $data->status_dewan_pers = null;
+            $data->kantor = null;
+            $data->frekuensi_terbitan = null;
+            $data->terbitan_3_edisi_terakhir = null;
+            $data->file_jumlah_oplah = null;
+            $data->file_status_wartawan = null;
+            $data->file_kompetensi_wartawan = null;
+            $data->file_status_dewan_pers = null;
+            $data->file_terbitan_3_edisi_terakhir = null;
+            $data->extend_verification_message = null;
+
+            $data->save();
+
+            $this->alert('success', 'Media Pers ini berhasil direset', [
+                'position' =>  'center',
+                'timer' => null,
+                'toast' => false,
+                'text' => 'Media Pers ini berhasil direset',
+                'showCancelButton' => false,
+                'showConfirmButton' => true,
+                'cancelText' => '',
+                'confirmText' => 'Tutup',
+            ]);
+        }
+
+        $this->resetId = null;
+
+        // make log start
+        $log = [
+            'id' => uniqid(),
+            'user_id' => auth()->id(),
+            'action' => 'reset',
+            'model' => 'media_pers',
+            'endpoint' => 'media/need-approval',
+            'payload' => json_encode(request()->all()),
+            'message' => 'Media Pers dengan Kode Registrasi ' .  $data->unique_id . ' direset',
             'created_at' => now()
         ];
         DB::table('user_logs')->insert($log);
