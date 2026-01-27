@@ -5,6 +5,7 @@ namespace App\Livewire\Client\Profile;
 use Livewire\Component;
 use App\Models\MediaPers;
 use Livewire\WithFileUploads;
+use App\Models\MediaPersFiles;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 

@@ -200,9 +200,11 @@ class FirstUpdateMedia extends Component
                 'input.cakupan_media' => 'required',
                 'input.jumlah_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.sebaran_oplah' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
-                // 'input.status_wartawan' => 'required',
-                // 'input.kompetensi_wartawan' => 'required',
-                // 'input.status_dewan_pers' => 'required',
+
+                'input.status_wartawan' => 'nullable|required_if:input.jenis_media,Media Cetak, Media Elektronik, Media Siber', // Media Cetak, Elektronik, Siber Saja
+                'input.kompetensi_wartawan' => 'nullable|required_if:input.jenis_media,Media Cetak, Media Elektronik, Media Siber', // Media Cetak, Elektronik, Siber Saja
+                'input.status_dewan_pers' => 'nullable|required_if:input.jenis_media,Media Cetak, Media Elektronik, Media Siber', // Media Cetak, Elektronik, Siber Saja
+
                 'input.kantor' => 'required',
                 'input.frekuensi_terbitan' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja
                 'input.terbitan_3_edisi_terakhir' => 'nullable|required_if:input.jenis_media,Media Cetak', // Media Cetak Saja

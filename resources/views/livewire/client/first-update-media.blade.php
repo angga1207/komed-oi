@@ -380,134 +380,141 @@
                             </div>
                         @endif
 
-                        {{-- <div class="mb-4 row align-items-center">
-                            <label class="form-label-title col-sm-3 mb-0">
-                                Status Wartawan
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" wire:model.live='input.status_wartawan'
-                                    wire:loading.attr='disabled'>
-                                    <option value="" hidden>Pilih Status Wartawan</option>
-                                    <option value="Ada Khusus">
-                                        Ada Khusus
-                                    </option>
-                                    <option value="Ada Merangkap Kabupaten Lain">
-                                        Ada Merangkap Kabupaten Lain
-                                    </option>
-                                    <option value="Tidak Ada">
-                                        Tidak Ada
-                                    </option>
-                                </select>
-                                @error('input.status_wartawan')
-                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                        </div> --}}
 
-                        {{-- @if (in_array($input['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
+                        @if (in_array($input['jenis_media'], ['Media Cetak', 'Media Elektronik', 'Media Siber']))
+                            <!-- Media Cetak, Elektronik, Siber Only -->
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    Lampiran Status Wartawan
+                                    Status Wartawan
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model.live='input.file_status_wartawan' wire:loading.attr='disabled'>
-                                    @error('input.file_status_wartawan')
+                                    <select class="form-control" wire:model.live='input.status_wartawan'
+                                        wire:loading.attr='disabled'>
+                                        <option value="" hidden>Pilih Status Wartawan</option>
+                                        <option value="Ada Khusus">
+                                            Ada Khusus
+                                        </option>
+                                        <option value="Ada Merangkap Kabupaten Lain">
+                                            Ada Merangkap Kabupaten Lain
+                                        </option>
+                                        <option value="Tidak Ada">
+                                            Tidak Ada
+                                        </option>
+                                    </select>
+                                    @error('input.status_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
-                        @endif --}}
 
-                        {{-- <div class="mb-4 row align-items-center">
-                            <label class="form-label-title col-sm-3 mb-0">
-                                Kompetensi Wartawan
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" wire:model.live='input.kompetensi_wartawan'
-                                    wire:loading.attr='disabled'>
-                                    <option value="" hidden>Pilih Kompetensi Wartawan</option>
-                                    <option value="Memiliki Sertifikat Kompetensi">
-                                        Memiliki Sertifikat Kompetensi
-                                    </option>
-                                    <option value="Tidak Memiliki">
-                                        Tidak Memiliki
-                                    </option>
-                                </select>
-                                @error('input.kompetensi_wartawan')
-                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                        {{ $message }}
+                            @if (in_array($input['status_wartawan'], ['Ada Khusus', 'Ada Merangkap Kabupaten Lain']))
+                                <div class="mb-4 row align-items-center">
+                                    <label class="form-label-title col-sm-3 mb-0">
+                                        Lampiran Status Wartawan
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="file" accept="*" class="form-control"
+                                            wire:model.live='input.file_status_wartawan' wire:loading.attr='disabled'>
+                                        @error('input.file_status_wartawan')
+                                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                @enderror
-                            </div>
-                        </div> --}}
+                                </div>
+                            @endif
 
-                        {{-- @if ($input['kompetensi_wartawan'] == 'Memiliki Sertifikat Kompetensi')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    Lampiran Kompetensi Wartawan
+                                    Kompetensi Wartawan
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model.live='input.file_kompetensi_wartawan' wire:loading.attr='disabled'>
-                                    @error('input.file_kompetensi_wartawan')
+                                    <select class="form-control" wire:model.live='input.kompetensi_wartawan'
+                                        wire:loading.attr='disabled'>
+                                        <option value="" hidden>Pilih Kompetensi Wartawan</option>
+                                        <option value="Memiliki Sertifikat Kompetensi">
+                                            Memiliki Sertifikat Kompetensi
+                                        </option>
+                                        <option value="Tidak Memiliki">
+                                            Tidak Memiliki
+                                        </option>
+                                    </select>
+                                    @error('input.kompetensi_wartawan')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
-                        @endif --}}
 
-                        {{-- <div class="mb-4 row align-items-center">
-                            <label class="form-label-title col-sm-3 mb-0">
-                                Status Dewan Pers
-                                <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-sm-9">
-                                <select class="form-control" wire:model.live='input.status_dewan_pers'
-                                    wire:loading.attr='disabled'>
-                                    <option value="" hidden>Pilih Status Dewan Pers</option>
-                                    <option value="Terdaftar">
-                                        Terverifikasi
-                                    </option>
-                                    <option value="Tidak Terdaftar">
-                                        Belum Terverifikasi
-                                    </option>
-                                </select>
-                                @error('input.status_dewan_pers')
-                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
-                                        {{ $message }}
+                            @if ($input['kompetensi_wartawan'] == 'Memiliki Sertifikat Kompetensi')
+                                <div class="mb-4 row align-items-center">
+                                    <label class="form-label-title col-sm-3 mb-0">
+                                        Lampiran Kompetensi Wartawan
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="file" accept="*" class="form-control"
+                                            wire:model.live='input.file_kompetensi_wartawan'
+                                            wire:loading.attr='disabled'>
+                                        @error('input.file_kompetensi_wartawan')
+                                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
-                                @enderror
-                            </div>
-                        </div> --}}
+                                </div>
+                            @endif
 
-                        {{-- @if ($input['status_dewan_pers'] == 'Terdaftar')
                             <div class="mb-4 row align-items-center">
                                 <label class="form-label-title col-sm-3 mb-0">
-                                    Lampiran Status Dewan Pers
+                                    Status Dewan Pers
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="col-sm-9">
-                                    <input type="file" accept="*" class="form-control"
-                                        wire:model.live='input.file_status_dewan_pers' wire:loading.attr='disabled'>
-                                    @error('input.file_status_dewan_pers')
+                                    <select class="form-control" wire:model.live='input.status_dewan_pers'
+                                        wire:loading.attr='disabled'>
+                                        <option value="" hidden>Pilih Status Dewan Pers</option>
+                                        <option value="Terdaftar">
+                                            Terverifikasi
+                                        </option>
+                                        <option value="Tidak Terdaftar">
+                                            Belum Terverifikasi
+                                        </option>
+                                    </select>
+                                    @error('input.status_dewan_pers')
                                         <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
                             </div>
-                        @endif --}}
+
+                            @if ($input['status_dewan_pers'] == 'Terdaftar')
+                                <div class="mb-4 row align-items-center">
+                                    <label class="form-label-title col-sm-3 mb-0">
+                                        Lampiran Status Dewan Pers
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="file" accept="*" class="form-control"
+                                            wire:model.live='input.file_status_dewan_pers'
+                                            wire:loading.attr='disabled'>
+                                        @error('input.file_status_dewan_pers')
+                                            <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+
+                        @endif
 
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
@@ -661,7 +668,8 @@
                                 <div class="col-sm-9">
                                     @if (isset($input['social_media']) && count($input['social_media']) > 0)
                                         @foreach ($input['social_media'] as $index => $social)
-                                            <div class="mb-3 border rounded p-3" wire:key="social-{{ $index }}">
+                                            <div class="mb-3 border rounded p-3"
+                                                wire:key="social-{{ $index }}">
                                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                                     <h6 class="mb-0">Media Sosial {{ $index + 1 }}</h6>
                                                     <button type="button" class="btn btn-sm btn-danger"
@@ -672,7 +680,8 @@
                                                 </div>
 
                                                 <div class="mb-2">
-                                                    <label class="form-label" style="font-size: 0.85rem;">Platform</label>
+                                                    <label class="form-label"
+                                                        style="font-size: 0.85rem;">Platform</label>
                                                     <select class="form-control"
                                                         wire:model='input.social_media.{{ $index }}.platform'
                                                         wire:loading.attr='disabled'>
@@ -696,7 +705,8 @@
                                                 </div>
 
                                                 <div>
-                                                    <label class="form-label" style="font-size: 0.85rem;">URL/Link</label>
+                                                    <label class="form-label"
+                                                        style="font-size: 0.85rem;">URL/Link</label>
                                                     <input type="url" class="form-control"
                                                         placeholder="https://..."
                                                         wire:model='input.social_media.{{ $index }}.url'

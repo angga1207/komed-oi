@@ -252,7 +252,7 @@
                         @if (in_array($detail['status_wartawan'], [
                                 'Ada Khusus',
                                 'Ada Merangkap Kabupaten
-                                                                                                                                                                                                                                                                                                                        Lain',
+                                                                                                                                                                                                                                                                                                                                                Lain',
                             ]))
                             <input type="file" class="mt-2 form-control" id="file_status_wartawan"
                                 wire:model="detail.new_file_status_wartawan">
@@ -564,7 +564,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 TDP Penerbitan 58130
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -668,7 +668,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Surat Tugas Wartawan
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -826,7 +826,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 TDP Penyiaran 60102
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -956,7 +956,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Surat Tugas Wartawan
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -1062,7 +1062,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 TDP Penerbitan 63122
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -1140,7 +1140,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 SK Domisili
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
@@ -1166,7 +1166,7 @@
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
                                 Surat Tugas Wartawan
-                                <span class="text-danger">*</span>
+                                {{-- <span class="text-danger">*</span> --}}
                             </label>
                             <div class="col-sm-9">
                                 @if ($detail['register_files'])
