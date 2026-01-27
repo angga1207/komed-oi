@@ -140,6 +140,11 @@ class Index extends Component
         if ($field == 'filterAgendaDate') {
             $this->arrAgenda = [];
             $this->_getAgenda($this->filterAgendaDate);
+            $this->resetPage();
+        }
+
+        if($field == 'filterJenisMedia'){
+            $this->resetPage();
         }
     }
 

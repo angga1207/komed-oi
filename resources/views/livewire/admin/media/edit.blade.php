@@ -252,7 +252,7 @@
                         @if (in_array($detail['status_wartawan'], [
                                 'Ada Khusus',
                                 'Ada Merangkap Kabupaten
-                                                                        Lain',
+                                                                                                                                                                                                                                                                                                                        Lain',
                             ]))
                             <input type="file" class="mt-2 form-control" id="file_status_wartawan"
                                 wire:model="detail.new_file_status_wartawan">
@@ -488,6 +488,17 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'akta_pendirian')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Akta Pendirian
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
+
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.akta_pendirian' wire:loading.attr='disabled'>
                                 @error('berkas.akta_pendirian')
@@ -504,6 +515,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sk_kemenkumham')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SK Kemenkumham
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sk_kemenkumham' wire:loading.attr='disabled'>
                                 @error('berkas.sk_kemenkumham')
@@ -520,6 +541,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'siup')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SIUP
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control" wire:model='berkas.siup'
                                     wire:loading.attr='disabled'>
                                 @error('berkas.siup')
@@ -536,6 +567,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'tdp_penerbitan_58130')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas TDP Penerbitan 58130
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.tdp_penerbitan_58130' wire:loading.attr='disabled'>
                                 @error('berkas.tdp_penerbitan_58130')
@@ -552,6 +593,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'spt_terakhir')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SPT Terakhir
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.spt_terakhir' wire:loading.attr='disabled'>
                                 @error('berkas.spt_terakhir')
@@ -568,6 +619,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sp_cakupan_wilayah')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SP Cakupan Wilayah
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sp_cakupan_wilayah' wire:loading.attr='disabled'>
                                 @error('berkas.sp_cakupan_wilayah')
@@ -584,6 +645,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sp_pimpinan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SP Pimpinan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sp_pimpinan' wire:loading.attr='disabled'>
                                 @error('berkas.sp_pimpinan')
@@ -600,6 +671,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'surat_tugas_wartawan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Surat Tugas Wartawan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.surat_tugas_wartawan' wire:loading.attr='disabled'>
                                 @error('berkas.surat_tugas_wartawan')
@@ -618,6 +699,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sp_pimpinan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SP Pimpinan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.akta_pendirian' wire:loading.attr='disabled'>
                                 @error('berkas.akta_pendirian')
@@ -634,6 +725,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sk_kemenkumham')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SK Kemenkumham
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sk_kemenkumham' wire:loading.attr='disabled'>
                                 @error('berkas.sk_kemenkumham')
@@ -650,6 +751,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'izin_ipp')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Izin IPP
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.izin_ipp' wire:loading.attr='disabled'>
                                 @error('berkas.izin_ipp')
@@ -666,6 +777,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'izin_isr')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Izin ISR
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.izin_isr' wire:loading.attr='disabled'>
                                 @error('berkas.izin_isr')
@@ -682,6 +803,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'siup')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SIUP
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control" wire:model='berkas.siup'
                                     wire:loading.attr='disabled'>
                                 @error('berkas.siup')
@@ -698,6 +829,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'tdp_penyiaran_60102')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas TDP Penyiaran 60102
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.tdp_penyiaran_60102' wire:loading.attr='disabled'>
                                 @error('berkas.tdp_penyiaran_60102')
@@ -714,6 +855,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'spt_terakhir')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SPT Terakhir
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.spt_terakhir' wire:loading.attr='disabled'>
                                 @error('berkas.spt_terakhir')
@@ -730,6 +881,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sp_cakupan_wilayah')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SP Cakupan Wilayah
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sp_cakupan_wilayah' wire:loading.attr='disabled'>
                                 @error('berkas.sp_cakupan_wilayah')
@@ -746,6 +907,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sp_pimpinan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SP Pimpinan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sp_pimpinan' wire:loading.attr='disabled'>
                                 @error('berkas.sp_pimpinan')
@@ -762,6 +933,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sk_biro_iklan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SK Biro Iklan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sk_biro_iklan' wire:loading.attr='disabled'>
                                 @error('berkas.sk_biro_iklan')
@@ -778,6 +959,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'surat_tugas_wartawan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Surat Tugas Wartawan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.surat_tugas_wartawan' wire:loading.attr='disabled'>
                                 @error('berkas.surat_tugas_wartawan')
@@ -796,6 +987,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'akta_pendirian')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Akta Pendirian
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.akta_pendirian' wire:loading.attr='disabled'>
                                 @error('berkas.akta_pendirian')
@@ -812,6 +1013,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sk_kemenkumham')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SK Kemenkumham
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sk_kemenkumham' wire:loading.attr='disabled'>
                                 @error('berkas.sk_kemenkumham')
@@ -828,6 +1039,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'siup')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SIUP
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control" wire:model='berkas.siup'
                                     wire:loading.attr='disabled'>
                                 @error('berkas.siup')
@@ -844,6 +1065,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'tdp_penerbitan_63122')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas TDP Penerbitan 63122
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.tdp_penerbitan_63122' wire:loading.attr='disabled'>
                                 @error('berkas.tdp_penerbitan_63122')
@@ -860,6 +1091,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'spt_terakhir')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SPT Terakhir
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.spt_terakhir' wire:loading.attr='disabled'>
                                 @error('berkas.spt_terakhir')
@@ -876,6 +1117,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'situ')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SITU
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control" wire:model='berkas.situ'
                                     wire:loading.attr='disabled'>
                                 @error('berkas.situ')
@@ -892,6 +1143,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'sk_domisili')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas SK Domisili
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.sk_domisili' wire:loading.attr='disabled'>
                                 @error('berkas.sk_domisili')
@@ -908,6 +1169,16 @@
                                 <span class="text-danger">*</span>
                             </label>
                             <div class="col-sm-9">
+                                @if ($detail['register_files'])
+                                    @foreach ($detail['register_files'] as $file)
+                                        @if ($file['file_type'] == 'surat_tugas_wartawan')
+                                            <a href="{{ asset($file['file_path']) }}" target="_blank"
+                                                class="badge badge-primary mb-2">
+                                                Lihat Berkas Surat Tugas Wartawan
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @endif
                                 <input type="file" accept="*" class="form-control"
                                     wire:model='berkas.surat_tugas_wartawan' wire:loading.attr='disabled'>
                                 @error('berkas.surat_tugas_wartawan')

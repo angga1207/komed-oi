@@ -17,7 +17,8 @@ class Edit extends Component
 
     function mount($unique_id)
     {
-        $detail = MediaPers::where('unique_id', $unique_id)->with('RegisterFiles')->firstOrFail()->toArray();
+        $detail = MediaPers::where('unique_id', $unique_id)
+        ->with('RegisterFiles')->firstOrFail()->toArray();
         // $detail = $detail->toArray();
         $this->detail = $detail;
         // dd($this->detail);
