@@ -49,7 +49,7 @@ class NeedVerification extends Component
 
     function showDetail($id)
     {
-        $mediaPers = MediaPers::with('RegisterFiles')->find($id);
+        $mediaPers = MediaPers::with(['RegisterFiles', 'User'])->find($id);
         $mediaPers = $mediaPers->toArray();
         $this->detail = $mediaPers;
         // dd($mediaPers);

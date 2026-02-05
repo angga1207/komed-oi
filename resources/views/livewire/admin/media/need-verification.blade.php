@@ -104,7 +104,7 @@ use Carbon\Carbon;
                                             <td>
                                                 <div class="text-muted">
                                                     {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
-                                                                                                    HH:mm [WIB]') }}
+                                                                                                                                                                                                            HH:mm [WIB]') }}
                                                 </div>
                                             </td>
 
@@ -510,7 +510,17 @@ use Carbon\Carbon;
                                 </div>
                             @endforeach
 
-                            {{-- <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="terbitan_3_edisi_terakhir" class="form-label">
+                                        Nama Pendaftar
+                                    </label>
+                                    <div type="text" class="form-control">
+                                        {{ $detail['user']['fullname'] }}
+                                    </div>
+                                </div>
+
+                                {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="tier" class="form-label">
                                     Tier
@@ -528,7 +538,7 @@ use Carbon\Carbon;
                             </div>
                         </div> --}}
 
-                            {{-- <div class="col-12 col-md-6">
+                                {{-- <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="verification_deadline" class="form-label">
                                     Dapat Diverifikasi Sebelum
@@ -538,7 +548,7 @@ use Carbon\Carbon;
                                     readonly>
                             </div>
                         </div> --}}
-                        </div>
+                            </div>
                     @endif
                 </div>
                 <div class="modal-footer justify-content-between">
