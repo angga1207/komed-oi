@@ -23,6 +23,8 @@ class KerjaSama extends Component
     {
         $allMedias = MediaPers::all();
         $datas = MediaPers::query();
+        $datas->where('verified_status', 'verified');
+
         if ($this->filterJenis != 'all') {
             $datas = $datas->where('jenis_media', $this->filterJenis);
         }

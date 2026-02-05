@@ -45,6 +45,8 @@ class MediaOrder extends Component
     {
         $allMedias = MediaPers::all();
         $datas = MediaPers::query()->with(['Orders']);
+        $datas->where('verified_status', 'verified');
+
         if ($this->filterJenis != 'all') {
             $datas = $datas->where('jenis_media', $this->filterJenis);
         }

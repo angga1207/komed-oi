@@ -47,7 +47,7 @@ class DataBpk extends Component
         $datas = Order::query();
         if ($this->filterJenis != 'all') {
             $datas = $datas->whereHas('MediaPers', function ($q) {
-                $q->where('jenis_media', $this->filterJenis);
+                $q->where('jenis_media', $this->filterJenis)->where('verified_status', 'verified');
             });
         }
         if ($this->filterTahun) {
