@@ -43,7 +43,7 @@ class MediaOrder extends Component
 
     public function render()
     {
-        $allMedias = MediaPers::all();
+        $allMedias = MediaPers::where('verified_status', 'verified')->get();
         $datas = MediaPers::query()->with(['Orders']);
         $datas->where('verified_status', 'verified');
 

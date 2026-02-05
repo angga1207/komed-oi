@@ -15,7 +15,7 @@
                                         Jumlah Mitra Media
                                     </span>
                                     <h4 class="mb-0 counter">
-                                        500
+                                        {{ $countMedia }}
                                     </h4>
                                 </div>
                                 <div class="align-self-center text-center">
@@ -38,7 +38,7 @@
                                         Nilai Kerja Sama
                                     </span>
                                     <h4 class="mb-0 counter">
-                                        500
+                                        Rp. {{ $countNilaiKerjaSama }}
                                     </h4>
                                 </div>
                                 <div class="align-self-center text-center">
@@ -61,7 +61,7 @@
                                         Media Order Per Media
                                     </span>
                                     <h4 class="mb-0 counter">
-                                        500
+                                        {{ $countMediaOrder }}
                                     </h4>
                                 </div>
                                 <div class="align-self-center text-center">

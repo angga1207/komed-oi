@@ -22,7 +22,7 @@ class AnggaranPerMedia extends Component
 
     public function render()
     {
-        $allMedias = MediaPers::all();
+        $allMedias = MediaPers::where('verified_status', 'verified')->get();
         $datas = MediaPers::query();
         $datas->where('verified_status', 'verified');
 

@@ -14,14 +14,14 @@ class KerjaSama extends Component
 
     public function goTo($jenis)
     {
-        redirect()->to(route('reports.media', [
+        redirect()->to(route('reports.kerja-sama', [
             'filterJenis' => $jenis,
         ]));
     }
 
     public function render()
     {
-        $allMedias = MediaPers::all();
+        $allMedias = MediaPers::where('verified_status', 'verified')->get();
         $datas = MediaPers::query();
         $datas->where('verified_status', 'verified');
 
