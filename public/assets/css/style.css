@@ -9952,6 +9952,12 @@ strong ~ p {
 .slick-slider .slick-list .slick-slide > a {
     margin: 0 10px;
 }
+.slick-slider .slick-track {
+    width: auto !important;
+}
+.slick-slider .slick-list .slick-slide {
+    width: 150px !important;
+}
 [dir="rtl"] .slick-slider .slick-list .slick-slide > div,
 [dir="rtl"] .slick-slider .slick-list .slick-slide > a {
     direction: rtl;
@@ -21637,6 +21643,7 @@ footer.blockquote-footer {
 }
 .dashboard-category .category-image {
     width: 100%;
+    min-width:120px;
     height: 105px;
     padding: 28px;
     position: relative;

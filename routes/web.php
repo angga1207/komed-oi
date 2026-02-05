@@ -39,6 +39,15 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('announcements', App\Livewire\Admin\Announcements\Index::class)->name('announcements');
 
+        // Reports
+        Route::get('reports', App\Livewire\Admin\Report\Index::class)->name('reports.index');
+        Route::get('reports/media', App\Livewire\Admin\Report\Media::class)->name('reports.media');
+        Route::get('reports/kerja-sama', App\Livewire\Admin\Report\KerjaSama::class)->name('reports.kerja-sama');
+        Route::get('reports/media-order', App\Livewire\Admin\Report\MediaOrder::class)->name('reports.media-order');
+        Route::get('reports/media-order/{mediaId}', App\Livewire\Admin\Report\MediaOrderDetail::class)->name('reports.media-order.detail');
+        Route::get('reports/anggaran-per-media', App\Livewire\Admin\Report\AnggaranPerMedia::class)->name('reports.anggaran-per-media');
+        Route::get('reports/data-bpk', App\Livewire\Admin\Report\DataBpk::class)->name('reports.data-bpk');
+
         // Dev
         Route::get('dev', App\Livewire\Admin\Dev\Index::class)->name('dev.index');
         Route::get('dev/import-media', App\Livewire\Admin\Dev\ImportMedia::class)->name('dev.import-media');

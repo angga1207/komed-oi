@@ -29,6 +29,40 @@ use Carbon\Carbon;
                         <i class="ri-database-2-line"></i>
                     </div>
                 </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Cetak
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Cetak')->where('verified_status', 'verified')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Siber
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Siber')->where('verified_status', 'verified')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Elektronik
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Elektronik')->where('verified_status', 'verified')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Sosial
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Sosial')->where('verified_status', 'verified')) ?? 0 }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </a>
     </div>
@@ -48,6 +82,40 @@ use Carbon\Carbon;
                     </div>
                     <div class="align-self-center text-center">
                         <i class="ri-database-2-line"></i>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Cetak
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Cetak')->where('verified_status', 'pending')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Siber
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Siber')->where('verified_status', 'pending')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Elektronik
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Elektronik')->where('verified_status', 'pending')) ?? 0 }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">
+                            Sosial
+                        </div>
+                        <div class="badge badge-danger mt-1">
+                            {{ count($mediaPers->where('jenis_media', 'Media Sosial')->where('verified_status', 'pending')) ?? 0 }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -83,7 +151,7 @@ use Carbon\Carbon;
                             Menunggu Review
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['review'])) }}
+                            {{ count($mediaOrders->whereIn('status', ['review'])) }}
                         </h4>
                     </div>
 
@@ -104,7 +172,7 @@ use Carbon\Carbon;
                             Sedang Dikerjakan
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['sent','rejected'])) }}
+                            {{ count($mediaOrders->whereIn('status', ['sent', 'rejected'])) }}
                         </h4>
                     </div>
 
@@ -125,7 +193,7 @@ use Carbon\Carbon;
                             Selesai Dikerjakan
                         </span>
                         <h4 class="mb-0 counter">
-                            {{ count($mediaOrders->whereIn('status',['verified','done'])) }}
+                            {{ count($mediaOrders->whereIn('status', ['verified', 'done'])) }}
                         </h4>
                     </div>
 
@@ -143,48 +211,48 @@ use Carbon\Carbon;
                 <div class="card-header-title p-0 d-flex justify-content-between align-items-center">
                     <h4>Agenda Hari ini</h4>
                     <h4>
-                        @if(count($timelines) > 0)
-                        {{ count($timelines) }} Agenda
+                        @if (count($timelines) > 0)
+                            {{ count($timelines) }} Agenda
                         @endif
                     </h4>
                 </div>
             </div>
             <div class="card-body">
-                @if(count($timelines) > 0)
-                <div class="table-responsive table-product">
-                    <table class="table all-package theme-table" id="table_id">
-                        <thead>
-                            <tr>
-                                <th style="width:10px">Nama Acara</th>
-                                <th style="width:20%">Lokasi</th>
-                                <th style="width:20%">Waktu</th>
-                                <th style="width:20%">Leading Sector</th>
-                                <th style="width:20%">Media Order</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($timelines as $tl)
-                            <tr>
-                                <td style="white-space:normal;">{{ $tl['nama_acara'] }}</td>
-                                <td>{{ $tl['lokasi'] }}</td>
-                                <td>
-                                    {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
-                                    {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
-                                </td>
-                                <td>{{ $tl['leading_sector'] }}</td>
-                                <td class="text-center">
-                                    <a href="#">{{ count($tl['orders']) }} Media Order</a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                @if (count($timelines) > 0)
+                    <div class="table-responsive table-product">
+                        <table class="table all-package theme-table" id="table_id">
+                            <thead>
+                                <tr>
+                                    <th style="width:10px">Nama Acara</th>
+                                    <th style="width:20%">Lokasi</th>
+                                    <th style="width:20%">Waktu</th>
+                                    <th style="width:20%">Leading Sector</th>
+                                    <th style="width:20%">Media Order</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($timelines as $tl)
+                                    <tr>
+                                        <td style="white-space:normal;">{{ $tl['nama_acara'] }}</td>
+                                        <td>{{ $tl['lokasi'] }}</td>
+                                        <td>
+                                            {{ Carbon::parse($tl['tanggal_pelaksanaan'])->isoFormat('DD MMM Y') }} |
+                                            {{ Carbon::parse($tl['waktu_pelaksanaan'])->isoFormat('HH:mm [WIB]') }}
+                                        </td>
+                                        <td>{{ $tl['leading_sector'] }}</td>
+                                        <td class="text-center">
+                                            <a href="#">{{ count($tl['orders']) }} Media Order</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
-                <div class="alert alert-primary" role="alert">
-                    <h4 class="alert-heading">Hhhmmm!</h4>
-                    <p>Sepertinya Tidak Ada Media Order untuk Hari Ini.</p>
-                </div>
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="alert-heading">Hhhmmm!</h4>
+                        <p>Sepertinya Tidak Ada Media Order untuk Hari Ini.</p>
+                    </div>
                 @endif
             </div>
         </div>
@@ -200,7 +268,7 @@ use Carbon\Carbon;
                     <div class="">
                         <select class="form-select" wire:model.live='year'>
                             @for ($i = date('Y') + 1; $i >= 2024; $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
+                                <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
                     </div>
@@ -208,39 +276,39 @@ use Carbon\Carbon;
             </div>
             <div class="card-body">
                 <div class="row">
-                    @foreach($kontrakMedia as $km => $nilai)
-                    <div class="col-lg-4">
-                        <div class="card border">
-                            <div class="card-body">
-                                <div>
-                                    <a class="" href="{{ route('a.media-kontrak') }}">
-                                        <i class="ri-government-line"></i>
-                                        <span>
-                                            {{ $km }}
+                    @foreach ($kontrakMedia as $km => $nilai)
+                        <div class="col-lg-4">
+                            <div class="card border">
+                                <div class="card-body">
+                                    <div>
+                                        <a class="" href="{{ route('a.media-kontrak') }}">
+                                            <i class="ri-government-line"></i>
+                                            <span>
+                                                {{ $km }}
+                                            </span>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="fw-bold">
+                                            Induk
+                                        </div>
+                                        <span class="badge badge-primary float-end mt-1">
+                                            Rp {{ number_format($nilai['induk'], 0, ',', '.') }}
                                         </span>
-                                    </a>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="fw-bold">
-                                        Induk
                                     </div>
-                                    <span class="badge badge-primary float-end mt-1">
-                                        Rp {{ number_format($nilai['induk'],0,',','.') }}
-                                    </span>
-                                </div>
 
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="fw-bold">
-                                        APBDP
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="fw-bold">
+                                            APBDP
+                                        </div>
+                                        <span class="badge badge-primary float-end mt-1">
+                                            Rp {{ number_format($nilai['apbdp'], 0, ',', '.') }}
+                                        </span>
                                     </div>
-                                    <span class="badge badge-primary float-end mt-1">
-                                        Rp {{ number_format($nilai['apbdp'],0,',','.') }}
-                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
