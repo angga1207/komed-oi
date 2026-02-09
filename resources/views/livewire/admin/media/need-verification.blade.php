@@ -104,7 +104,7 @@ use Carbon\Carbon;
                                             <td>
                                                 <div class="text-muted">
                                                     {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
-                                                                                                                                                                                                            HH:mm [WIB]') }}
+                                                                                                                                                                                                                                                                                                                    HH:mm [WIB]') }}
                                                 </div>
                                             </td>
 
@@ -341,6 +341,38 @@ use Carbon\Carbon;
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="mb-3">
+                                    <label for="nama_pemilik_rekening" class="form-label">
+                                        Nama Pemilik Rekening
+                                    </label>
+                                    <input type="text" class="form-control" id="nama_pemilik_rekening"
+                                        wire:model="detail.nama_pemilik_rekening" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="jabatan" class="form-label">
+                                        Jabatan Yang Mendaftarkan
+                                    </label>
+                                    <input type="text" class="form-control" id="jabatan"
+                                        wire:model="detail.jabatan" readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_wartawan" class="form-label">
+                                        Nama Wartawan
+                                    </label>
+                                    <input type="text" class="form-control" id="nama_wartawan"
+                                        wire:model="detail.nama_wartawan" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="mb-3">
                                     <label for="profil_perusahaan" class="form-label">
                                         Profil Perusahaan
                                     </label>
@@ -513,7 +545,7 @@ use Carbon\Carbon;
                             <div class="col-12 col-md-6">
                                 <div class="mb-3">
                                     <label for="terbitan_3_edisi_terakhir" class="form-label">
-                                        Nama Pendaftar
+                                        Nama Akun Pendaftar
                                     </label>
                                     <div type="text" class="form-control">
                                         {{ $detail['user']['fullname'] }}

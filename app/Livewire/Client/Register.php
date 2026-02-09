@@ -25,6 +25,18 @@ class Register extends Component
 
     function register()
     {
+        // Registration is Closed
+        $this->flash('info', 'Pendaftaran Ditutup', [
+            'position' =>  'center',
+            'timer' =>  null,
+            'toast' =>  false,
+            'text' =>  'Maaf, pendaftaran akun baru sudah ditutup.',
+            'showCancelButton' =>  false,
+            'showConfirmButton' =>  true,
+            'confirmButtonText' =>  'Tutup',
+        ], 'dashboard');
+        return;
+
         $this->validate([
             'fullname' => 'required|string|max:255',
             'username' => 'required|numeric|digits:16|unique:users,username',
@@ -119,6 +131,6 @@ class Register extends Component
 
     public function reloadCaptcha()
     {
-        return response()->json(['captcha'=> captcha_img()]);
+        return response()->json(['captcha' => captcha_img()]);
     }
 }

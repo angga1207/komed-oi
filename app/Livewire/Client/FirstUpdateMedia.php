@@ -194,6 +194,8 @@ class FirstUpdateMedia extends Component
                 'input.website' => 'nullable|string',
                 'input.jabatan' => 'nullable|string',
                 'input.profil_perusahaan' => 'nullable',
+                'input.nama_wartawan' => 'required|string|max:255',
+                'input.nama_pemilik_rekening' => 'nullable|string|max:255',
 
                 // 'input.logo_media' => 'nullable|file|mimes:png,jpeg,jpg|max:10000',
 

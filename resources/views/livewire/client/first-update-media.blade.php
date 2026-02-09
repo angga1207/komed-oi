@@ -252,6 +252,21 @@
 
                         <div class="mb-4 row align-items-center">
                             <label class="form-label-title col-sm-3 mb-0">
+                                Nama Pemilik Rekening
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" placeholder="Nama Pemilik Rekening"
+                                    wire:model='input.nama_pemilik_rekening' wire:loading.attr='disabled'>
+                                @error('input.nama_pemilik_rekening')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">
                                 Jabatan yang Mendaftarkan
                                 <span class="text-danger">*</span>
                             </label>
@@ -259,6 +274,22 @@
                                 <input class="form-control" type="text" placeholder="Jabatan yang Mendaftarkan"
                                     wire:model='input.jabatan' wire:loading.attr='disabled'>
                                 @error('input.jabatan')
+                                    <div class="text-danger mt-1" style="font-size: 0.8rem;">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="mb-4 row align-items-center">
+                            <label class="form-label-title col-sm-3 mb-0">
+                                Nama Wartawan
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="text" placeholder="Nama Wartawan"
+                                    wire:model='input.nama_wartawan' wire:loading.attr='disabled'>
+                                @error('input.nama_wartawan')
                                     <div class="text-danger mt-1" style="font-size: 0.8rem;">
                                         {{ $message }}
                                     </div>
