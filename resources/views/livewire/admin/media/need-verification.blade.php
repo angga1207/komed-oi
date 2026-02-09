@@ -104,7 +104,7 @@ use Carbon\Carbon;
                                             <td>
                                                 <div class="text-muted">
                                                     {{ Carbon::parse($data->created_at)->isoFormat('D MMM Y,
-                                                                                                                                                                                                                                                                                                                    HH:mm [WIB]') }}
+                                                                                                                                                                                                                                                                                                                                                                                                                            HH:mm [WIB]') }}
                                                 </div>
                                             </td>
 
@@ -368,7 +368,14 @@ use Carbon\Carbon;
                             </div>
 
                             <div class="col-12 col-md-6">
-
+                                <div class="mb-3">
+                                    <label for="terbitan_3_edisi_terakhir" class="form-label">
+                                        Nama Akun Pendaftar
+                                    </label>
+                                    <div type="text" class="form-control">
+                                        {{ $detail['user']['fullname'] }}
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-6">
@@ -541,46 +548,6 @@ use Carbon\Carbon;
                                     </div>
                                 </div>
                             @endforeach
-
-                            <div class="col-12 col-md-6">
-                                <div class="mb-3">
-                                    <label for="terbitan_3_edisi_terakhir" class="form-label">
-                                        Nama Akun Pendaftar
-                                    </label>
-                                    <div type="text" class="form-control">
-                                        {{ $detail['user']['fullname'] }}
-                                    </div>
-                                </div>
-
-                                {{-- <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="tier" class="form-label">
-                                    Tier
-                                </label>
-                                <input type="text" class="form-control" id="tier" wire:model="detail.tier" readonly>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="tier_point" class="form-label">
-                                    Point
-                                </label>
-                                <input type="text" class="form-control" id="tier_point" wire:model="detail.tier_point"
-                                    readonly>
-                            </div>
-                        </div> --}}
-
-                                {{-- <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="verification_deadline" class="form-label">
-                                    Dapat Diverifikasi Sebelum
-                                </label>
-                                <input type="text" class="form-control" id="verification_deadline"
-                                    value="{{ Carbon::parse($detail['verification_deadline'])->isoFormat('D MMM Y, HH:mm [WIB]') }}"
-                                    readonly>
-                            </div>
-                        </div> --}}
-                            </div>
                     @endif
                 </div>
                 <div class="modal-footer justify-content-between">
